@@ -1,7 +1,7 @@
 package router
 
 import (
-	"apiproject/controller"
+	"apiproject/controller/video"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,6 +11,6 @@ import (
 func Init() *gin.Engine {
 	engine := gin.Default()
 
-	engine.GET("/api/video/findList", controller.FindVideoList)
+	engine.GET("/api/video/findList", video.FindVideoList)
 	return engine
 }
