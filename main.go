@@ -1,9 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"apiproject/router"
 )
 
 func main() {
-	fmt.Println("main函数执行完成")
+	//初始化路由
+	engine := router.Init()
+	engine.Run(":8080")
 }

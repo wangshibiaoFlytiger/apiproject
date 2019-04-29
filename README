@@ -5,3 +5,4 @@ go mod init apiproject
 go build
 
 二. 集成gin web框架
+go get github.com/gin-gonic/gin
