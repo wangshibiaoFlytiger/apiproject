@@ -1,0 +1,7 @@
+一. 工程创建
+mkdir ./apiproject
+cd ./apiproject
+go mod init apiproject
+go build
+
+二. 集成gin web框架
