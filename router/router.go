@@ -11,9 +11,11 @@ import (
 func Init() *gin.Engine {
 	engine := gin.Default()
 
-	engine.GET("/api/video/findList", c_video.FindVideoList)
-	engine.GET("/api/video/findVideoByWhere", c_video.FindVideoByWhere)
-	engine.GET("/api/video/addVideo", c_video.AddVideo)
-	engine.GET("/api/video/updateVideo", c_video.UpdateVideo)
+	//视频相关接口
+	videoGroup := engine.Group("/api/video")
+	videoGroup.GET("/findList", c_video.FindVideoList)
+	videoGroup.GET("/findVideoByWhere", c_video.FindVideoByWhere)
+	videoGroup.GET("/addVideo", c_video.AddVideo)
+	videoGroup.GET("/updateVideo", c_video.UpdateVideo)
 	return engine
 }
