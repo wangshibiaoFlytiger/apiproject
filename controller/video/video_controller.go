@@ -32,10 +32,14 @@ func FindVideoList(ctx *gin.Context) {
 按条件查询视频列表接口
 */
 func FindVideoByWhere(ctx *gin.Context) {
-	siteId := ctx.Query("siteId")
+	//绑定query参数到对象, 注意:默认情况下, 查询参数和对象成员的大小写需保持一致. 此外参数名可以通过如下tag自定义: form:"siteId" binding:"required"
+	videoQuery := m_video.Video{}
+	if ctx.Bind(&videoQuery) == nil {
+		fmt.Printf("绑定后的videoQuery[%v]", videoQuery)
+	}
 
 	videoList := []m_video.Video{}
-	dao.Db.Where("site_id = ? and title like ?", siteId, "%7%").Find(&videoList)
+	dao.Db.Where("site_id = ? and title like ?", videoQuery.SiteId, "%7%").Find(&videoList)
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
 		"data": videoList,
