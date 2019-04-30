@@ -52,6 +52,11 @@ func AddVideo(ctx *gin.Context) {
 	video.CreateTime = now
 	video.UpdateTime = now
 	dao.Db.Create(video)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 1,
+		"data": nil,
+	})
 }
 
 /**
@@ -62,4 +67,9 @@ func UpdateVideo(ctx *gin.Context) {
 	updateParamMap["title"] = ctx.PostForm("title")
 	updateParamMap["update_time"] = time.Now()
 	dao.Db.Model(&m_video.Video{}).Where("id = ?", "id2").Update(updateParamMap)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 1,
+		"data": nil,
+	})
 }
