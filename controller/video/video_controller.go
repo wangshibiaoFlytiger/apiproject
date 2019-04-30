@@ -59,7 +59,7 @@ func AddVideo(ctx *gin.Context) {
 */
 func UpdateVideo(ctx *gin.Context) {
 	updateParamMap := make(map[string]interface{})
-	updateParamMap["title"] = "正在播放:韩国美女激情VIP秀1071_update2019-04-30"
+	updateParamMap["title"] = ctx.PostForm("title")
 	updateParamMap["update_time"] = time.Now()
 	dao.Db.Model(&m_video.Video{}).Where("id = ?", "id2").Update(updateParamMap)
 }
