@@ -1,18 +1,18 @@
-package video
+package c_video
 
 import (
 	"apiproject/dao"
-	model_video "apiproject/model/video"
-	"apiproject/service/video"
+	m_video "apiproject/model/video"
+	s_video "apiproject/service/video"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-var videoService video.VideoService
+var videoService s_video.VideoService
 
 func init() {
 	//初始化依赖的service
-	videoService = video.VideoService{}
+	videoService = s_video.VideoService{}
 }
 
 /**
@@ -30,7 +30,7 @@ func FindVideoList(ctx *gin.Context) {
 按条件查询视频列表接口
 */
 func FindVideoByWhere(ctx *gin.Context) {
-	videoList := []model_video.VideoModel{}
+	videoList := []m_video.Video{}
 	dao.Db.Where("site_id = ? and title like ?", "nvrenwu", "%7%").Find(&videoList)
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
@@ -42,7 +42,7 @@ func FindVideoByWhere(ctx *gin.Context) {
 添加视频
 */
 func AddVideo(ctx *gin.Context) {
-	video := model_video.VideoModel{"id1", "title1"}
+	video := m_video.Video{"id1", "title1"}
 	dao.Db.Create(video)
 }
 
@@ -52,5 +52,5 @@ func AddVideo(ctx *gin.Context) {
 func UpdateVideo(ctx *gin.Context) {
 	updateParamMap := make(map[string]string)
 	updateParamMap["title"] = "正在播放:韩国美女激情VIP秀1071_update2019-04-30"
-	dao.Db.Model(&model_video.VideoModel{}).Where("id = ?", "1c29614d6274bf4566c7816581eef9e8").Update(updateParamMap)
+	dao.Db.Model(&m_video.Video{}).Where("id = ?", "1c29614d6274bf4566c7816581eef9e8").Update(updateParamMap)
 }

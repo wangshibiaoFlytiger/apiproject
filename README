@@ -8,3 +8,13 @@ go build
 go get github.com/gin-gonic/gin
 go get github.com/go-sql-driver/mysql
 go get github.com/jinzhu/gorm
+
+三. 项目规范
+1. 包名追加前缀
+model层: m_
+dao层: d_
+service层: s_
+controller层: c_
+
+2. 所有的类
+每一层的文件名或类名以所属层为后缀, model层例外

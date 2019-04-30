@@ -1,22 +1,22 @@
-package video
+package s_video
 
 import (
-	dao_video "apiproject/dao/video"
-	"apiproject/model/video"
+	d_video "apiproject/dao/video"
+	m_video "apiproject/model/video"
 )
 
 type VideoService struct {
 }
 
-var videoDao dao_video.VideoDao
+var videoDao d_video.VideoDao
 
 func init() {
 	//初始化依赖的dao
-	videoDao = dao_video.VideoDao{}
+	videoDao = d_video.VideoDao{}
 }
 
 //查询视频列表
-func (this VideoService) FindVideoList() []video.VideoModel {
+func (this VideoService) FindVideoList() []m_video.Video {
 	videoList := videoDao.FindVideoList()
 	return videoList
 }
