@@ -31,8 +31,10 @@ func FindVideoList(ctx *gin.Context) {
 按条件查询视频列表接口
 */
 func FindVideoByWhere(ctx *gin.Context) {
+	siteId := ctx.Query("siteId")
+
 	videoList := []m_video.Video{}
-	dao.Db.Where("site_id = ? and title like ?", "nvrenwu", "%7%").Find(&videoList)
+	dao.Db.Where("site_id = ? and title like ?", siteId, "%7%").Find(&videoList)
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
 		"data": videoList,
