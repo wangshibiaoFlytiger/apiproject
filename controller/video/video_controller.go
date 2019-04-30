@@ -6,6 +6,7 @@ import (
 	s_video "apiproject/service/video"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"time"
 )
 
 var videoService s_video.VideoService
@@ -42,7 +43,12 @@ func FindVideoByWhere(ctx *gin.Context) {
 添加视频
 */
 func AddVideo(ctx *gin.Context) {
-	video := m_video.Video{"id1", "title1"}
+	video := m_video.Video{}
+	video.ID = "id2"
+	video.Title = "title2"
+	now := time.Now()
+	video.CreateTime = now
+	video.UpdateTime = now
 	dao.Db.Create(video)
 }
 
@@ -50,7 +56,8 @@ func AddVideo(ctx *gin.Context) {
 更新视频
 */
 func UpdateVideo(ctx *gin.Context) {
-	updateParamMap := make(map[string]string)
+	updateParamMap := make(map[string]interface{})
 	updateParamMap["title"] = "正在播放:韩国美女激情VIP秀1071_update2019-04-30"
-	dao.Db.Model(&m_video.Video{}).Where("id = ?", "1c29614d6274bf4566c7816581eef9e8").Update(updateParamMap)
+	updateParamMap["update_time"] = time.Now()
+	dao.Db.Model(&m_video.Video{}).Where("id = ?", "id2").Update(updateParamMap)
 }
