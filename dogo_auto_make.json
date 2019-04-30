@@ -1,0 +1,10 @@
+{
+  "WorkingDir": "/data/workspace/github/go/private/apiproject",
+  "SourceDir": [
+    "/data/workspace/github/go/private/apiproject"
+  ],
+  "SourceExt": [".go"],
+  "BuildCmd": "go build",
+  "RunCmd": "/data/workspace/github/go/private/apiproject/apiproject",
+  "Decreasing": 1
+}

@@ -21,3 +21,8 @@ controller层: c_
 
 四. 测试代码
 执行单元测试, 需要进入test目录, 然后执行go test
+
+五. 自动编译
+go get github.com/liudng/dogo
+vi ./dogo_auto_make.json
+dogo -c ./dogo_auto_make.json
