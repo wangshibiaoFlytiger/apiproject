@@ -32,7 +32,15 @@ func FindVideoList(ctx *gin.Context) {
 按条件查询视频列表接口
 */
 func FindVideoByWhere(ctx *gin.Context) {
-	//绑定query参数到对象, 注意:默认情况下, 查询参数和对象成员的大小写需保持一致. 此外参数名可以通过如下tag自定义: form:"siteId" binding:"required"
+	/**
+	绑定query参数到对象.
+	注意:默认情况下, "query参数或form参数"和对象成员的大小写需保持一致. 除非为对象补充tag定义, 定义规则如下:
+	1. 对于query参数, 需要如下定义
+	form:"siteId" binding:"required"
+	2. 对于form参数, 需要如下定义
+	form:"siteId"
+	3. 对于body的json参数, 无需定义tag, 且不区分大小写
+	*/
 	videoQuery := m_video.Video{}
 	if ctx.Bind(&videoQuery) == nil {
 		fmt.Printf("绑定后的videoQuery[%v]", videoQuery)
@@ -68,18 +76,14 @@ func AddVideo(ctx *gin.Context) {
 更新视频
 */
 func UpdateVideo(ctx *gin.Context) {
-	updateParamMap := make(map[string]interface{})
-	updateParamMap["title"] = ctx.PostForm("title")
-	updateParamMap["update_time"] = time.Now()
-
-	//查询body数据
-	bodyData, error := ctx.GetRawData()
-	if error != nil {
-		fmt.Printf("查询body数据异常[%v]", error)
+	//绑定参数到对象
+	videoBind := m_video.Video{}
+	if ctx.Bind(&videoBind) == nil {
+		fmt.Printf("绑定后的videoBind[%v]", videoBind)
 	}
-	fmt.Printf("body数据[%v]", string(bodyData))
+	videoBind.UpdateTime = time.Now()
 
-	dao.Db.Model(&m_video.Video{}).Where("id = ?", "id2").Update(updateParamMap)
+	dao.Db.Model(&m_video.Video{}).Where("id = ?", "id2").Update(videoBind)
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
