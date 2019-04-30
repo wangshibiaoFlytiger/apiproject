@@ -26,4 +26,7 @@ func init() {
 	//配置数据库连接池
 	Db.DB().SetMaxIdleConns(10)
 	Db.DB().SetMaxOpenConns(100)
+
+	// 启用Logger，显示详细日志
+	Db.LogMode(true)
 }
