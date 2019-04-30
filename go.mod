@@ -17,6 +17,7 @@ require (
 	github.com/mattn/go-isatty v0.0.7 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/rfyiamcool/cronlib v0.0.0-20190415113320-e596616eb4c0
 	github.com/smartystreets/goconvey v0.0.0-20190330032615-68dc04aab96a // indirect
 	github.com/ugorji/go v1.1.4 // indirect
 	github.com/zhgo/config v0.0.0-20150924145423-9caf41330bd9 // indirect
