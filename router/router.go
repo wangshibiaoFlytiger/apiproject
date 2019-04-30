@@ -12,5 +12,8 @@ func Init() *gin.Engine {
 	engine := gin.Default()
 
 	engine.GET("/api/video/findList", video.FindVideoList)
+	engine.GET("/api/video/findVideoByWhere", video.FindVideoByWhere)
+	engine.GET("/api/video/addVideo", video.AddVideo)
+	engine.GET("/api/video/updateVideo", video.UpdateVideo)
 	return engine
 }
