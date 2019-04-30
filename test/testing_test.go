@@ -1,9 +1,10 @@
 package test
 
 import (
+	"apiproject/log"
 	s_video "apiproject/service/video"
-	"fmt"
 	"github.com/Unknwon/goconfig"
+	"go.uber.org/zap"
 	"testing"
 )
 
@@ -21,6 +22,16 @@ func TestVideoService(t *testing.T) {
 */
 func TestParseConfigFile(t *testing.T) {
 	c, err := goconfig.LoadConfigFile("../config/config.ini")
+	if err != nil {
+		log.Logger.Error("测试异常", zap.Error(err))
+		return
+	}
+
 	mysqlUrl, err := c.GetValue("mysql", "url")
-	fmt.Println(mysqlUrl, err)
+	if err != nil {
+		log.Logger.Error("测试异常", zap.Error(err))
+		return
+	}
+
+	log.Logger.Info("解析配置文件", zap.String("mysqlUrl", mysqlUrl))
 }

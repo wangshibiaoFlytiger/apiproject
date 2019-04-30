@@ -1,8 +1,9 @@
 package middleware
 
 import (
-	"fmt"
+	"apiproject/log"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 /**
@@ -10,7 +11,7 @@ api访问日志中间件
 */
 func ApiLogMiddleware(ctx *gin.Context) {
 	ip := ctx.ClientIP()
-	fmt.Printf("接口访问日志: uri[%v], 用户IP[%v]", ctx.Request.RequestURI, ip)
+	log.Logger.Info("接口访问日志", zap.String("uri", ctx.Request.RequestURI), zap.String("ip", ip))
 
 	ctx.Next()
 }

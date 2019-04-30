@@ -2,10 +2,11 @@ package c_video
 
 import (
 	"apiproject/dao"
+	"apiproject/log"
 	m_video "apiproject/model/video"
 	s_video "apiproject/service/video"
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 	"net/http"
 	"time"
 )
@@ -43,7 +44,7 @@ func FindVideoByWhere(ctx *gin.Context) {
 	*/
 	videoQuery := m_video.Video{}
 	if ctx.Bind(&videoQuery) == nil {
-		fmt.Printf("绑定后的videoQuery[%v]", videoQuery)
+		log.Logger.Info("绑定请求参数到对象", zap.Any("videoQuery", videoQuery))
 	}
 
 	videoList := []m_video.Video{}
@@ -79,7 +80,7 @@ func UpdateVideo(ctx *gin.Context) {
 	//绑定参数到对象
 	videoBind := m_video.Video{}
 	if ctx.Bind(&videoBind) == nil {
-		fmt.Printf("绑定后的videoBind[%v]", videoBind)
+		log.Logger.Info("绑定请求参数到对象", zap.Any("videoBind", videoBind))
 	}
 	videoBind.UpdateTime = time.Now()
 

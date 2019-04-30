@@ -1,8 +1,9 @@
 package config
 
 import (
-	"fmt"
+	"apiproject/log"
 	"github.com/Unknwon/goconfig"
+	"go.uber.org/zap"
 )
 
 var Config *goconfig.ConfigFile
@@ -12,6 +13,6 @@ func init() {
 	var err error
 	Config, err = goconfig.LoadConfigFile("config/config.ini")
 	if err != nil {
-		fmt.Println("加载配置文件异常[%v]", err)
+		log.Logger.Error("加载配置文件异常", zap.String("error", err.Error()))
 	}
 }
