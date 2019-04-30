@@ -26,3 +26,6 @@ controller层: c_
 go get github.com/liudng/dogo
 vi ./dogo_auto_make.json
 dogo -c ./dogo_auto_make.json
+
+六. 集成自动测试框架goconvey
+go get github.com/smartystreets/goconvey

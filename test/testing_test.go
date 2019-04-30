@@ -21,7 +21,7 @@ func TestVideoService(t *testing.T) {
 测试配置文件解析
 */
 func TestParseConfigFile(t *testing.T) {
-	c, err := goconfig.LoadConfigFile("../config/config.ini")
+	c, err := goconfig.LoadConfigFile("config/config.ini")
 	if err != nil {
 		log.Logger.Error("测试异常", zap.Error(err))
 		return
