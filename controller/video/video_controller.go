@@ -4,6 +4,7 @@ import (
 	"apiproject/dao"
 	m_video "apiproject/model/video"
 	s_video "apiproject/service/video"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
@@ -66,6 +67,14 @@ func UpdateVideo(ctx *gin.Context) {
 	updateParamMap := make(map[string]interface{})
 	updateParamMap["title"] = ctx.PostForm("title")
 	updateParamMap["update_time"] = time.Now()
+
+	//查询body数据
+	bodyData, error := ctx.GetRawData()
+	if error != nil {
+		fmt.Printf("查询body数据异常[%v]", error)
+	}
+	fmt.Printf("body数据[%v]", string(bodyData))
+
 	dao.Db.Model(&m_video.Video{}).Where("id = ?", "id2").Update(updateParamMap)
 
 	ctx.JSON(http.StatusOK, gin.H{
