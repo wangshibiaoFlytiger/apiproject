@@ -12,7 +12,7 @@ require (
 	github.com/golang/protobuf v1.3.1 // indirect
 	github.com/jinzhu/gorm v1.9.4
 	github.com/jinzhu/now v1.0.0 // indirect
-	github.com/json-iterator/go v1.1.6 // indirect
+	github.com/json-iterator/go v1.1.6
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/liudng/dogo v0.0.0-20161102105440-7887b849de84 // indirect
 	github.com/mattn/go-isatty v0.0.7 // indirect

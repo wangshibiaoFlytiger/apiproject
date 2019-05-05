@@ -5,11 +5,11 @@ import (
 )
 
 type Video struct {
-	ID         string `gorm:"size:255"`
-	Title      string `gorm:"size:255" form:"title"`
-	SiteId     string `gorm:"size:255" form:"siteId" binding:"required"`
-	CreateTime time.Time
-	UpdateTime time.Time
+	ID         string    `gorm:"size:255" json:"id"`
+	Title      string    `gorm:"size:255" form:"title" json:"title"`
+	SiteId     string    `gorm:"size:255" form:"siteId" binding:"required" json:"siteId"`
+	CreateTime time.Time `json:"createTime"`
+	UpdateTime time.Time `json:"updateTime"`
 }
 
 /**

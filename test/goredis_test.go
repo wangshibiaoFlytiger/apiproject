@@ -2,8 +2,10 @@ package test
 
 import (
 	"apiproject/cache"
+	m_video "apiproject/model/video"
 	"fmt"
 	"github.com/go-redis/redis"
+	jsoniter "github.com/json-iterator/go"
 	"testing"
 	"time"
 )
@@ -120,14 +122,46 @@ func TestZset(t *testing.T) {
 	err := client.ZAdd("zset", redis.Z{Score: 1, Member: "one"}).Err()
 	err = client.ZAdd("zset", redis.Z{Score: 2, Member: "two"}).Err()
 	err = client.ZAdd("zset", redis.Z{Score: 3, Member: "three"}).Err()
+
+	video := m_video.Video{"id1", "title1", "site1", time.Now(), time.Now()}
+
+	//对象转为json后写入到redis
+	videoJson, err := jsoniter.Marshal(video)
+	fmt.Println(videoJson)
+	err = client.ZAdd("zset", redis.Z{Score: 6, Member: videoJson}).Err()
 	if err != nil {
 		fmt.Print(err.Error())
 	}
 
 	zRange := client.ZRange("zset", 0, -1)
+	for key, value := range zRange.Val() {
+		fmt.Println(key, value)
+	}
 	fmt.Println(zRange)
 
 	zRange = client.ZRange("zset", 2, 3)
 
 	zRange = client.ZRange("zset", -2, -1)
+}
+
+func TestZsetJson(t *testing.T) {
+	client := cache.RedisClient
+	video := m_video.Video{"id1", "title1", "site1", time.Now(), time.Now()}
+	//对象转为json后写入到redis
+	videoJson, err := jsoniter.Marshal(video)
+	fmt.Println(videoJson)
+	err = client.ZAdd("zsetjson", redis.Z{Score: 6, Member: videoJson}).Err()
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+
+	zRange := client.ZRange("zsetjson", 0, -1)
+	for key, value := range zRange.Val() {
+		fmt.Println(key, value)
+		//redis读取的json转为对象
+		videoTmp := m_video.Video{}
+		jsoniter.UnmarshalFromString(value, &videoTmp)
+		jsoniter.Unmarshal([]byte(value), &videoTmp)
+		fmt.Println(videoTmp)
+	}
 }
