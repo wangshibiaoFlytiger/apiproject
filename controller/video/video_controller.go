@@ -63,8 +63,8 @@ func AddVideo(ctx *gin.Context) {
 	video.ID = "id2"
 	video.Title = "title2"
 	now := time.Now()
-	video.CreateTime = now
-	video.UpdateTime = now
+	video.CreatedAt = now
+	video.UpdatedAt = now
 	dao.Db.Create(video)
 
 	ctx.JSON(http.StatusOK, gin.H{
@@ -82,9 +82,26 @@ func UpdateVideo(ctx *gin.Context) {
 	if ctx.Bind(&videoBind) == nil {
 		log.Logger.Info("绑定请求参数到对象", zap.Any("videoBind", videoBind))
 	}
-	videoBind.UpdateTime = time.Now()
 
 	dao.Db.Model(&m_video.Video{}).Where("id = ?", "id2").Update(videoBind)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 1,
+		"data": nil,
+	})
+}
+
+/**
+删除视频
+*/
+func DeleteVideo(ctx *gin.Context) {
+	//绑定参数到对象
+	videoBind := m_video.Video{}
+	if ctx.Bind(&videoBind) == nil {
+		log.Logger.Info("绑定请求参数到对象", zap.Any("videoBind", videoBind))
+	}
+
+	dao.Db.Where("id = ?", videoBind.ID).Delete(&m_video.Video{})
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
