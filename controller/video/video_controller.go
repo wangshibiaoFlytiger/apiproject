@@ -2,6 +2,7 @@ package c_video
 
 import (
 	"apiproject/dao"
+	"apiproject/entity"
 	"apiproject/log"
 	m_video "apiproject/model/video"
 	s_video "apiproject/service/video"
@@ -60,11 +61,11 @@ func FindVideoByWhere(ctx *gin.Context) {
 */
 func AddVideo(ctx *gin.Context) {
 	video := m_video.Video{}
-	video.ID = "id2"
-	video.Title = "title2"
-	now := time.Now()
-	video.CreatedAt = now
-	video.UpdatedAt = now
+	video.ID = "id4"
+	video.Title = "title4"
+	jsonTime := entity.JsonTime{time.Now()}
+	video.CreatedAt = jsonTime
+	video.UpdatedAt = jsonTime
 	dao.Db.Create(video)
 
 	ctx.JSON(http.StatusOK, gin.H{
@@ -83,7 +84,7 @@ func UpdateVideo(ctx *gin.Context) {
 		log.Logger.Info("绑定请求参数到对象", zap.Any("videoBind", videoBind))
 	}
 
-	dao.Db.Model(&m_video.Video{}).Where("id = ?", "id2").Update(videoBind)
+	dao.Db.Model(&m_video.Video{}).Where("id = ?", "id4").Update(videoBind)
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,

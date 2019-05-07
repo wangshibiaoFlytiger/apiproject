@@ -1,12 +1,12 @@
 package model
 
 import (
-	"time"
+	"apiproject/entity"
 )
 
 type BaseModel struct {
-	ID        string     `gorm:"size:255" json:"id"`
-	CreatedAt time.Time  `json:"createTime"`
-	UpdatedAt time.Time  `json:"updateTime"`
-	DeletedAt *time.Time `json:"deleteTime"`
+	ID        string           `gorm:"size:255" json:"id"`
+	CreatedAt entity.JsonTime  `json:"createTime"`
+	UpdatedAt entity.JsonTime  `json:"updateTime"`
+	DeletedAt *entity.JsonTime `json:"deleteTime"`
 }
