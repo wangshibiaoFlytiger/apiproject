@@ -67,3 +67,7 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+go.sum
+.idea/*
+apiproject
+*.log
