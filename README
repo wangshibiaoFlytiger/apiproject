@@ -29,3 +29,8 @@ dogo -c ./dogo_auto_make.json
 
 六. 集成自动测试框架goconvey
 go get github.com/smartystreets/goconvey
+
+七. 支持跨域
+go get github.com/gin-contrib/cors
+此外还需要如下显示指定ugorji/go的版本, 使用v1.1.2版本,最新版本会出现包冲突错误:cannot load github.com/ugorji/go/codec: ambiguous import: found github.com/ugorji/go/codec in multiple modules
+go get github.com/ugorji/go@v1.1.2

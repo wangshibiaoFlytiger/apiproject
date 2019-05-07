@@ -3,6 +3,7 @@ package router
 import (
 	c_video "apiproject/controller/video"
 	"apiproject/middleware"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,6 +12,9 @@ import (
 */
 func Init() *gin.Engine {
 	engine := gin.Default()
+
+	//支持跨域
+	engine.Use(cors.Default())
 
 	//视频相关接口
 	videoGroup := engine.Group("/api/video", middleware.ApiLogMiddleware)
