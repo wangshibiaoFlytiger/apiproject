@@ -7,6 +7,7 @@ import (
 )
 
 /**
+Gorm中自定义Time类型的JSON字段格式
 将struct成员类型由time.Time改为JsonTime, 则可实现自定义json序列化后的时间格式
 */
 
