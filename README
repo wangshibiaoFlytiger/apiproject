@@ -34,3 +34,7 @@ go get github.com/smartystreets/goconvey
 go get github.com/gin-contrib/cors
 此外还需要如下显示指定ugorji/go的版本, 使用v1.1.2版本,最新版本会出现包冲突错误:cannot load github.com/ugorji/go/codec: ambiguous import: found github.com/ugorji/go/codec in multiple modules
 go get github.com/ugorji/go@v1.1.2
+
+八. 指定运行环境
+通过指定命令行参数--profile参数来加载对应的配置文件, 取值范围:dev,test,pro.
+可通过执行帮助命令查看./apiproject help

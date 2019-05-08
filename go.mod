@@ -46,5 +46,6 @@ require (
 	google.golang.org/genproto v0.0.0-20190425155659-357c62f0e4bb // indirect
 	google.golang.org/grpc v1.20.1 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
+	gopkg.in/urfave/cli.v1 v1.20.0
 	honnef.co/go/tools v0.0.0-20190418001031-e561f6794a2a // indirect
 )

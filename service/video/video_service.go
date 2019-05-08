@@ -10,7 +10,7 @@ type VideoService struct {
 
 var videoDao d_video.VideoDao
 
-func init() {
+func Init() {
 	//初始化依赖的dao
 	videoDao = d_video.VideoDao{}
 }

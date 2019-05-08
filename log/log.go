@@ -1,6 +1,7 @@
 package log
 
 import (
+	"apiproject/env"
 	"github.com/Unknwon/goconfig"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -11,9 +12,10 @@ import (
 
 var Logger *zap.Logger
 
-func init() {
+func Init() {
 	//读取日志配置, 注意: 此处没有读取config包中的Config对象, 否则会出现包的循环引用编译错误
-	config, err := goconfig.LoadConfigFile("config/config.ini")
+	configFile := "config/config_" + env.SysEnv.Profile + ".ini"
+	config, err := goconfig.LoadConfigFile(configFile)
 	if err != nil {
 		panic(err)
 	}

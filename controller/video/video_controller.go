@@ -14,7 +14,7 @@ import (
 
 var videoService s_video.VideoService
 
-func init() {
+func Init() {
 	//初始化依赖的service
 	videoService = s_video.VideoService{}
 }

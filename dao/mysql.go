@@ -12,7 +12,7 @@ var Db *gorm.DB
 /**
 数据库连接初始化
 */
-func init() {
+func Init() {
 	//读取配置
 	var err error
 	mysqlUrl, err := config.Config.GetValue("mysql", "url")

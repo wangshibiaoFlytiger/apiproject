@@ -10,7 +10,7 @@ import (
 var RedisClient *redis.Client
 
 // 创建 cache 客户端
-func init() {
+func Init() {
 	redisHost, err := config.Config.GetValue("redis", "host")
 	if err != nil {
 		log.Logger.Error("读取redis host配置出错", zap.Error(err))
