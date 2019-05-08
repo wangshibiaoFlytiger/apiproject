@@ -2,6 +2,7 @@ package test
 
 import (
 	"apiproject/cache"
+	"apiproject/entity"
 	m_video "apiproject/model/video"
 	"fmt"
 	"github.com/go-redis/redis"
@@ -123,7 +124,11 @@ func TestZset(t *testing.T) {
 	err = client.ZAdd("zset", redis.Z{Score: 2, Member: "two"}).Err()
 	err = client.ZAdd("zset", redis.Z{Score: 3, Member: "three"}).Err()
 
-	video := m_video.Video{"id1", "title1", "site1", time.Now(), time.Now()}
+	nowJsonTime := entity.JsonTime{time.Now()}
+	video := m_video.Video{}
+	video.ID = "id1"
+	video.Title = "title1"
+	video.CreatedAt = nowJsonTime
 
 	//对象转为json后写入到redis
 	videoJson, err := jsoniter.Marshal(video)
@@ -146,7 +151,13 @@ func TestZset(t *testing.T) {
 
 func TestZsetJson(t *testing.T) {
 	client := cache.RedisClient
-	video := m_video.Video{"id1", "title1", "site1", time.Now(), time.Now()}
+
+	nowJsonTime := entity.JsonTime{time.Now()}
+	video := m_video.Video{}
+	video.ID = "id1"
+	video.Title = "title1"
+	video.CreatedAt = nowJsonTime
+
 	//对象转为json后写入到redis
 	videoJson, err := jsoniter.Marshal(video)
 	fmt.Println(videoJson)
