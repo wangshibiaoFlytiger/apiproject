@@ -22,6 +22,7 @@ func Init() *gin.Engine {
 	//配置模板路径
 	engine.LoadHTMLGlob("./public/template/*")
 	//配置首页入口
+	engine.GET("/", controller.Index)
 	engine.GET("/index", controller.Index)
 
 	//支持跨域
