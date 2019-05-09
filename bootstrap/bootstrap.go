@@ -13,8 +13,8 @@ import (
 系统初始化
 */
 func Init() {
-	log.Init()
 	config.Init()
+	log.Init()
 
 	cache.Init()
 
