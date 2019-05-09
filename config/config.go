@@ -2,19 +2,46 @@ package config
 
 import (
 	"apiproject/env"
-	"apiproject/log"
-	"github.com/Unknwon/goconfig"
-	"go.uber.org/zap"
+	"github.com/go-ini/ini"
 )
 
-var Config *goconfig.ConfigFile
+/**
+系统配置
+*/
+type Config struct {
+	MysqlUrl          string `ini:"mysql.url"`
+	MysqlMaxIdleCount int    `ini:"mysql.max.idle.count"`
+	MysqlMaxOpenCount int    `ini:"mysql.max.open.count"`
+
+	RedisHost     string `ini:"redis.host"`
+	RedisPort     int    `ini:"redis.port"`
+	RedisPassword string `ini:"redis.password"`
+	RedisDb       int    `ini:"redis.db"`
+	RedisPoolSize int    `ini:"redis.pool.size"`
+
+	LogPath  string `ini:"log.path"`
+	Loglevel string `ini:"log.level"`
+}
+
+var GlobalConfig Config = Config{}
 
 func Init() {
 	//加载配置文件
-	var err error
 	configFile := "config/config_" + env.SysEnv.Profile + ".ini"
-	Config, err = goconfig.LoadConfigFile(configFile)
+	cfg, err := ini.Load(configFile)
+
+	err = cfg.Section("mysql").MapTo(&GlobalConfig)
 	if err != nil {
-		log.Logger.Error("加载配置文件异常", zap.String("error", err.Error()))
+		panic(err)
+	}
+
+	err = cfg.Section("log").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	err = cfg.Section("redis").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
 	}
 }

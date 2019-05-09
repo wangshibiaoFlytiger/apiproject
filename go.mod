@@ -4,12 +4,12 @@ go 1.12
 
 require (
 	cloud.google.com/go v0.38.0 // indirect
-	github.com/Unknwon/goconfig v0.0.0-20181105214110-56bd8ab18619
 	github.com/facebookgo/inject v0.0.0-20180706035515-f23751cae28b
 	github.com/facebookgo/structtag v0.0.0-20150214074306-217e25fb9691 // indirect
 	github.com/gin-contrib/cors v0.0.0-20190424000812-bd1331c62cae
 	github.com/gin-contrib/sse v0.0.0-20190301062529-5545eab6dad3 // indirect
 	github.com/gin-gonic/gin v1.3.0
+	github.com/go-ini/ini v1.42.0
 	github.com/go-redis/redis v6.15.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang/protobuf v1.3.1 // indirect

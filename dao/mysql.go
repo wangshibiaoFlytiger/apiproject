@@ -13,29 +13,15 @@ var Db *gorm.DB
 数据库连接初始化
 */
 func Init() {
-	//读取配置
 	var err error
-	mysqlUrl, err := config.Config.GetValue("mysql", "url")
-	if err != nil {
-		panic(err)
-	}
-	maxIdleCount, err := config.Config.Int("mysql", "max.idle.count")
-	if err != nil {
-		panic(err)
-	}
-	maxOpenCount, err := config.Config.Int("mysql", "max.open.count")
-	if err != nil {
-		panic(err)
-	}
-
-	Db, err = gorm.Open("mysql", mysqlUrl)
+	Db, err = gorm.Open("mysql", config.GlobalConfig.MysqlUrl)
 	if err != nil {
 		panic(err)
 	}
 
 	//配置数据库连接池
-	Db.DB().SetMaxIdleConns(maxIdleCount)
-	Db.DB().SetMaxOpenConns(maxOpenCount)
+	Db.DB().SetMaxIdleConns(config.GlobalConfig.MysqlMaxIdleCount)
+	Db.DB().SetMaxOpenConns(config.GlobalConfig.MysqlMaxOpenCount)
 
 	//为插入,更新,删除操作替换默认回调
 	//Db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)

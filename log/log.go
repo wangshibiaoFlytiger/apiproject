@@ -1,8 +1,7 @@
 package log
 
 import (
-	"apiproject/env"
-	"github.com/Unknwon/goconfig"
+	"apiproject/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -13,32 +12,17 @@ import (
 var Logger *zap.Logger
 
 func Init() {
-	//读取日志配置, 注意: 此处没有读取config包中的Config对象, 否则会出现包的循环引用编译错误
-	configFile := "config/config_" + env.SysEnv.Profile + ".ini"
-	config, err := goconfig.LoadConfigFile(configFile)
-	if err != nil {
-		panic(err)
-	}
-	logPath, err := config.GetValue("log", "path")
-	if err != nil {
-		panic(err)
-	}
-	logLevel, err := config.GetValue("log", "level")
-	if err != nil {
-		panic(err)
-	}
-
 	hook := lumberjack.Logger{
-		Filename:   logPath, // 日志文件路径
-		MaxSize:    1024,    // megabytes
-		MaxBackups: 3,       // 最多保留3个备份
-		MaxAge:     7,       //days
-		Compress:   true,    // 是否压缩 disabled by default
+		Filename:   config.GlobalConfig.LogPath, // 日志文件路径
+		MaxSize:    1024,                        // megabytes
+		MaxBackups: 3,                           // 最多保留3个备份
+		MaxAge:     7,                           //days
+		Compress:   true,                        // 是否压缩 disabled by default
 	}
 	writeSyncer := zapcore.AddSync(&hook)
 
 	var level zapcore.Level
-	switch logLevel {
+	switch config.GlobalConfig.Loglevel {
 	case "debug":
 		level = zap.DebugLevel
 	case "info":
