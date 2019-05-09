@@ -1,7 +1,6 @@
 package config
 
 import (
-	"apiproject/env"
 	"github.com/go-ini/ini"
 )
 
@@ -9,6 +8,9 @@ import (
 系统配置
 */
 type Config struct {
+	//运行环境:dev,test,pro
+	Profile string
+
 	MysqlUrl          string `ini:"mysql.url"`
 	MysqlMaxIdleCount int    `ini:"mysql.max.idle.count"`
 	MysqlMaxOpenCount int    `ini:"mysql.max.open.count"`
@@ -27,7 +29,7 @@ var GlobalConfig Config = Config{}
 
 func Init() {
 	//加载配置文件
-	configFile := "config/config_" + env.SysEnv.Profile + ".ini"
+	configFile := "config/config_" + GlobalConfig.Profile + ".ini"
 	cfg, err := ini.Load(configFile)
 
 	err = cfg.Section("mysql").MapTo(&GlobalConfig)

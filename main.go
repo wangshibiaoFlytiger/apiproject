@@ -2,9 +2,9 @@ package main
 
 import (
 	"apiproject/bootstrap"
+	"apiproject/config"
 	"apiproject/cron"
 	"apiproject/dao"
-	"apiproject/env"
 	"apiproject/router"
 	"gopkg.in/urfave/cli.v1"
 	"log"
@@ -53,7 +53,7 @@ func parseCliParam() {
 	}
 	//该程序执行的代码
 	app.Action = func(c *cli.Context) error {
-		env.SysEnv.Profile = c.String("profile") //不使用变量接收，直接解析
+		config.GlobalConfig.Profile = c.String("profile") //不使用变量接收，直接解析
 		return nil
 	}
 
