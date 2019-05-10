@@ -4,8 +4,10 @@ import (
 	"apiproject/controller"
 	c_video "apiproject/controller/video"
 	"apiproject/middleware"
+	rice "github.com/GeertJohan/go.rice"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"html/template"
 )
 
 /**
@@ -14,13 +16,30 @@ import (
 func Init() *gin.Engine {
 	engine := gin.Default()
 
-	//配置静态文件目录
-	engine.Static("/static", "./public/static")
-	//配置单个静态文件
-	engine.StaticFile("/test.html", "./public/static/test.html")
+	//通过go.rice配置静态文件目录
+	engine.StaticFS("/static", rice.MustFindBox("../public/static").HTTPBox())
 
-	//配置模板路径
-	engine.LoadHTMLGlob("./public/template/*")
+	/***********************start 通过go.rice配置页面模板 **********************/
+	//配置模板文件的根目录
+	templateBox := rice.MustFindBox("../public/template")
+
+	//配置模板文件路径列表, 需填写相对于模板相对路径
+	list := [...]string{"index.html"}
+	for _, x := range list {
+		templateString, err := templateBox.String(x)
+		if err != nil {
+			panic(err)
+		}
+
+		tmplMessage, err := template.New(x).Parse(templateString)
+		if err != nil {
+			panic(err)
+		}
+
+		engine.SetHTMLTemplate(tmplMessage)
+	}
+	/***********************end 配置页面模板 **********************/
+
 	//配置首页入口
 	engine.GET("/", controller.Index)
 	engine.GET("/index", controller.Index)

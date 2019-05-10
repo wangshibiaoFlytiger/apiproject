@@ -1,6 +1,7 @@
 package config
 
 import (
+	rice "github.com/GeertJohan/go.rice"
 	"github.com/go-ini/ini"
 )
 
@@ -28,9 +29,13 @@ type Config struct {
 var GlobalConfig Config = Config{}
 
 func Init() {
+	//通过go.rice读取配置文件的内容
+	box := rice.MustFindBox("./")
+	configFileSubPath := "config_" + GlobalConfig.Profile + ".ini"
+	configContent := box.MustBytes(configFileSubPath)
+
 	//加载配置文件
-	configFile := "config/config_" + GlobalConfig.Profile + ".ini"
-	cfg, err := ini.Load(configFile)
+	cfg, err := ini.Load(configContent)
 
 	err = cfg.Section("mysql").MapTo(&GlobalConfig)
 	if err != nil {

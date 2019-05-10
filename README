@@ -38,3 +38,10 @@ go get github.com/ugorji/go@v1.1.2
 八. 指定运行环境
 通过指定命令行参数--profile参数来加载对应的配置文件, 取值范围:dev,test,pro.
 可通过执行帮助命令查看./apiproject help
+
+九. 打包静态文件到可执行文件
+go get github.com/GeertJohan/go.rice/...
+//将项目中所有引用rice.MustFindBox或rice.FindBox的所属文件路径, 作为--import-path的参数
+rice -v --import-path "./router" --import-path "./config"  embed-go
+rice.MustFindBox的路径参数不能为绝对路径, 且必须为字符串字面量, 不能为字符串变量
+把box理解为目录即可
