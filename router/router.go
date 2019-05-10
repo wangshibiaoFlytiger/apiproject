@@ -16,9 +16,6 @@ import (
 func Init() *gin.Engine {
 	engine := gin.Default()
 
-	//通过go.rice配置静态文件目录
-	engine.StaticFS("/static", rice.MustFindBox("../public/static").HTTPBox())
-
 	/***********************start 通过go.rice配置页面模板 **********************/
 	//配置模板文件的根目录
 	templateBox := rice.MustFindBox("../public/template")
@@ -39,6 +36,9 @@ func Init() *gin.Engine {
 		engine.SetHTMLTemplate(tmplMessage)
 	}
 	/***********************end 配置页面模板 **********************/
+
+	//通过go.rice配置静态文件目录
+	engine.StaticFS("/static", rice.MustFindBox("../public/static").HTTPBox())
 
 	//配置首页入口
 	engine.GET("/", controller.Index)
