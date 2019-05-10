@@ -47,3 +47,10 @@ rice -v --import-path "./router" --import-path "./config"  embed-go
     rice.MustFindBox的路径参数不能为绝对路径, 且必须为字符串字面量, 不能为字符串变量
     最终的静态文件路径不能以./开头, 否则报错, 如错误写法box.MustBytes("./config_dev.ini"), 正确写法box.MustBytes("config_dev.ini")
 把box理解为目录即可
+
+十. 压缩可执行文件
+1. go build增加如下编译参数
+-ldflags "-s -w"
+2. 使用压缩工具, 如upx
+下载地址:https://github.com/upx/upx/releases
+upx --brute 可执行文件路径
