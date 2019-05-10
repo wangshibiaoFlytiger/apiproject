@@ -11,6 +11,7 @@ import (
 	"os"
 )
 
+//当有新的.go源文件引用静态文件时, 注意同步修改如下命令的--import-path参数
 //go:generate rice -v --import-path "./router" --import-path "./config"  embed-go
 func main() {
 	//解析命令行参数
