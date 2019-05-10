@@ -11,6 +11,7 @@ import (
 	"os"
 )
 
+//go:generate rice -v --import-path "./router" --import-path "./config"  embed-go
 func main() {
 	//解析命令行参数
 	parseCliParam()
