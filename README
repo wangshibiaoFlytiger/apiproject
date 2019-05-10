@@ -41,7 +41,9 @@ go get github.com/ugorji/go@v1.1.2
 
 九. 打包静态文件到可执行文件
 go get github.com/GeertJohan/go.rice/...
-//将项目中所有引用rice.MustFindBox或rice.FindBox的所属文件路径, 作为--import-path的参数
+//执行go build之前, 执行如下命令, 将项目中所有引用rice.MustFindBox或rice.FindBox的所属文件路径, 作为--import-path的参数
 rice -v --import-path "./router" --import-path "./config"  embed-go
-rice.MustFindBox的路径参数不能为绝对路径, 且必须为字符串字面量, 不能为字符串变量
+注意事项:
+    rice.MustFindBox的路径参数不能为绝对路径, 且必须为字符串字面量, 不能为字符串变量
+    最终的静态文件路径不能以./开头, 否则报错, 如错误写法box.MustBytes("./config_dev.ini"), 正确写法box.MustBytes("config_dev.ini")
 把box理解为目录即可
