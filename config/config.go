@@ -30,7 +30,7 @@ var GlobalConfig Config = Config{}
 
 func Init() {
 	//通过go.rice读取配置文件的内容
-	box := rice.MustFindBox("./")
+	box := rice.MustFindBox("./config_file")
 	configFileSubPath := "config_" + GlobalConfig.Profile + ".ini"
 	configContent := box.MustBytes(configFileSubPath)
 
