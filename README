@@ -54,3 +54,16 @@ rice -v --import-path "./router" --import-path "./config"  embed-go
 2. 使用压缩工具, 如upx
 下载地址:https://github.com/upx/upx/releases
 upx --brute 可执行文件路径
+
+十一. git分支约定
+1. master分支放通用功能, 目标是打造成1个通用框架
+2. 创建实际项目的操作
+创建项目主分支
+    git checkout -b 项目名称_master
+创建针对该项目的分支
+    git checkout 项目名称_master
+    git checkout -b 项目名称_branch_当前时间
+合并项目分支到项目主分支
+    git checkout 项目名称_master
+    合并项目分支到项目主分支
+合并通用框架的递增功能到项目分支
