@@ -71,3 +71,4 @@ go.sum
 .idea/*
 apiproject
 *.log
+*/rice-box.go
