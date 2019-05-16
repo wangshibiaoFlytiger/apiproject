@@ -19,6 +19,7 @@ require (
 	github.com/google/go-cmp v0.3.0 // indirect
 	github.com/google/pprof v0.0.0-20190404155422-f8f10df84213 // indirect
 	github.com/hashicorp/golang-lru v0.5.1 // indirect
+	github.com/imroc/req v0.2.3
 	github.com/jinzhu/gorm v1.9.5
 	github.com/json-iterator/go v1.1.6
 	github.com/kr/pretty v0.1.0 // indirect
@@ -26,6 +27,9 @@ require (
 	github.com/mattn/go-isatty v0.0.7 // indirect
 	github.com/rfyiamcool/cronlib v0.0.0-20190415113320-e596616eb4c0
 	github.com/smartystreets/goconvey v0.0.0-20190330032615-68dc04aab96a
+	github.com/tidwall/gjson v1.2.1
+	github.com/tidwall/match v1.0.1 // indirect
+	github.com/tidwall/pretty v0.0.0-20190325153808-1166b9ac2b65 // indirect
 	github.com/ugorji/go v1.1.2 // indirect
 	github.com/zhgo/config v0.0.0-20150924145423-9caf41330bd9 // indirect
 	github.com/zhgo/console v0.0.0-20150817103316-22d59bcbd28e // indirect
