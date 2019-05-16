@@ -6,6 +6,7 @@ import (
 	"apiproject/log"
 	m_video "apiproject/model/video"
 	s_video "apiproject/service/video"
+	"apiproject/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net/http"
@@ -61,7 +62,7 @@ func FindVideoByWhere(ctx *gin.Context) {
 */
 func AddVideo(ctx *gin.Context) {
 	video := m_video.Video{}
-	video.ID = "id4"
+	video.ID = util.GenUniqueId()
 	video.Title = "title4"
 	jsonTime := entity.JsonTime{time.Now()}
 	video.CreatedAt = jsonTime

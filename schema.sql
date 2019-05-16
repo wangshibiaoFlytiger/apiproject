@@ -12,3 +12,7 @@ create table if not exists video
 	deleted_at datetime null comment '删除时间'
 )
 comment '视频表' collate=utf8mb4_unicode_ci;
+
+# 王世彪 2019-05-16 14:51:45
+# 将主键类型改为整数
+alter table video change id id bigint comment '主键';

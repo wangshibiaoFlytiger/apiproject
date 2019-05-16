@@ -5,6 +5,7 @@ go 1.12
 require (
 	cloud.google.com/go v0.38.0 // indirect
 	github.com/GeertJohan/go.rice v1.0.0
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/facebookgo/inject v0.0.0-20180706035515-f23751cae28b
 	github.com/facebookgo/structtag v0.0.0-20150214074306-217e25fb9691 // indirect
 	github.com/gin-contrib/cors v0.0.0-20190424000812-bd1331c62cae

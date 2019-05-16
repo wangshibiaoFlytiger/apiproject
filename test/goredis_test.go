@@ -4,6 +4,7 @@ import (
 	"apiproject/cache"
 	"apiproject/entity"
 	m_video "apiproject/model/video"
+	"apiproject/util"
 	"fmt"
 	"github.com/go-redis/redis"
 	jsoniter "github.com/json-iterator/go"
@@ -126,7 +127,7 @@ func TestZset(t *testing.T) {
 
 	nowJsonTime := entity.JsonTime{time.Now()}
 	video := m_video.Video{}
-	video.ID = "id1"
+	video.ID = util.GenUniqueId()
 	video.Title = "title1"
 	video.CreatedAt = nowJsonTime
 
@@ -154,7 +155,7 @@ func TestZsetJson(t *testing.T) {
 
 	nowJsonTime := entity.JsonTime{time.Now()}
 	video := m_video.Video{}
-	video.ID = "id1"
+	video.ID = util.GenUniqueId()
 	video.Title = "title1"
 	video.CreatedAt = nowJsonTime
 
