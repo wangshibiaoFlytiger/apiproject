@@ -19,7 +19,7 @@ build: before_build
 build_smaller: before_build
 	find ./ -name ${EXE_NAME} | xargs -I '{}' ls -lh {}
 #		-ldflags的参数说明: -s去掉符号信息, -w去掉DWARF调试信息, 所以最终的程序无法使用gdb调试
-	go build -ldflags "-s -w"
+	go build -ldflags "-s -w" -o ${EXE_PATH}
 	find ./ -name ${EXE_NAME} | xargs -I '{}' ls -lh {}
 
 #生成体积最小的可执行程序
