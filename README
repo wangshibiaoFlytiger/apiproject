@@ -66,7 +66,7 @@ upx --brute 可执行文件路径
 合并项目分支到项目主分支
     git checkout 项目名称_master
     合并项目分支到项目主分支
-合并通用框架的递增功能到项目分支
+合并通用框架的递增功能到项目分支(可以作为通用的功能一定要在master分支中开发)
 
 十二. 分布式ID生成库
 go get github.com/bwmarrin/snowflake
