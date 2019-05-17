@@ -46,6 +46,7 @@ rice -v --import-path "./router" --import-path "./config"  embed-go
 注意事项:
     rice.MustFindBox的路径参数不能为绝对路径, 且必须为字符串字面量, 不能为字符串变量
     最终的静态文件路径不能以./开头, 否则报错, 如错误写法box.MustBytes("./config_dev.ini"), 正确写法box.MustBytes("config_dev.ini")
+    每次修改相应的静态文件, 记得随时执行rice命令,　否则会导致程序读取的文件内容不是最新的
 把box理解为目录即可
 
 十. 压缩可执行文件
