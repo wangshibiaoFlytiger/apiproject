@@ -1,4 +1,4 @@
-create database apiproject default character set utf8mb4 collate utf8mb4_unicode_ci;
+create database apiproject default character set utf8mb4 collate utf8mb4_general_ci;
 use apiproject;
 
 create table if not exists video
