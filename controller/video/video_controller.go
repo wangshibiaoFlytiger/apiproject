@@ -43,9 +43,11 @@ func FindVideoByWhere(ctx *gin.Context) {
 	2. 对于form参数, 需要如下定义
 	form:"siteId"
 	3. 对于body的json参数, 无需定义tag, 且不区分大小写
+
+	建议用ShouldBind, 不要使用其他bind方法, 否则可能会返回400错误, 参考链接:https://learnku.com/docs/gin-gonic/2018/gin-readme/3819
 	*/
 	videoQuery := m_video.Video{}
-	if ctx.Bind(&videoQuery) == nil {
+	if ctx.ShouldBind(&videoQuery) == nil {
 		log.Logger.Info("绑定请求参数到对象", zap.Any("videoQuery", videoQuery))
 	}
 
@@ -81,7 +83,7 @@ func AddVideo(ctx *gin.Context) {
 func UpdateVideo(ctx *gin.Context) {
 	//绑定参数到对象
 	videoBind := m_video.Video{}
-	if ctx.Bind(&videoBind) == nil {
+	if ctx.ShouldBind(&videoBind) == nil {
 		log.Logger.Info("绑定请求参数到对象", zap.Any("videoBind", videoBind))
 	}
 
@@ -99,7 +101,7 @@ func UpdateVideo(ctx *gin.Context) {
 func DeleteVideo(ctx *gin.Context) {
 	//绑定参数到对象
 	videoBind := m_video.Video{}
-	if ctx.Bind(&videoBind) == nil {
+	if ctx.ShouldBind(&videoBind) == nil {
 		log.Logger.Info("绑定请求参数到对象", zap.Any("videoBind", videoBind))
 	}
 
