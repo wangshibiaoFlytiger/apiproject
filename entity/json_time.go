@@ -40,3 +40,16 @@ func (t *JsonTime) Scan(v interface{}) error {
 	}
 	return fmt.Errorf("can not convert %v to timestamp", v)
 }
+
+const (
+	timeFormart = "2006-01-02 15:04:05"
+)
+
+/**
+json反序列化
+*/
+func (t *JsonTime) UnmarshalJSON(data []byte) (err error) {
+	now, err := time.ParseInLocation(`"`+timeFormart+`"`, string(data), time.Local)
+	*t = JsonTime{now}
+	return
+}
