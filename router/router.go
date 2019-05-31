@@ -16,6 +16,13 @@ import (
 func Init() *gin.Engine {
 	engine := gin.Default()
 
+	/**************************start 配置中间件 *****************/
+	//支持跨域
+	engine.Use(cors.Default())
+	//全局配置api日志访问中间件
+	engine.Use(middleware.ApiLogMiddleware)
+	/**************************end 配置中间件 *****************/
+
 	/***********************start 通过go.rice配置页面模板 **********************/
 	//配置模板文件的根目录
 	templateBox := rice.MustFindBox("../public/template")
@@ -43,11 +50,6 @@ func Init() *gin.Engine {
 	//配置首页入口
 	engine.GET("/", controller.Index)
 	engine.GET("/index", controller.Index)
-
-	//支持跨域
-	engine.Use(cors.Default())
-	//全局配置api日志访问中间件
-	engine.Use(middleware.ApiLogMiddleware)
 
 	//视频相关接口
 	videoGroup := engine.Group("/api/video")
