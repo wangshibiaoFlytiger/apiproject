@@ -5,20 +5,12 @@ import (
 	"apiproject/entity"
 	"apiproject/log"
 	m_video "apiproject/model/video"
-	s_video "apiproject/service/video"
 	"apiproject/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net/http"
 	"time"
 )
-
-var videoService s_video.VideoService
-
-func Init() {
-	//初始化依赖的service
-	videoService = s_video.VideoService{}
-}
 
 /**
 查询视频列表接口
