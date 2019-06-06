@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"apiproject/cache"
 	"apiproject/config"
+	"apiproject/cron"
 	"apiproject/dao"
 	"apiproject/log"
 )
@@ -18,4 +19,7 @@ func Init() {
 
 	//dao层初始化
 	dao.Init()
+
+	//初始化定时任务
+	cron.Init()
 }

@@ -3,7 +3,6 @@ package main
 import (
 	"apiproject/bootstrap"
 	"apiproject/config"
-	"apiproject/cron"
 	"apiproject/dao"
 	"apiproject/router"
 	"gopkg.in/urfave/cli.v1"
@@ -21,9 +20,6 @@ func main() {
 	bootstrap.Init()
 
 	defer dao.Db.Close()
-
-	//初始化定时任务
-	cron.Init()
 
 	//初始化路由
 	engine := router.Init()
