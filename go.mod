@@ -5,6 +5,7 @@ go 1.12
 require (
 	cloud.google.com/go v0.38.0 // indirect
 	github.com/GeertJohan/go.rice v1.0.0
+	github.com/Pallinder/go-randomdata v1.2.0
 	github.com/beevik/etree v1.1.0
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/facebookgo/inject v0.0.0-20180706035515-f23751cae28b
