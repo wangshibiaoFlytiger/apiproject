@@ -70,6 +70,18 @@ func AddVideo(ctx *gin.Context) {
 }
 
 /**
+批量添加视频
+*/
+func BulkAddVideo(ctx *gin.Context) {
+	videoService.BulkAddVideo()
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 1,
+		"data": nil,
+	})
+}
+
+/**
 更新视频
 */
 func UpdateVideo(ctx *gin.Context) {

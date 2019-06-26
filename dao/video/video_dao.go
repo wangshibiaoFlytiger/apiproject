@@ -6,6 +6,7 @@ import (
 )
 
 type VideoDao struct {
+	dao.BaseDao
 }
 
 /**

@@ -56,6 +56,7 @@ func Init() *gin.Engine {
 	videoGroup.GET("/findList", c_video.FindVideoList)
 	videoGroup.GET("/findVideoByWhere", c_video.FindVideoByWhere)
 	videoGroup.GET("/addVideo", c_video.AddVideo)
+	videoGroup.GET("/bulkAddVideo", c_video.BulkAddVideo)
 	videoGroup.POST("/updateVideo", c_video.UpdateVideo)
 	videoGroup.POST("/deleteVideo", c_video.DeleteVideo)
 	return engine
