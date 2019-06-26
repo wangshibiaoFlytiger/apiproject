@@ -49,7 +49,7 @@ func (this BaseDao) BulkInsert(values interface{}, validColList []string) error 
 
 	rowSQL := "(" + strings.Join(args, ", ") + ")"
 
-	sqlStr := "INSERT INTO " + scope.TableName() + "(" + strings.Join(realColList, ",") + ") VALUES "
+	sqlStr := "REPLACE INTO " + scope.TableName() + "(" + strings.Join(realColList, ",") + ") VALUES "
 
 	var vals []interface{}
 
