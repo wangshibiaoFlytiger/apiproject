@@ -13,6 +13,6 @@ type Video struct {
 /**
 设置表名
 */
-func (this Video) TableName() string {
+func (this *Video) TableName() string {
 	return "video"
 }

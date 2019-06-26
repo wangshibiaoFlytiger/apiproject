@@ -12,7 +12,7 @@ type BaseDao struct {
 }
 
 // 批量插入数据  values 参数必须为 数组， validColList 为想插入的字段
-func (this BaseDao) BulkInsert(values interface{}, validColList []string) error {
+func (this *BaseDao) BulkInsert(values interface{}, validColList []string) error {
 
 	t1 := time.Now()
 	defer func() {

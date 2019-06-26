@@ -13,7 +13,7 @@ type VideoService struct {
 }
 
 //查询视频列表
-func (this VideoService) FindVideoList() []m_video.Video {
+func (this *VideoService) FindVideoList() []m_video.Video {
 	videoList := videoDao.FindVideoList()
 	return videoList
 }
@@ -21,7 +21,7 @@ func (this VideoService) FindVideoList() []m_video.Video {
 /**
 批量添加视频
 */
-func (this VideoService) BulkAddVideo() {
+func (this *VideoService) BulkAddVideo() {
 	jsonTime := entity.JsonTime{time.Now()}
 
 	video1 := m_video.Video{}

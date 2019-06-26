@@ -17,13 +17,13 @@ type JsonTime struct {
 }
 
 // MarshalJSON on JsonTime format Time field with %Y-%m-%d %H:%M:%S
-func (t JsonTime) MarshalJSON() ([]byte, error) {
+func (t *JsonTime) MarshalJSON() ([]byte, error) {
 	formatted := fmt.Sprintf("\"%s\"", t.Format("2006-01-02 15:04:05"))
 	return []byte(formatted), nil
 }
 
 // Value insert timestamp into mysql need this function.
-func (t JsonTime) Value() (driver.Value, error) {
+func (t *JsonTime) Value() (driver.Value, error) {
 	var zeroTime time.Time
 	if t.Time.UnixNano() == zeroTime.UnixNano() {
 		return nil, nil
