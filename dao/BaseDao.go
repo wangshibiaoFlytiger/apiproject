@@ -4,6 +4,7 @@ import (
 	"apiproject/entity"
 	"apiproject/log"
 	"errors"
+	"go.uber.org/zap"
 	"reflect"
 	"strings"
 	"time"
@@ -18,12 +19,12 @@ func (this *BaseDao) BulkInsert(values interface{}, validColList []string) error
 	t1 := time.Now()
 	defer func() {
 		elapsed := time.Since(t1)
-		log.Logger.Sugar().Info("App elapsed: ", elapsed)
+		log.Logger.Info("批量插入数据", zap.Any("count", reflect.ValueOf(values).Len()), zap.Any("duration", elapsed))
 	}()
 
 	dataType := reflect.TypeOf(values)
 	if dataType.Kind() != reflect.Slice {
-		return errors.New("values must be a slice!")
+		return errors.New("批量插入数据, values参数必须为slice类型")
 	}
 
 	val := reflect.ValueOf(values)
