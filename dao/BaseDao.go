@@ -1,6 +1,7 @@
 package dao
 
 import (
+	"apiproject/entity"
 	"apiproject/log"
 	"errors"
 	"reflect"
@@ -67,7 +68,16 @@ func (this *BaseDao) BulkInsert(values interface{}, validColList []string) error
 				return errors.New("can not find col(" + validCol + ")")
 			}
 
-			vals = append(vals, field.Field.Interface())
+			var val interface{}
+			value, ok := field.Field.Interface().(entity.JsonTime)
+			//对jsonTime自定义时间类型字段特殊处理
+			if ok {
+				val = value.Time
+			} else {
+				val = field.Field.Interface()
+			}
+
+			vals = append(vals, val)
 		}
 	}
 
