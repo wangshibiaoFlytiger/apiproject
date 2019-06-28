@@ -22,7 +22,7 @@ func (this *VideoService) FindVideoList() []m_video.Video {
 批量添加视频
 */
 func (this *VideoService) BulkAddVideo() {
-	jsonTime := entity.JsonTime{time.Now()}
+	jsonTime := &entity.JsonTime{time.Now()}
 
 	video1 := m_video.Video{}
 	video1.ID = util.GenUniqueId()

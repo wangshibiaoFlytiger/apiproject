@@ -58,7 +58,7 @@ func AddVideo(ctx *gin.Context) {
 	video := m_video.Video{}
 	video.ID = util.GenUniqueId()
 	video.Title = "title4"
-	jsonTime := entity.JsonTime{time.Now()}
+	jsonTime := &entity.JsonTime{time.Now()}
 	video.CreatedAt = jsonTime
 	video.UpdatedAt = jsonTime
 	dao.Db.Create(video)
