@@ -18,7 +18,10 @@ func Init() *gin.Engine {
 
 	/**************************start 配置中间件 *****************/
 	//支持跨域
-	engine.Use(cors.Default())
+	config := cors.DefaultConfig()
+	config.AddAllowHeaders("X-Requested-With")
+	config.AllowAllOrigins = true
+	engine.Use(cors.New(config))
 	//全局配置api日志访问中间件
 	engine.Use(middleware.ApiLogMiddleware)
 	/**************************end 配置中间件 *****************/
