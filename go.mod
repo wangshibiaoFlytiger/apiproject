@@ -8,6 +8,7 @@ require (
 	github.com/Pallinder/go-randomdata v1.2.0
 	github.com/beevik/etree v1.1.0
 	github.com/bwmarrin/snowflake v0.3.0
+	github.com/confluentinc/confluent-kafka-go v1.1.0
 	github.com/facebookgo/inject v0.0.0-20180706035515-f23751cae28b
 	github.com/facebookgo/structtag v0.0.0-20150214074306-217e25fb9691 // indirect
 	github.com/gin-contrib/cors v0.0.0-20190424000812-bd1331c62cae

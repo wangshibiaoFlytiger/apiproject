@@ -2,6 +2,7 @@ package router
 
 import (
 	"apiproject/controller"
+	c_kafka "apiproject/controller/kafka"
 	c_video "apiproject/controller/video"
 	"apiproject/middleware"
 	rice "github.com/GeertJohan/go.rice"
@@ -62,5 +63,10 @@ func Init() *gin.Engine {
 	videoGroup.GET("/bulkAddVideo", c_video.BulkAddVideo)
 	videoGroup.POST("/updateVideo", c_video.UpdateVideo)
 	videoGroup.POST("/deleteVideo", c_video.DeleteVideo)
+
+	//kafka相关
+	kafkaGroup := engine.Group("/api/kafka")
+	kafkaGroup.GET("/sendMessage", c_kafka.SendMessage)
+
 	return engine
 }

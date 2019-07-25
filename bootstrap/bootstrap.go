@@ -5,6 +5,7 @@ import (
 	"apiproject/config"
 	"apiproject/cron"
 	"apiproject/dao"
+	"apiproject/kafka"
 	"apiproject/log"
 )
 
@@ -16,6 +17,7 @@ func Init() {
 	log.Init()
 
 	cache.Init()
+	kafka.Init()
 
 	//dao层初始化
 	dao.Init()

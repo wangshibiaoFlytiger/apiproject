@@ -24,6 +24,8 @@ type Config struct {
 
 	LogPath  string `ini:"log.path"`
 	Loglevel string `ini:"log.level"`
+
+	KafkaBroker string `ini:"kafka.broker"`
 }
 
 var GlobalConfig Config = Config{}
@@ -48,6 +50,11 @@ func Init() {
 	}
 
 	err = cfg.Section("redis").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	err = cfg.Section("kafka").MapTo(&GlobalConfig)
 	if err != nil {
 		panic(err)
 	}
