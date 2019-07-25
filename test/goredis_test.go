@@ -129,7 +129,7 @@ func TestZset(t *testing.T) {
 	video := m_video.Video{}
 	video.ID = util.GenUniqueId()
 	video.Title = "title1"
-	video.CreatedAt = nowJsonTime
+	video.CreatedAt = &nowJsonTime
 
 	//对象转为json后写入到redis
 	videoJson, err := jsoniter.Marshal(video)
@@ -157,7 +157,7 @@ func TestZsetJson(t *testing.T) {
 	video := m_video.Video{}
 	video.ID = util.GenUniqueId()
 	video.Title = "title1"
-	video.CreatedAt = nowJsonTime
+	video.CreatedAt = &nowJsonTime
 
 	//对象转为json后写入到redis
 	videoJson, err := jsoniter.Marshal(video)
