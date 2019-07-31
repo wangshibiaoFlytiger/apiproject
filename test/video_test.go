@@ -14,3 +14,13 @@ func TestTranscodeVideo(t *testing.T) {
 		panic(err)
 	}
 }
+
+/**
+测试生成视频封面文件
+*/
+func TestGenVideoCover(t *testing.T) {
+	err := util.GenVideoCover("/home/wangshibiao/test/vr/vr1.mp4", "/home/wangshibiao/test/vr/vr1.jpg")
+	if err != nil {
+		panic(err)
+	}
+}

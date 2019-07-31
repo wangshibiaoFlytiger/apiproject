@@ -32,3 +32,17 @@ func TranscodeVideo(inputPath string, outputPath string) error {
 	log.Println("转码视频完成", inputPath, outputPath, stdOut, stdErr)
 	return nil
 }
+
+/**
+生成视频封面文件
+*/
+func GenVideoCover(videoPath string, coverPath string) error {
+	stdOut, stdErr, err := ExecCmd("ffmpeg", "-y", "-ss", "00:00:05", "-i", videoPath, "-r", "1", "-vframes", "1", "-an", "-vcodec", "mjpeg", coverPath)
+	if err != nil {
+		log.Panicln("生成视频封面文件异常", err, videoPath, coverPath)
+		return err
+	}
+
+	log.Println("生成视频封面文件完成", videoPath, coverPath, stdOut, stdErr)
+	return nil
+}
