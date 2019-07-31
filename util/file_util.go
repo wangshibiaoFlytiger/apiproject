@@ -1,7 +1,9 @@
 package util
 
 import (
+	"apiproject/log"
 	"github.com/imroc/req"
+	"go.uber.org/zap"
 	"os"
 	"path/filepath"
 )
@@ -21,12 +23,20 @@ func GetExePath() string {
 /**
 下载文件到本地, 按网络路径规则自动创建本地目录
 */
-func DownloadFile(url string, rootDir string) {
+func DownloadFileByNetPath(url string, rootDir string) {
 	uri := ParsePath(url)
 
 	//创建本地目录
 	localFullPath := rootDir + uri
-	err := os.MkdirAll(filepath.Dir(localFullPath), 0777)
+	DownloadFileByLocalPath(url, localFullPath)
+}
+
+/**
+下载文件到本地
+*/
+func DownloadFileByLocalPath(url string, localPath string) {
+	//创建本地目录
+	err := os.MkdirAll(filepath.Dir(localPath), 0777)
 	if err != nil {
 		panic(err)
 	}
@@ -36,8 +46,10 @@ func DownloadFile(url string, rootDir string) {
 		panic(err)
 	}
 
-	err = resp.ToFile(localFullPath)
+	err = resp.ToFile(localPath)
 	if err != nil {
 		panic(err)
 	}
+
+	log.Logger.Info("下载文件到本地完成", zap.Any("url", url), zap.Any("path", localPath))
 }
