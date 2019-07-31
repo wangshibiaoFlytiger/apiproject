@@ -3,6 +3,7 @@ package util
 import (
 	"github.com/Pallinder/go-randomdata"
 	"github.com/bwmarrin/snowflake"
+	uuid "github.com/satori/go.uuid"
 )
 
 /**
@@ -20,4 +21,11 @@ func GenUniqueId() snowflake.ID {
 	id := node.Generate()
 
 	return id
+}
+
+/**
+生成uuid
+*/
+func GenUUID() string {
+	return uuid.NewV4().String()
 }

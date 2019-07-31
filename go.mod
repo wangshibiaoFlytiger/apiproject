@@ -29,6 +29,7 @@ require (
 	github.com/liudng/dogo v0.0.0-20161102105440-7887b849de84 // indirect
 	github.com/mattn/go-isatty v0.0.7 // indirect
 	github.com/rfyiamcool/cronlib v0.0.0-20190415113320-e596616eb4c0
+	github.com/satori/go.uuid v1.2.0
 	github.com/smartystreets/goconvey v0.0.0-20190330032615-68dc04aab96a
 	github.com/tidwall/gjson v1.2.1
 	github.com/tidwall/match v1.0.1 // indirect
