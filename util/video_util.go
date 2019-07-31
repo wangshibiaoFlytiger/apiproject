@@ -18,3 +18,17 @@ func GetVideoInfo(videoPath string) (width int, height int, seconds float64) {
 	firstVideoStream := data.GetFirstVideoStream()
 	return firstVideoStream.Width, firstVideoStream.Height, data.Format.DurationSeconds
 }
+
+/**
+转码视频
+*/
+func TranscodeVideo(inputPath string, outputPath string) error {
+	stdOut, stdErr, err := ExecCmd("ffmpeg", "-y", "-i", inputPath, "-c:v", "libx264", "-c:a", "aac", outputPath)
+	if err != nil {
+		log.Panicln("转码视频异常", err, inputPath, outputPath)
+		return err
+	}
+
+	log.Println("转码视频完成", inputPath, outputPath, stdOut, stdErr)
+	return nil
+}
