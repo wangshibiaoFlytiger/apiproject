@@ -56,3 +56,7 @@ func StrToFloat64(stringValue string) (float64, error) {
 
 	return float64Value, nil
 }
+
+func Float64ToInt(float64Value float64) int {
+	return int(float64Value)
+}
