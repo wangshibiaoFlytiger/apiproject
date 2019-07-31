@@ -17,7 +17,7 @@ func ExecCmd(name string, params ...string) (string, string, error) {
 	cmd.Stderr = &stderr
 	err := cmd.Run()
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err, stderr.String())
 	}
 
 	fmt.Println("执行系统命令完成", name, params)
