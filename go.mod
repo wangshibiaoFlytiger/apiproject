@@ -27,6 +27,7 @@ require (
 	github.com/json-iterator/go v1.1.6
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-isatty v0.0.7 // indirect
+	github.com/objcoding/wxpay v1.0.6
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/pkg/errors v0.8.1 // indirect

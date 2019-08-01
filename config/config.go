@@ -26,6 +26,11 @@ type Config struct {
 	Loglevel string `ini:"log.level"`
 
 	KafkaBroker string `ini:"kafka.broker"`
+
+	WxpayH5Appid     string `ini:"wxpay.h5.appid"`
+	WxpayH5Mchid     string `ini:"wxpay.h5.mchid"`
+	WxpayH5Apikey    string `ini:"wxpay.h5.apikey"`
+	WxpayH5Notifyurl string `ini:"wxpay.h5.notifyurl"`
 }
 
 var GlobalConfig Config = Config{}
@@ -55,6 +60,11 @@ func Init() {
 	}
 
 	err = cfg.Section("kafka").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	err = cfg.Section("wxpay").MapTo(&GlobalConfig)
 	if err != nil {
 		panic(err)
 	}

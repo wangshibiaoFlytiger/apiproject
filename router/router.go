@@ -4,6 +4,7 @@ import (
 	"apiproject/controller"
 	c_kafka "apiproject/controller/kafka"
 	c_video "apiproject/controller/video"
+	c_wxpay "apiproject/controller/wxpay"
 	"apiproject/middleware"
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/gin-contrib/cors"
@@ -67,6 +68,11 @@ func Init() *gin.Engine {
 	//kafka相关
 	kafkaGroup := engine.Group("/api/kafka")
 	kafkaGroup.GET("/sendMessage", c_kafka.SendMessage)
+
+	//微信支付相关
+	wxpayGroup := engine.Group("/api/wxpay")
+	wxpayGroup.POST("/wxH5Pay", c_wxpay.WxH5Pay)
+	wxpayGroup.POST("/wxH5PayCallback", c_wxpay.WxH5PayCallback)
 
 	return engine
 }
