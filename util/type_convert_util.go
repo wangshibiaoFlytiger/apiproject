@@ -1,6 +1,7 @@
 package util
 
 import (
+	"reflect"
 	"strconv"
 )
 
@@ -59,4 +60,20 @@ func StrToFloat64(stringValue string) (float64, error) {
 
 func Float64ToInt(float64Value float64) int {
 	return int(float64Value)
+}
+
+/**
+任意类型数组转为interface{}类型数组
+*/
+func ToInterfaceArr(arr interface{}) []interface{} {
+	if reflect.TypeOf(arr).Kind() != reflect.Slice {
+		return nil
+	}
+
+	arrValue := reflect.ValueOf(arr)
+	retArr := make([]interface{}, arrValue.Len())
+	for k := 0; k < arrValue.Len(); k++ {
+		retArr[k] = arrValue.Index(k).Interface()
+	}
+	return retArr
 }
