@@ -22,12 +22,13 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang/protobuf v1.3.1 // indirect
 	github.com/google/go-cmp v0.3.0 // indirect
+	github.com/iGoogle-ink/gopay v1.2.1
 	github.com/imroc/req v0.2.3
 	github.com/jinzhu/gorm v1.9.5
 	github.com/json-iterator/go v1.1.6
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-isatty v0.0.7 // indirect
-	github.com/objcoding/wxpay v1.0.6
+	github.com/moul/http2curl v1.0.0 // indirect
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/pkg/errors v0.8.1 // indirect

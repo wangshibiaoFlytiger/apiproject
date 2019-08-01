@@ -21,7 +21,7 @@ func WxH5Pay(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
-		"data": mwebUrl,
+		"data": map[string]interface{}{"mwebUrl": mwebUrl},
 	})
 }
 
