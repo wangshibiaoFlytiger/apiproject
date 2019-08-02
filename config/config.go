@@ -22,6 +22,8 @@ type Config struct {
 	RedisDb       int    `ini:"redis.db"`
 	RedisPoolSize int    `ini:"redis.pool.size"`
 
+	MongoUrl string `ini:"mongo.url"`
+
 	LogPath  string `ini:"log.path"`
 	Loglevel string `ini:"log.level"`
 
@@ -55,6 +57,11 @@ func Init() {
 	}
 
 	err = cfg.Section("redis").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	err = cfg.Section("mongo").MapTo(&GlobalConfig)
 	if err != nil {
 		panic(err)
 	}
