@@ -2,9 +2,11 @@ package dao
 
 import (
 	"apiproject/config"
+	"apiproject/log"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"go.uber.org/zap"
 )
 
 var Db *gorm.DB
@@ -16,7 +18,7 @@ func Init() {
 	var err error
 	Db, err = gorm.Open("mysql", config.GlobalConfig.MysqlUrl)
 	if err != nil {
-		panic(err)
+		log.Logger.Error("数据库连接初始化, 异常", zap.Error(err))
 	}
 
 	//配置数据库连接池
