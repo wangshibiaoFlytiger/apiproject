@@ -9,6 +9,7 @@ require (
 	github.com/beevik/etree v1.1.0
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/confluentinc/confluent-kafka-go v1.1.0
+	github.com/davidscholberg/go-durationfmt v0.0.0-20170122144659-64843a2083d3
 	github.com/facebookgo/ensure v0.0.0-20160127193407-b4ab57deab51 // indirect
 	github.com/facebookgo/inject v0.0.0-20180706035515-f23751cae28b
 	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
@@ -47,6 +48,7 @@ require (
 	golang.org/x/net v0.0.0-20190501004415-9ce7a6920f09 // indirect
 	golang.org/x/sys v0.0.0-20190429190828-d89cdac9e872 // indirect
 	golang.org/x/text v0.3.2 // indirect
+	golang.org/x/tools v0.0.0-20190328211700-ab21143f2384
 	google.golang.org/appengine v1.5.0 // indirect
 	gopkg.in/ini.v1 v1.44.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0

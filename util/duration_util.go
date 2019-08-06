@@ -1,7 +1,9 @@
 package util
 
 import (
-	"strings"
+	"apiproject/log"
+	"github.com/davidscholberg/go-durationfmt"
+	"go.uber.org/zap"
 	"time"
 )
 
@@ -9,10 +11,10 @@ import (
 获取人性化的时间格式
 */
 func GetDurationHuman(duration time.Duration) string {
-	durationString := duration.String()
-	durationString = strings.ReplaceAll(durationString, "h", ":")
-	durationString = strings.ReplaceAll(durationString, "m", ":")
-	durationString = strings.ReplaceAll(durationString, "s", "")
+	durationFormat, err := durationfmt.Format(duration, "%0h:%0m:%0s")
+	if err != nil {
+		log.Logger.Error("获取人性化的时间格式, 异常", zap.Any("duration", duration), zap.Error(err))
+	}
 
-	return durationString
+	return durationFormat
 }

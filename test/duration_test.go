@@ -2,6 +2,7 @@ package test
 
 import (
 	"apiproject/util"
+	"fmt"
 	"testing"
 	"time"
 )
@@ -11,5 +12,6 @@ import (
 */
 func TestDurationHuman(t *testing.T) {
 	duration := (25 * time.Hour) + (22 * time.Minute) + (63 * time.Second)
-	util.GetDurationHuman(duration)
+	durationHuman := util.GetDurationHuman(duration)
+	fmt.Println(durationHuman)
 }
