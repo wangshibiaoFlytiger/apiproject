@@ -22,7 +22,11 @@ type Config struct {
 	RedisDb       int    `ini:"redis.db"`
 	RedisPoolSize int    `ini:"redis.pool.size"`
 
-	MongoUrl string `ini:"mongo.url"`
+	MongoAddr      string `ini:"mongo.addr"`
+	MongoDatabase  string `ini:"mongo.database"`
+	MongoUserName  string `ini:"mongo.username"`
+	MongoPassword  string `ini:"mongo.password"`
+	MongoPoolLimit int    `ini:"mongo.pool.limit"`
 
 	LogPath  string `ini:"log.path"`
 	Loglevel string `ini:"log.level"`
