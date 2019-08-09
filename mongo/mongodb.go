@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-var MyMongodb *mgo.Database
+var globalMongoSession *mgo.Session
 
 func Init() {
 	dialInfo := &mgo.DialInfo{
@@ -21,11 +21,17 @@ func Init() {
 		Password:  config.GlobalConfig.MongoPassword,
 		PoolLimit: config.GlobalConfig.MongoPoolLimit,
 	}
-	session, err := mgo.DialWithInfo(dialInfo)
+
+	var err error
+	globalMongoSession, err = mgo.DialWithInfo(dialInfo)
 	if err != nil {
 		log.Logger.Error("mongo初始化异常", zap.Error(err))
 	}
+}
 
-	// 2、选择数据库
-	MyMongodb = session.DB(dialInfo.Database)
+/**
+获取session的clone
+*/
+func GetMongoSessionClone() *mgo.Session {
+	return globalMongoSession.Clone()
 }
