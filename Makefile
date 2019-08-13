@@ -28,6 +28,12 @@ build_smallest: build_smaller compress
 #压缩可执行程序体积
 compress:
 #	使用压缩工具upx压缩可执行程序
+	upx ${EXE_PATH}
+	find ./ -name ${EXE_NAME} | xargs -I '{}' ls -lh {}
+
+#压缩可执行程序体积: 压缩2遍,使得文件体积更小
+compress_pass2:
+#	使用压缩工具upx压缩可执行程序
 	upx --brute ${EXE_PATH}
 	find ./ -name ${EXE_NAME} | xargs -I '{}' ls -lh {}
 
