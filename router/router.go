@@ -1,6 +1,7 @@
 package router
 
 import (
+	apiproject_config "apiproject/config"
 	"apiproject/controller"
 	c_kafka "apiproject/controller/kafka"
 	c_video "apiproject/controller/video"
@@ -26,6 +27,10 @@ func Init() *gin.Engine {
 	engine.Use(cors.New(config))
 	//全局配置api日志访问中间件
 	engine.Use(middleware.ApiLogMiddleware)
+	//加密api响应数据中间件
+	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
+		engine.Use(middleware.EncryptResponseMiddleware)
+	}
 	/**************************end 配置中间件 *****************/
 
 	/***********************start 通过go.rice配置页面模板 **********************/

@@ -12,6 +12,9 @@ type Config struct {
 	//运行环境:dev,test,pro
 	Profile string
 
+	ServicePort               int  `ini:"service.port"`
+	ServiceApiResponseEncrypt bool `ini:"service.api.response.encrypt"`
+
 	MysqlUrl          string `ini:"mysql.url"`
 	MysqlMaxIdleCount int    `ini:"mysql.max.idle.count"`
 	MysqlMaxOpenCount int    `ini:"mysql.max.open.count"`
@@ -49,6 +52,11 @@ func Init() {
 
 	//加载配置文件
 	cfg, err := ini.Load(configContent)
+
+	err = cfg.Section("service").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
 
 	err = cfg.Section("mysql").MapTo(&GlobalConfig)
 	if err != nil {

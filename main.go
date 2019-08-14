@@ -5,6 +5,7 @@ import (
 	"apiproject/config"
 	"apiproject/dao"
 	"apiproject/router"
+	"apiproject/util"
 	"gopkg.in/urfave/cli.v1"
 	"log"
 	"os"
@@ -24,7 +25,7 @@ func main() {
 	//初始化路由
 	engine := router.Init()
 	//如下代码放到最后, 否则其他代码没机会执行
-	engine.Run(":8080")
+	engine.Run(":" + util.IntToStr(config.GlobalConfig.ServicePort))
 }
 
 /**
