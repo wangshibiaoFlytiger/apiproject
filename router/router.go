@@ -27,10 +27,6 @@ func Init() *gin.Engine {
 	engine.Use(cors.New(config))
 	//全局配置api日志访问中间件
 	engine.Use(middleware.ApiLogMiddleware)
-	//加密api响应数据中间件
-	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
-		engine.Use(middleware.EncryptResponseMiddleware)
-	}
 	/**************************end 配置中间件 *****************/
 
 	/***********************start 通过go.rice配置页面模板 **********************/
@@ -63,6 +59,10 @@ func Init() *gin.Engine {
 
 	//视频相关接口
 	videoGroup := engine.Group("/api/video")
+	//加密api响应数据中间件
+	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
+		videoGroup.Use(middleware.EncryptResponseMiddleware)
+	}
 	videoGroup.GET("/findList", c_video.FindVideoList)
 	videoGroup.GET("/findVideoByWhere", c_video.FindVideoByWhere)
 	videoGroup.GET("/addVideo", c_video.AddVideo)
@@ -72,10 +72,18 @@ func Init() *gin.Engine {
 
 	//kafka相关
 	kafkaGroup := engine.Group("/api/kafka")
+	//加密api响应数据中间件
+	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
+		kafkaGroup.Use(middleware.EncryptResponseMiddleware)
+	}
 	kafkaGroup.GET("/sendMessage", c_kafka.SendMessage)
 
 	//微信支付相关
 	wxpayGroup := engine.Group("/api/wxpay")
+	//加密api响应数据中间件
+	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
+		wxpayGroup.Use(middleware.EncryptResponseMiddleware)
+	}
 	wxpayGroup.POST("/wxH5Pay", c_wxpay.WxH5Pay)
 	wxpayGroup.POST("/wxH5PayCallback", c_wxpay.WxH5PayCallback)
 
