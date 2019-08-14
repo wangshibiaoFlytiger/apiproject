@@ -1,6 +1,7 @@
 package test
 
 import (
+	"encoding/base64"
 	"encoding/hex"
 	"fmt"
 	"github.com/wumansgy/goEncrypt"
@@ -8,9 +9,9 @@ import (
 )
 
 /**
-测试加密
+测试rsa加密
 */
-func TestEncrypt(t *testing.T) {
+func TestRsa(t *testing.T) {
 	//调用GetKey()就可以在本地生成一个私钥文件private.pem, 一个公钥文件public.pem
 	if goEncrypt.GetRsaKey() != nil {
 		fmt.Println("生成公钥文件和私钥文件失败")
@@ -72,4 +73,51 @@ bQIDAQAB
 		return
 	}
 	fmt.Println("明文：", string(plaintextDec))
+}
+
+/**
+AES的CBC模式
+*/
+func TestAesCbc(t *testing.T) {
+	plaintext := []byte("床前明月光，疑是地上霜，举头望明月，学习go语言")
+	fmt.Println("明文为：", string(plaintext))
+
+	// 传入明文和自己定义的密钥，密钥为16字节 可以自己传入初始化向量,如果不传就使用默认的初始化向量,16字节
+	cryptText, err := goEncrypt.AesCbcEncrypt(plaintext, []byte("wumansgygoaescry"))
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("AES的CBC模式加密后的密文为:", string(cryptText))
+	fmt.Println("AES的CBC模式加密后的密文为:", base64.StdEncoding.EncodeToString(cryptText))
+
+	// 传入密文和自己定义的密钥，需要和加密的密钥一样，不一样会报错 可以自己传入初始化向量,如果不传就使用默认的初始化向量,16字节
+	newplaintext, err := goEncrypt.AesCbcDecrypt(cryptText, []byte("wumansgygoaescry"))
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("AES的CBC模式解密完：", string(newplaintext))
+}
+
+/**
+AES的CTR模式
+*/
+func TestAesCrt(t *testing.T) {
+	plaintext := []byte("床前明月光，疑是地上霜，举头望明月，学习go语言")
+	fmt.Println("明文为：", string(plaintext))
+
+	//传入明文和自己定义的密钥，密钥为16字节 可以自己传入初始化向量,如果不传就使用默认的初始化向量,16字节
+	cryptText, err := goEncrypt.AesCtrEncrypt(plaintext, []byte("wumansgygoaesctr"))
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("AES的CTR模式加密后的密文为:", base64.StdEncoding.EncodeToString(cryptText))
+
+	//传入密文和自己定义的密钥，需要和加密的密钥一样，不一样会报错 可以自己传入初始化向量,如果不传就使用默认的初始化向量,16字节
+	newplaintext, err := goEncrypt.AesCtrDecrypt(cryptText, []byte("wumansgygoaesctr"))
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("AES的CTR模式解密完：", string(newplaintext))
 }
