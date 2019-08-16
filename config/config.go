@@ -31,8 +31,8 @@ type Config struct {
 	MongoPassword  string `ini:"mongo.password"`
 	MongoPoolLimit int    `ini:"mongo.pool.limit"`
 
-	LogPath  string `ini:"log.path"`
-	Loglevel string `ini:"log.level"`
+	LogDir         string `ini:"log.dir"`
+	LogMaxDayCount int    `ini:"log.max.day.count"`
 
 	KafkaBroker string `ini:"kafka.broker"`
 
