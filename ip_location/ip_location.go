@@ -21,7 +21,6 @@ func Init() {
 查询IP所属位置
 */
 func GetIpLocationString(ip string) string {
-	ip = "58.24.101.8"
 	detail := locator.Find(ip)
 
 	ipLocationString := ""
