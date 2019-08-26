@@ -87,3 +87,13 @@ source /etc/profile
 
 3. 安装客户端
 go get -u gopkg.in/confluentinc/confluent-kafka-go/kafka
+
+十四. 纯真ip归属地查询
+1. 直接执行如下命令会提示安装失败: malformed module path "github.com/kayon/iploc/...": double dot
+经实践, 顺序执行如下2个命令即可完成安装, 原因未知
+go get -u github.com/kayon/iploc/
+go get -u github.com/kayon/iploc/...
+2. 下载纯真数据库文件
+iploc-fetch qqwry.gbk.dat
+3. 转换为 UTF-8
+iploc-conv -s qqwry.gbk.dat -d qqwry.utf8.dat

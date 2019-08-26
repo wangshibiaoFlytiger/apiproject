@@ -40,6 +40,8 @@ type Config struct {
 	WxpayH5Mchid     string `ini:"wxpay.h5.mchid"`
 	WxpayH5Apikey    string `ini:"wxpay.h5.apikey"`
 	WxpayH5Notifyurl string `ini:"wxpay.h5.notifyurl"`
+
+	IplocationQqwryPath string `ini:"iplocation.qqwry.path"`
 }
 
 var GlobalConfig Config = Config{}
@@ -84,6 +86,11 @@ func Init() {
 	}
 
 	err = cfg.Section("wxpay").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	err = cfg.Section("iplocation").MapTo(&GlobalConfig)
 	if err != nil {
 		panic(err)
 	}

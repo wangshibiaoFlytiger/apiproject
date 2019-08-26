@@ -5,6 +5,7 @@ import (
 	"apiproject/config"
 	"apiproject/cron"
 	"apiproject/dao"
+	"apiproject/ip_location"
 	"apiproject/kafka"
 	"apiproject/log"
 )
@@ -15,6 +16,8 @@ import (
 func Init() {
 	config.Init()
 	log.Init()
+
+	ip_location.Init()
 
 	cache.Init()
 	kafka.Init()

@@ -28,6 +28,7 @@ require (
 	github.com/imroc/req v0.2.3
 	github.com/jinzhu/gorm v1.9.5
 	github.com/json-iterator/go v1.1.6
+	github.com/kayon/iploc v0.0.0-20190319151701-e279c2dd95c0
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.2.0+incompatible
 	github.com/lestrrat-go/strftime v0.0.0-20190725011945-5c849dd2c51d // indirect
@@ -38,6 +39,7 @@ require (
 	github.com/rfyiamcool/cronlib v0.0.0-20190415113320-e596616eb4c0
 	github.com/satori/go.uuid v1.2.0
 	github.com/smartystreets/goconvey v0.0.0-20190330032615-68dc04aab96a
+	github.com/spf13/pflag v1.0.3 // indirect
 	github.com/tidwall/gjson v1.2.1
 	github.com/tidwall/match v1.0.1 // indirect
 	github.com/tidwall/pretty v0.0.0-20190325153808-1166b9ac2b65 // indirect
