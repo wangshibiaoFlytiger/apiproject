@@ -1,17 +1,22 @@
 package test
 
 import (
+	"apiproject/util"
 	"fmt"
 	"github.com/globalsign/mgo/bson"
 	"log"
 	"testing"
+	"time"
 )
 import "github.com/globalsign/mgo"
 
 type User struct {
-	Id        bson.ObjectId `bson:"_id"`
-	Username  string
-	Interests []string
+	Id             bson.ObjectId `bson:"_id"`
+	Username       string
+	Interests      []string
+	CreateTime     time.Time `bson:"createTime"`
+	CreateTimeUnix int64     `bson:"createTimeUnix"`
+	CreateTimeStr  string    `bson:"createTimeStr"`
 }
 
 var collection *mgo.Collection
@@ -55,10 +60,14 @@ func TestInsert(t *testing.T) {
 新增多条
 */
 func TestInsertMany(t *testing.T) {
+	createTime := time.Now()
+	createTimeUnix := createTime.Unix()
+	createTimeStr := util.FormatTime(createTime)
+
 	//新增数据
-	stu2 := User{bson.NewObjectId(), "stu2_name", []string{"象棋", "游泳", "跑步"}}
-	stu3 := User{bson.NewObjectId(), "stu3_name", []string{"象棋", "游泳", "跑步"}}
-	stu4 := User{bson.NewObjectId(), "stu4_name", []string{"象棋", "游泳", "跑步"}}
+	stu2 := User{bson.NewObjectId(), "stu2_name", []string{"象棋", "游泳", "跑步"}, createTime, createTimeUnix, createTimeStr}
+	stu3 := User{bson.NewObjectId(), "stu3_name", []string{"象棋", "游泳", "跑步"}, createTime, createTimeUnix, createTimeStr}
+	stu4 := User{bson.NewObjectId(), "stu4_name", []string{"象棋", "游泳", "跑步"}, createTime, createTimeUnix, createTimeStr}
 	userList := []interface{}{}
 	userList = append(userList, stu2, stu3, stu4)
 
@@ -116,5 +125,62 @@ func TestFindMany(t *testing.T) {
 	var users []User
 	//    c.Find(nil).All(&users)
 	collection.Find(bson.M{"username": "stu2_name"}).All(&users)
+	log.Println(users)
+}
+
+/**
+测试mongo的默认UTC时区对日期时间的应用的影响
+*/
+func TestMongoTime(t *testing.T) {
+	//新增数据
+	stu1 := new(User)
+	stu1.Id = bson.NewObjectId()
+	stu1.Username = "stu1_name"
+	stu1.Interests = []string{"象棋", "游泳", "跑步"}
+	stu1.CreateTime = time.Now()
+	stu1.CreateTimeUnix = stu1.CreateTime.Unix()
+	stu1.CreateTimeStr = util.FormatTime(stu1.CreateTime)
+	err := collection.Insert(stu1)
+	if err == nil {
+		fmt.Println("插入成功")
+	} else {
+		fmt.Println(err.Error())
+		defer panic(err)
+	}
+
+	//读取
+	var users []User
+	collection.Find(nil).All(&users)
+	for _, user := range users {
+		log.Println(user.CreateTime.Unix())
+		log.Println(user.CreateTimeUnix)
+		now := time.Now()
+		log.Println("当前时间:", now)
+		log.Println("用户创建时间:", user.CreateTime, user.CreateTimeStr)
+		log.Println("当前时间-用户创建时间", now.Sub(user.CreateTime))
+
+		//修改时间入库
+		timeNew := user.CreateTime.Add(10 * time.Second)
+		log.Println("timeNew", timeNew, timeNew.Unix())
+		err := collection.Update(bson.M{"_id": user.Id}, bson.M{"$set": bson.M{
+			"createTime":     timeNew,
+			"createTimeUnix": timeNew.Unix(),
+			"createTimeStr":  util.FormatTime(timeNew),
+		}})
+		if err != nil {
+			fmt.Println("修改失败")
+		} else {
+			fmt.Println("修改成功")
+			log.Println("用户修改后入库前的createTimeStr", util.FormatTime(timeNew))
+		}
+
+		//再次查询
+		var user2 User
+		collection.Find(bson.M{"_id": user.Id}).One(&user2)
+		now2 := time.Now()
+		log.Println("当前时间:", now2)
+		log.Println("用户创建时间:", user2.CreateTime, user2.CreateTimeStr)
+		log.Println("当前时间-用户创建时间", now2.Sub(user2.CreateTime))
+	}
 	log.Println(users)
 }
