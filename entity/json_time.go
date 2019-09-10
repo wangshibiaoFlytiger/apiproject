@@ -18,7 +18,7 @@ type JsonTime struct {
 
 // MarshalJSON on JsonTime format Time field with %Y-%m-%d %H:%M:%S
 func (this *JsonTime) MarshalJSON() ([]byte, error) {
-	formatted := fmt.Sprintf("\"%s\"", this.Format("2006-01-02 15:04:05"))
+	formatted := fmt.Sprintf("\"%s\"", this.Local().Format("2006-01-02 15:04:05"))
 	return []byte(formatted), nil
 }
 
