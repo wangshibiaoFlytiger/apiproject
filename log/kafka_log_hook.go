@@ -1,6 +1,7 @@
 package log
 
 import (
+	kafka2 "apiproject/kafka"
 	"errors"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"go.uber.org/zap"
@@ -30,7 +31,7 @@ func (this *KafkaLogHook) SendKafkaMessage(topic string, message string) bool {
 	// .Events channel is used.
 	deliveryChan := make(chan kafka.Event)
 
-	err := KafkaLogProducer.Produce(&kafka.Message{
+	err := kafka2.KafkaProducer.Produce(&kafka.Message{
 		TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
 		Value:          []byte(message),
 		Headers:        []kafka.Header{{Key: "myTestHeader", Value: []byte("header values are binary")}},
