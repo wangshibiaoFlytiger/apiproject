@@ -2,17 +2,22 @@ package cache
 
 import (
 	"apiproject/config"
-	"apiproject/log"
 	"github.com/go-redis/redis"
-	"go.uber.org/zap"
+	"log"
 	"strconv"
 	"time"
 )
 
 var RedisClient *redis.Client
 
-// 创建 cache 客户端
+/**
+初始化redis
+*/
 func Init() {
+	if !config.GlobalConfig.RedisSwitch {
+		return
+	}
+
 	RedisClient = redis.NewClient(&redis.Options{
 		Addr:         config.GlobalConfig.RedisHost + ":" + strconv.Itoa(config.GlobalConfig.RedisPort),
 		Password:     config.GlobalConfig.RedisPassword,
@@ -28,7 +33,8 @@ func Init() {
 	// 通过 cient.Ping() 来检查是否成功连接到了 cache 服务器
 	pong, err := RedisClient.Ping().Result()
 	if err != nil {
-		log.Logger.Error("redis客户端创建失败", zap.Error(err), zap.Any("pong", pong))
+		log.Panicln("初始化redis, 异常", pong, err)
 	}
-	log.Logger.Info("RedisClient创建完成")
+
+	log.Println("初始化redis, 完成")
 }

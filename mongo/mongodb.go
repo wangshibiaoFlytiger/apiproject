@@ -2,15 +2,21 @@ package mongo
 
 import (
 	"apiproject/config"
-	"apiproject/log"
 	"github.com/globalsign/mgo"
-	"go.uber.org/zap"
+	"log"
 	"time"
 )
 
 var globalMongoSession *mgo.Session
 
+/**
+初始化mongo
+*/
 func Init() {
+	if !config.GlobalConfig.MongoSwitch {
+		return
+	}
+
 	dialInfo := &mgo.DialInfo{
 		Addrs:     []string{config.GlobalConfig.MongoAddr},
 		Direct:    false,
@@ -25,8 +31,10 @@ func Init() {
 	var err error
 	globalMongoSession, err = mgo.DialWithInfo(dialInfo)
 	if err != nil {
-		log.Logger.Error("mongo初始化异常", zap.Error(err))
+		log.Panicln("初始化mongo, 异常", err)
 	}
+
+	log.Println("初始化mongo, 完成")
 }
 
 /**

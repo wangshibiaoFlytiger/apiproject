@@ -2,20 +2,26 @@ package kafka
 
 import (
 	"apiproject/config"
-	"apiproject/log"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
-	"go.uber.org/zap"
+	"log"
 )
 
 var KafkaProducer *kafka.Producer
 
+/**
+初始化kafka
+*/
 func Init() {
+	if !config.GlobalConfig.KafkaSwitch {
+		return
+	}
+
 	var err error
 	KafkaProducer, err = kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": config.GlobalConfig.KafkaBroker})
 
 	if err != nil {
-		log.Logger.Error("创建kafka Producer异常", zap.Error(err))
+		log.Panicln("初始化kafka, 异常", err)
 	}
 
-	log.Logger.Info("创建kafka Producer完成", zap.Any("broker", config.GlobalConfig.KafkaBroker))
+	log.Println("初始化kafka, 完成", config.GlobalConfig.KafkaBroker)
 }

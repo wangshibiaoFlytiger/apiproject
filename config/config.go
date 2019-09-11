@@ -15,16 +15,19 @@ type Config struct {
 	ServicePort               int  `ini:"service.port"`
 	ServiceApiResponseEncrypt bool `ini:"service.api.response.encrypt"`
 
+	MysqlSwitch       bool   `ini:"mysql.switch"`
 	MysqlUrl          string `ini:"mysql.url"`
 	MysqlMaxIdleCount int    `ini:"mysql.max.idle.count"`
 	MysqlMaxOpenCount int    `ini:"mysql.max.open.count"`
 
+	RedisSwitch   bool   `ini:"redis.switch"`
 	RedisHost     string `ini:"redis.host"`
 	RedisPort     int    `ini:"redis.port"`
 	RedisPassword string `ini:"redis.password"`
 	RedisDb       int    `ini:"redis.db"`
 	RedisPoolSize int    `ini:"redis.pool.size"`
 
+	MongoSwitch    bool   `ini:"mongo.switch"`
 	MongoAddr      string `ini:"mongo.addr"`
 	MongoDatabase  string `ini:"mongo.database"`
 	MongoUserName  string `ini:"mongo.username"`
@@ -35,6 +38,7 @@ type Config struct {
 	LogMaxDayCount     int    `ini:"log.max.day.count"`
 	LogKafkaHookSwitch bool   `ini:"log.kafka.hook.switch"`
 
+	KafkaSwitch bool   `ini:"kafka.switch"`
 	KafkaBroker string `ini:"kafka.broker"`
 
 	WxpayH5Appid     string `ini:"wxpay.h5.appid"`
