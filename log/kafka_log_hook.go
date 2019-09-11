@@ -1,6 +1,7 @@
 package log
 
 import (
+	"apiproject/config"
 	kafka2 "apiproject/kafka"
 	"errors"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
@@ -14,7 +15,7 @@ type KafkaLogHook struct {
 实现KafkaLogHook的io.writer接口方法, 使当前对象可以作为zap的hook使用
 */
 func (this *KafkaLogHook) Write(p []byte) (n int, err error) {
-	if !this.SendKafkaMessage("apiproject_log", string(p)) {
+	if !this.SendKafkaMessage(config.GlobalConfig.LogKafkaTopic, string(p)) {
 		HookLogger.Error("写kafka日志异常")
 		return 0, errors.New("写kafka日志异常")
 	}

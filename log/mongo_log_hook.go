@@ -29,7 +29,7 @@ func (this *MongoLogHook) InsertLogToMongo(data []byte) (err error) {
 	defer sessionClone.Close()
 	db := sessionClone.DB(config.GlobalConfig.MongoDatabase)
 
-	collection := db.C("apiprojectLog")
+	collection := db.C(config.GlobalConfig.LogMongoCollection)
 	var object interface{}
 	if err = jsoniter.Unmarshal(data, &object); err != nil {
 		HookLogger.Error("插入日志到mongo, json解析异常", zap.Any("data", data), zap.Error(err))

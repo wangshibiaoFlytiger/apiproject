@@ -37,7 +37,9 @@ type Config struct {
 	LogDir             string `ini:"log.dir"`
 	LogMaxDayCount     int    `ini:"log.max.day.count"`
 	LogKafkaHookSwitch bool   `ini:"log.kafka.hook.switch"`
+	LogKafkaTopic      string `ini:"log.kafka.topic"`
 	LogMongoHookSwitch bool   `ini:"log.mongo.hook.switch"`
+	LogMongoCollection string `ini:"log.mongo.collection"`
 
 	KafkaSwitch bool   `ini:"kafka.switch"`
 	KafkaBroker string `ini:"kafka.broker"`
