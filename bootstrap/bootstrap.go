@@ -16,17 +16,16 @@ import (
 */
 func Init() {
 	config.Init()
-	log.Init()
-
-	ip_location.Init()
 
 	cache.Init()
 	kafka.Init()
 	mongo.Init()
-
 	//dao层初始化
 	dao.Init()
 
+	log.Init()
+
+	ip_location.Init()
 	//初始化定时任务
 	cron.Init()
 }
