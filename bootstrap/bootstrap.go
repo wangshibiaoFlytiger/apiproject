@@ -8,6 +8,7 @@ import (
 	"apiproject/ip_location"
 	"apiproject/kafka"
 	"apiproject/log"
+	"apiproject/mongo"
 )
 
 /**
@@ -21,6 +22,7 @@ func Init() {
 
 	cache.Init()
 	kafka.Init()
+	mongo.Init()
 
 	//dao层初始化
 	dao.Init()
