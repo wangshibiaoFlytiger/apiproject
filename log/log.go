@@ -10,16 +10,10 @@ import (
 	"time"
 )
 
-var Logger *zap.Logger
-
-func Init() {
-	Logger = GetFileRotatelogsLogger()
-}
-
 /**
-获取基于lestrrat-go/file-rotatelogs归档的zap logger
+获取zap logger: 用于写普通日志(除了kafka 自定义hook的日志)
 */
-func GetFileRotatelogsLogger() *zap.Logger {
+func GetCommonLogger() *zap.Logger {
 	// 开启开发模式，堆栈跟踪
 	caller := zap.AddCaller()
 	// 开启文件及行号
@@ -30,6 +24,25 @@ func GetFileRotatelogsLogger() *zap.Logger {
 	// 最后创建具体的Logger
 	core := zapcore.NewTee(
 		getCoreList()...,
+	)
+
+	return zap.New(core, caller, development, filed)
+}
+
+/**
+获取zap kafka logger: 用于写kafka自定义hook的日志
+*/
+func GetKafkaHookLogger() *zap.Logger {
+	// 开启开发模式，堆栈跟踪
+	caller := zap.AddCaller()
+	// 开启文件及行号
+	development := zap.Development()
+	// 设置初始化字段
+	filed := zap.Fields(zap.String("serviceName", "miguo"))
+
+	// 最后创建具体的Logger
+	core := zapcore.NewTee(
+		getKafkaHookCoreList()...,
 	)
 
 	return zap.New(core, caller, development, filed)
@@ -78,6 +91,9 @@ func getRotatelogsHook(filename string) io.Writer {
 	return hook
 }
 
+/**
+获取zap core列表
+*/
 func getCoreList() (coreList []zapcore.Core) {
 	//按实际需求灵活定义日志级别
 	infoLevel := zap.LevelEnablerFunc(func(level zapcore.Level) bool {
@@ -89,14 +105,23 @@ func getCoreList() (coreList []zapcore.Core) {
 
 	rotatelogsInfoHook := getRotatelogsHook(config.GlobalConfig.LogDir + "info.log")
 	rotatelogsWarnHook := getRotatelogsHook(config.GlobalConfig.LogDir + "warn.log")
+	kafkaLogHook := &KafkaLogHook{}
+
+	//构建hook的WriteSyncer列表
+	var infoWriteSyncerList, warnWriteSyncerList []zapcore.WriteSyncer
+	infoWriteSyncerList = append(infoWriteSyncerList, zapcore.AddSync(os.Stdout), zapcore.AddSync(rotatelogsInfoHook))
+	warnWriteSyncerList = append(warnWriteSyncerList, zapcore.AddSync(os.Stdout), zapcore.AddSync(rotatelogsWarnHook))
+	if config.GlobalConfig.LogKafkaHookSwitch {
+		infoWriteSyncerList = append(infoWriteSyncerList, zapcore.AddSync(kafkaLogHook))
+		warnWriteSyncerList = append(warnWriteSyncerList, zapcore.AddSync(kafkaLogHook))
+	}
 
 	coreList = append(coreList,
 		zapcore.NewCore(
 			// 编码器配置
 			zapcore.NewJSONEncoder(NewEncoderConfig()),
 			// 打印到控制台和文件
-			zapcore.NewMultiWriteSyncer(zapcore.AddSync(os.Stdout),
-				zapcore.AddSync(rotatelogsInfoHook)),
+			zapcore.NewMultiWriteSyncer(infoWriteSyncerList...),
 			// 日志级别
 			infoLevel,
 		),
@@ -104,10 +129,37 @@ func getCoreList() (coreList []zapcore.Core) {
 			// 编码器配置
 			zapcore.NewJSONEncoder(NewEncoderConfig()),
 			// 打印到控制台和文件
-			zapcore.NewMultiWriteSyncer(zapcore.AddSync(os.Stdout),
-				zapcore.AddSync(rotatelogsWarnHook)),
+			zapcore.NewMultiWriteSyncer(warnWriteSyncerList...),
 			// 日志级别
 			warnLevel,
+		))
+
+	return
+}
+
+/**
+获取为kafka 自定义hook提供的core列表: 用于记录kafka 自定义hook的日志
+*/
+func getKafkaHookCoreList() (coreList []zapcore.Core) {
+	//按实际需求灵活定义日志级别
+	debugLevel := zap.LevelEnablerFunc(func(level zapcore.Level) bool {
+		return level >= zapcore.DebugLevel
+	})
+
+	kafkaHookLogHook := getRotatelogsHook(config.GlobalConfig.LogDir + "kafka.hook.log")
+
+	//构建hook的WriteSyncer列表
+	var writeSyncerList []zapcore.WriteSyncer
+	writeSyncerList = append(writeSyncerList, zapcore.AddSync(os.Stdout), zapcore.AddSync(kafkaHookLogHook))
+
+	coreList = append(coreList,
+		zapcore.NewCore(
+			// 编码器配置
+			zapcore.NewJSONEncoder(NewEncoderConfig()),
+			// 打印到控制台和文件
+			zapcore.NewMultiWriteSyncer(writeSyncerList...),
+			// 日志级别
+			debugLevel,
 		))
 
 	return

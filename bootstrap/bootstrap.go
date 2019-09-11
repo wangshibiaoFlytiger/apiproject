@@ -16,11 +16,11 @@ import (
 func Init() {
 	config.Init()
 	log.Init()
+	kafka.Init()
 
 	ip_location.Init()
 
 	cache.Init()
-	kafka.Init()
 
 	//dao层初始化
 	dao.Init()
