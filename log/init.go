@@ -6,13 +6,17 @@ import (
 )
 
 var Logger *zap.Logger
-var KafkaHookLogger *zap.Logger
+var HookLogger *zap.Logger
 
+/**
+初始化logger
+*/
 func Init() {
 	Logger = GetCommonLogger()
-	if config.GlobalConfig.LogKafkaHookSwitch {
-		KafkaHookLogger = GetKafkaHookLogger()
+	if config.GlobalConfig.LogKafkaHookSwitch ||
+		config.GlobalConfig.LogMongoHookSwitch {
+		HookLogger = GetHookLogger()
 	}
 
-	Logger.Info("创建kafka Producer完成", zap.Any("broker", config.GlobalConfig.KafkaBroker))
+	Logger.Info("初始化logger, 完成")
 }

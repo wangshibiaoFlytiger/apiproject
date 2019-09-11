@@ -11,11 +11,11 @@ type KafkaLogHook struct {
 }
 
 /**
-实现io.writer接口方法, 使当前对象可以作为zap的hook使用
+实现KafkaLogHook的io.writer接口方法, 使当前对象可以作为zap的hook使用
 */
 func (this *KafkaLogHook) Write(p []byte) (n int, err error) {
 	if !this.SendKafkaMessage("apiproject_log", string(p)) {
-		KafkaHookLogger.Error("写kafka日志异常")
+		HookLogger.Error("写kafka日志异常")
 		return 0, errors.New("写kafka日志异常")
 	}
 
@@ -41,9 +41,9 @@ func (this *KafkaLogHook) SendKafkaMessage(topic string, message string) bool {
 	m := e.(*kafka.Message)
 
 	if m.TopicPartition.Error != nil {
-		KafkaHookLogger.Error("发送kafka日志, 异常", zap.Any("topic", topic), zap.Any("message", message), zap.Error(err))
+		HookLogger.Error("发送kafka日志, 异常", zap.Any("topic", topic), zap.Any("message", message), zap.Error(err))
 	} else {
-		KafkaHookLogger.Info("发送kafka日志, 完成", zap.Any("topic", *m.TopicPartition.Topic), zap.Any("partition", m.TopicPartition.Partition), zap.Any("offset", m.TopicPartition.Offset))
+		HookLogger.Info("发送kafka日志, 完成", zap.Any("topic", *m.TopicPartition.Topic), zap.Any("partition", m.TopicPartition.Partition), zap.Any("offset", m.TopicPartition.Offset))
 		success = true
 	}
 

@@ -30,9 +30,9 @@ func GetCommonLogger() *zap.Logger {
 }
 
 /**
-获取zap kafka logger: 用于写kafka自定义hook的日志
+获取zap自定义hook的logger: 用于写自定义hook的日志
 */
-func GetKafkaHookLogger() *zap.Logger {
+func GetHookLogger() *zap.Logger {
 	// 开启开发模式，堆栈跟踪
 	caller := zap.AddCaller()
 	// 开启文件及行号
@@ -42,7 +42,7 @@ func GetKafkaHookLogger() *zap.Logger {
 
 	// 最后创建具体的Logger
 	core := zapcore.NewTee(
-		getKafkaHookCoreList()...,
+		getHookCoreList()...,
 	)
 
 	return zap.New(core, caller, development, filed)
@@ -106,6 +106,7 @@ func getCoreList() (coreList []zapcore.Core) {
 	rotatelogsInfoHook := getRotatelogsHook(config.GlobalConfig.LogDir + "info.log")
 	rotatelogsWarnHook := getRotatelogsHook(config.GlobalConfig.LogDir + "warn.log")
 	kafkaLogHook := &KafkaLogHook{}
+	mongoLogHook := &MongoLogHook{}
 
 	//构建hook的WriteSyncer列表
 	var infoWriteSyncerList, warnWriteSyncerList []zapcore.WriteSyncer
@@ -114,6 +115,10 @@ func getCoreList() (coreList []zapcore.Core) {
 	if config.GlobalConfig.LogKafkaHookSwitch {
 		infoWriteSyncerList = append(infoWriteSyncerList, zapcore.AddSync(kafkaLogHook))
 		warnWriteSyncerList = append(warnWriteSyncerList, zapcore.AddSync(kafkaLogHook))
+	}
+	if config.GlobalConfig.LogMongoHookSwitch {
+		infoWriteSyncerList = append(infoWriteSyncerList, zapcore.AddSync(mongoLogHook))
+		warnWriteSyncerList = append(warnWriteSyncerList, zapcore.AddSync(mongoLogHook))
 	}
 
 	coreList = append(coreList,
@@ -138,19 +143,23 @@ func getCoreList() (coreList []zapcore.Core) {
 }
 
 /**
-获取为kafka 自定义hook提供的core列表: 用于记录kafka 自定义hook的日志
+获取为自定义hook提供的core列表: 用于记录自定义hook的日志
 */
-func getKafkaHookCoreList() (coreList []zapcore.Core) {
+func getHookCoreList() (coreList []zapcore.Core) {
 	//按实际需求灵活定义日志级别
 	debugLevel := zap.LevelEnablerFunc(func(level zapcore.Level) bool {
 		return level >= zapcore.DebugLevel
 	})
 
-	kafkaHookLogHook := getRotatelogsHook(config.GlobalConfig.LogDir + "kafka.hook.log")
+	HookLogHook := getRotatelogsHook(config.GlobalConfig.LogDir + "hook.log")
 
 	//构建hook的WriteSyncer列表
 	var writeSyncerList []zapcore.WriteSyncer
-	writeSyncerList = append(writeSyncerList, zapcore.AddSync(os.Stdout), zapcore.AddSync(kafkaHookLogHook))
+	writeSyncerList = append(writeSyncerList, zapcore.AddSync(os.Stdout))
+	if config.GlobalConfig.LogKafkaHookSwitch ||
+		config.GlobalConfig.LogMongoHookSwitch {
+		writeSyncerList = append(writeSyncerList, zapcore.AddSync(HookLogHook))
+	}
 
 	coreList = append(coreList,
 		zapcore.NewCore(
