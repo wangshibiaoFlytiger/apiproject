@@ -15,7 +15,7 @@ func TestWxpay(t *testing.T) {
 	//    MchID：商户ID
 	//    apiKey：API秘钥值
 	//    isProd：是否是正式环境
-	client := gopay.NewWeChatClient("wx2ac89d28a6b7f7b3", "1326088401", "579617ce82484c97800e93812f4020ef", true)
+	client := gopay.NewWeChatClient("appId", "商户ID", "apikey", true)
 
 	//初始化参数Map
 	body := make(gopay.BodyMap)
