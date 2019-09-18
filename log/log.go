@@ -11,6 +11,13 @@ import (
 )
 
 /**
+获取logger的全局字段配置
+*/
+func GetLoggerGlobalOption() zap.Option {
+	return zap.Fields(zap.String("serviceName", "miguo"))
+}
+
+/**
 获取zap logger: 用于写普通日志(除了kafka 自定义hook的日志)
 */
 func GetCommonLogger() *zap.Logger {
@@ -18,15 +25,13 @@ func GetCommonLogger() *zap.Logger {
 	caller := zap.AddCaller()
 	// 开启文件及行号
 	development := zap.Development()
-	// 设置初始化字段
-	filed := zap.Fields(zap.String("serviceName", "miguo"))
 
 	// 最后创建具体的Logger
 	core := zapcore.NewTee(
 		getCoreList()...,
 	)
 
-	return zap.New(core, caller, development, filed)
+	return zap.New(core, caller, development, GetLoggerGlobalOption())
 }
 
 /**
@@ -37,15 +42,13 @@ func GetHookLogger() *zap.Logger {
 	caller := zap.AddCaller()
 	// 开启文件及行号
 	development := zap.Development()
-	// 设置初始化字段
-	filed := zap.Fields(zap.String("serviceName", "miguo"))
 
 	// 最后创建具体的Logger
 	core := zapcore.NewTee(
 		getHookCoreList()...,
 	)
 
-	return zap.New(core, caller, development, filed)
+	return zap.New(core, caller, development, GetLoggerGlobalOption())
 }
 
 func NewEncoderConfig() zapcore.EncoderConfig {
