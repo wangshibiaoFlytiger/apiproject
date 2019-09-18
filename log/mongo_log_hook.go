@@ -3,8 +3,10 @@ package log
 import (
 	"apiproject/config"
 	"apiproject/mongo"
+	"github.com/globalsign/mgo"
 	jsoniter "github.com/json-iterator/go"
 	"go.uber.org/zap"
+	"time"
 )
 
 type MongoLogHook struct {
@@ -35,9 +37,24 @@ func (this *MongoLogHook) InsertLogToMongo(data []byte) (err error) {
 		HookLogger.Error("插入日志到mongo, json解析异常", zap.Any("data", data), zap.Error(err))
 		return
 	}
-	err = collection.Insert(object)
+
+	//转为map类型
+	dataMap := object.(map[string]interface{})
+
+	//mongo日志过期, 则自动清理
+	dateTimeFieldName := "dateTime"
+	dataMap[dateTimeFieldName] = time.Now()
+	datetimeIndexUsedForExpire := mgo.Index{
+		Key:         []string{dateTimeFieldName},
+		ExpireAfter: time.Duration(config.GlobalConfig.LogMongoExpireAfterSeconds) * time.Second}
+	if err = collection.EnsureIndex(datetimeIndexUsedForExpire); err != nil {
+		HookLogger.Error("插入日志到mongo, 创建时间索引异常", zap.Any("data", dataMap), zap.Error(err))
+		return
+	}
+
+	err = collection.Insert(dataMap)
 	if err != nil {
-		HookLogger.Error("插入日志到mongo, 插入mongo异常", zap.Any("data", data), zap.Error(err))
+		HookLogger.Error("插入日志到mongo, 插入mongo异常", zap.Any("data", dataMap), zap.Error(err))
 		return
 	}
 
