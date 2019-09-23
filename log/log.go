@@ -14,7 +14,7 @@ import (
 获取logger的全局字段配置
 */
 func GetLoggerGlobalOption() zap.Option {
-	return zap.Fields(zap.String("serviceName", "miguo"))
+	return zap.Fields(zap.String("serviceName", config.GlobalConfig.ServiceName))
 }
 
 /**
