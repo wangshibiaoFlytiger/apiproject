@@ -1,6 +1,10 @@
 package util
 
-import "encoding/base64"
+import (
+	"apiproject/log"
+	"encoding/base64"
+	"go.uber.org/zap"
+)
 
 /**
 base64编码
@@ -14,4 +18,18 @@ base64编码
 */
 func Base64EncodeByte(src []byte) string {
 	return base64.StdEncoding.EncodeToString(src)
+}
+
+/**
+base64解码
+*/
+func Base64Decode(src string) (result string) {
+	bytes, err := base64.StdEncoding.DecodeString(src)
+	if err != nil {
+		log.Logger.Error("base64解码, 异常", zap.Any("string", src), zap.Error(err))
+		return
+	}
+
+	result = string(bytes)
+	return
 }
