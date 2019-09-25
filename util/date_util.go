@@ -15,7 +15,7 @@ const (
 格式化时间
 */
 func FormatTime(time time.Time) (dateTimeFormatted string) {
-	dateTimeFormatted = fmt.Sprintf("\"%s\"", time.Local().Format("2006-01-02 15:04:05"))
+	dateTimeFormatted = fmt.Sprintf("%s", time.Local().Format("2006-01-02 15:04:05"))
 	return
 }
 
