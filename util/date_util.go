@@ -30,3 +30,12 @@ func ParseTime(timeStr string) time.Time {
 
 	return timeParsed
 }
+
+/**
+获取今天零点的时间
+*/
+func GetBeginTimeToday() time.Time {
+	timeStr := time.Now().Format("2006-01-02")
+	beginTimeToday, _ := time.ParseInLocation("2006-01-02", timeStr, time.Local)
+	return beginTimeToday
+}
