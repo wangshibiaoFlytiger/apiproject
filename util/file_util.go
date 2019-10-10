@@ -24,12 +24,14 @@ func GetExePath() string {
 /**
 下载文件到本地, 按网络路径规则自动创建本地目录
 */
-func DownloadFileByNetPath(url string, rootDir string) {
+func DownloadFileByNetPath(url string, rootDir string) (localFullPath string) {
 	uri := ParsePath(url)
 
 	//创建本地目录
-	localFullPath := rootDir + uri
+	localFullPath = rootDir + uri
 	DownloadFileByLocalPath(url, localFullPath)
+
+	return localFullPath
 }
 
 /**
