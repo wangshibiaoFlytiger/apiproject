@@ -20,3 +20,11 @@ func TestFormatTime(t *testing.T) {
 func TestParseTime(t *testing.T) {
 	log.Println(util.ParseTime("2019-05-01 12:34:23"))
 }
+
+/**
+测试获取当前的日期字符串
+*/
+func TestGetCurrentDateString(t *testing.T) {
+	log.Println(util.GetCurrentDateString("/"))
+	log.Println(util.GetCurrentDateString("-"))
+}

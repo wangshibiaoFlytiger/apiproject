@@ -39,3 +39,17 @@ func GetBeginTimeToday() time.Time {
 	beginTimeToday, _ := time.ParseInLocation("2006-01-02", timeStr, time.Local)
 	return beginTimeToday
 }
+
+/**
+获取当前的年
+*/
+func GetCurrentYear() string {
+	return time.Now().Format("2006")
+}
+
+/**
+获取当前的日期字符串, 精确到日,可以指定分隔符
+*/
+func GetCurrentDateString(split string) string {
+	return time.Now().Format("2006" + split + "01" + split + "02")
+}
