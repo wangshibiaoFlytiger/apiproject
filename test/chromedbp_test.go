@@ -1,6 +1,7 @@
 package test
 
 import (
+	"apiproject/util"
 	"context"
 	"fmt"
 	"github.com/chromedp/chromedp"
@@ -28,4 +29,16 @@ func TestChromedp(t *testing.T) {
 	//打印抽取出的数据
 	fmt.Println(title)
 	fmt.Println(content)
+}
+
+/**
+测试GetDynamicPageHtmlContent
+*/
+func TestGetDynamicPageHtmlContent(t *testing.T) {
+	htmlContent, err := util.GetDynamicPageHtmlContent("https://www.toutiao.com/a6713074848530170381/")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(htmlContent)
 }
