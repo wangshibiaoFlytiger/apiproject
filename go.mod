@@ -8,6 +8,7 @@ require (
 	github.com/Pallinder/go-randomdata v1.2.0
 	github.com/beevik/etree v1.1.0
 	github.com/bwmarrin/snowflake v0.3.0
+	github.com/chromedp/chromedp v0.5.0
 	github.com/confluentinc/confluent-kafka-go v1.1.0
 	github.com/davidscholberg/go-durationfmt v0.0.0-20170122144659-64843a2083d3
 	github.com/elazarl/goproxy v0.0.0-20190711103511-473e67f1d7d2 // indirect
@@ -56,7 +57,7 @@ require (
 	go.uber.org/zap v1.9.1
 	golang.org/x/crypto v0.0.0-20190426145343-a29dc8fdc734 // indirect
 	golang.org/x/net v0.0.0-20190501004415-9ce7a6920f09 // indirect
-	golang.org/x/sys v0.0.0-20190429190828-d89cdac9e872 // indirect
+	golang.org/x/sys v0.0.0-20191010194322-b09406accb47 // indirect
 	golang.org/x/text v0.3.2 // indirect
 	google.golang.org/appengine v1.5.0 // indirect
 	gopkg.in/ini.v1 v1.44.0 // indirect
