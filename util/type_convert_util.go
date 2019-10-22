@@ -58,6 +58,11 @@ func StrToFloat64(stringValue string) (float64, error) {
 	return float64Value, nil
 }
 
+func StrToBool(stringValue string) (value bool, err error) {
+	value, err = strconv.ParseBool(stringValue)
+	return
+}
+
 func Float64ToInt(float64Value float64) int {
 	return int(float64Value)
 }

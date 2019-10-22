@@ -19,3 +19,15 @@ func TestSlice(t *testing.T) {
 	slice = util.ReverseSlice(slice)
 	fmt.Println(slice)
 }
+
+/**
+测试StrToBool
+*/
+func TestStrToBool(t *testing.T) {
+	value, err := util.StrToBool("true")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(value)
+}
