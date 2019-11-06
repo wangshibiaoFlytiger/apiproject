@@ -3,6 +3,7 @@ package util
 import (
 	"context"
 	"github.com/chromedp/chromedp"
+	"golang.org/x/text/encoding/simplifiedchinese"
 )
 
 /**
@@ -22,4 +23,19 @@ func GetDynamicPageHtmlContent(url string) (htmlContent string, err error) {
 	}
 
 	return htmlContent, nil
+}
+
+/**
+中文乱码转成中文：当爬取的网页内容出现中文乱码时,需要调用此函数做下转换
+*/
+func DecodeToGBK(text string) (string, error) {
+
+	dst := make([]byte, len(text)*2)
+	tr := simplifiedchinese.GB18030.NewDecoder()
+	nDst, _, err := tr.Transform(dst, []byte(text), true)
+	if err != nil {
+		return text, err
+	}
+
+	return string(dst[:nDst]), nil
 }
