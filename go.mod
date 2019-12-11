@@ -58,7 +58,7 @@ require (
 	golang.org/x/crypto v0.0.0-20190426145343-a29dc8fdc734 // indirect
 	golang.org/x/net v0.0.0-20190501004415-9ce7a6920f09 // indirect
 	golang.org/x/sys v0.0.0-20191010194322-b09406accb47 // indirect
-	golang.org/x/text v0.3.2 // indirect
+	golang.org/x/text v0.3.2
 	google.golang.org/appengine v1.5.0 // indirect
 	gopkg.in/ini.v1 v1.44.0 // indirect
 	gopkg.in/urfave/cli.v1 v1.20.0

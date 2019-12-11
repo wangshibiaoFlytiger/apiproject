@@ -52,6 +52,9 @@ type Config struct {
 	WxpayH5Notifyurl string `ini:"wxpay.h5.notifyurl"`
 
 	IplocationQqwryPath string `ini:"iplocation.qqwry.path"`
+
+	TaskSwitch    bool   `ini:"task.switch"`
+	TaskTask1Cron string `ini:"task.task1.cron"`
 }
 
 var GlobalConfig Config = Config{}
@@ -101,6 +104,11 @@ func Init() {
 	}
 
 	err = cfg.Section("iplocation").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	err = cfg.Section("task").MapTo(&GlobalConfig)
 	if err != nil {
 		panic(err)
 	}
