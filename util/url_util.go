@@ -4,6 +4,7 @@ import (
 	"apiproject/log"
 	"go.uber.org/zap"
 	"net/url"
+	"strings"
 )
 
 /**
@@ -35,4 +36,13 @@ func UrlDecode(input string) string {
 	}
 
 	return value
+}
+
+/**
+解析url中path之前的部分
+*/
+func ParseUrlPrefix(httpUrl string) string {
+	path := ParsePath(httpUrl)
+	prefix := strings.ReplaceAll(httpUrl, path, "")
+	return prefix
 }
