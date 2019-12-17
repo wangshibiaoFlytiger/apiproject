@@ -41,6 +41,7 @@ require (
 	github.com/lestrrat-go/strftime v0.0.0-20190725011945-5c849dd2c51d // indirect
 	github.com/mattn/go-isatty v0.0.7 // indirect
 	github.com/moul/http2curl v1.0.0 // indirect
+	github.com/mroth/weightedrand v0.2.1
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/rfyiamcool/cronlib v0.0.0-20190415113320-e596616eb4c0

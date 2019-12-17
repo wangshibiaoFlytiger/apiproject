@@ -155,3 +155,21 @@ func TestRandom(t *testing.T) {
 		println(util.RandomElem(elemArr).(string))
 	}
 }
+
+/**
+按权重随机选择任意类型元素
+*/
+func TestRandomWeight(t *testing.T) {
+	elemMap := map[interface{}]uint{
+		"aaa": 1,
+		"bbb": 1,
+		"ccc": 2,
+		"ddd": 2,
+		"eee": 4,
+	}
+
+	for i := 0; i < 1000; i++ {
+		random := util.WeightRandom(elemMap)
+		println(random.(string))
+	}
+}

@@ -1,6 +1,7 @@
 package util
 
 import (
+	"github.com/mroth/weightedrand"
 	"math/rand"
 	"time"
 )
@@ -21,6 +22,19 @@ func GenRandomInt(start int, end int) int {
 func RandomElem(arr []interface{}) interface{} {
 	randomIndex := GenRandomInt(0, len(arr))
 	return arr[randomIndex]
+}
+
+/**
+按权重随机挑选
+*/
+func WeightRandom(elemMap map[interface{}]uint) interface{} {
+	rand.Seed(time.Now().UTC().UnixNano()) // always seed random!
+	choiceList := []weightedrand.Choice{}
+	for k, v := range elemMap {
+		choiceList = append(choiceList, weightedrand.Choice{k, v})
+	}
+	chooser := weightedrand.NewChooser(choiceList...)
+	return chooser.Pick()
 }
 
 //生成范围在[start,end), 类型为int的n个不重复随机数
