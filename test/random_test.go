@@ -1,6 +1,7 @@
 package test
 
 import (
+	"apiproject/util"
 	"fmt"
 	"github.com/Pallinder/go-randomdata"
 	"testing"
@@ -147,4 +148,10 @@ func TestRandom(t *testing.T) {
 	fmt.Println(randomdata.ProvinceForCountry("GB"))
 	// Get a random country-localised province for USA
 	fmt.Println(randomdata.ProvinceForCountry("US"))
+
+	for i := 0; i < 36; i++ {
+		//随机获取数组的1个元素
+		elemArr := []interface{}{"aaa", "bbb", "ccc", "ddd", "eee", "fff"}
+		println(util.RandomElem(elemArr).(string))
+	}
 }

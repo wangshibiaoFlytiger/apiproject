@@ -15,6 +15,14 @@ func GenRandomInt(start int, end int) int {
 	return num
 }
 
+/**
+随机获取1个数组元素
+*/
+func RandomElem(arr []interface{}) interface{} {
+	randomIndex := GenRandomInt(0, len(arr))
+	return arr[randomIndex]
+}
+
 //生成范围在[start,end), 类型为int的n个不重复随机数
 func GenRandomIntList(start int, end int, count int) []int {
 	//范围检查
