@@ -34,7 +34,13 @@ func ReverseProxyMiddleware(apiPrefix string, proxyOption ProxyOption) gin.Handl
 			resp, err := client.Do(req)
 			defer resp.Body.Close()
 			body, err := ioutil.ReadAll(resp.Body)
+			log.Logger.Info("反向代理中间件, 上游代理api返回的resp header", zap.Any("respHeader", resp.Header))
 			for key, value := range resp.Header {
+				//对于上游api返回的跨域相关的header过滤掉, 否则浏览器端会显示跨域错误, 如:The 'Access-Control-Allow-Origin' header contains multiple values '*, *', but only one is allowed
+				if key == "Access-Control-Allow-Origin" {
+					continue
+				}
+
 				if len(value) == 1 {
 					ctx.Writer.Header().Add(key, value[0])
 				}
