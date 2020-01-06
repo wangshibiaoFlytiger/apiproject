@@ -4,4 +4,4 @@ import (
 	s_task "apiproject/service/task"
 )
 
-var taskService s_task.TaskService
+var taskService *s_task.TaskService
