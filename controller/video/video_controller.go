@@ -39,9 +39,16 @@ func FindVideoByWhere(ctx *gin.Context) {
 	建议用ShouldBind, 不要使用其他bind方法, 否则可能会返回400错误, 参考链接:https://learnku.com/docs/gin-gonic/2018/gin-readme/3819
 	*/
 	videoQuery := m_video.Video{}
-	if ctx.ShouldBind(&videoQuery) == nil {
-		log.Logger.Info("绑定请求参数到对象", zap.Any("videoQuery", videoQuery))
+	if err := ctx.ShouldBind(&videoQuery); err != nil {
+		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 0,
+			"data": nil,
+			"msg":  "参数错误",
+		})
+		return
 	}
+	log.Logger.Info("绑定请求参数到对象", zap.Any("videoQuery", videoQuery))
 
 	videoList := []m_video.Video{}
 	dao.Db.Where("site_id = ? and title like ?", videoQuery.SiteId, "%7%").Find(&videoList)
