@@ -6,10 +6,13 @@ import (
 	c_kafka "apiproject/controller/kafka"
 	c_video "apiproject/controller/video"
 	c_wxpay "apiproject/controller/wxpay"
+	"apiproject/log"
 	"apiproject/middleware"
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	jsoniter "github.com/json-iterator/go"
+	"go.uber.org/zap"
 	"html/template"
 )
 
@@ -86,6 +89,18 @@ func Init() *gin.Engine {
 	}
 	wxpayGroup.POST("/wxH5Pay", c_wxpay.WxH5Pay)
 	wxpayGroup.POST("/wxH5PayCallback", c_wxpay.WxH5PayCallback)
+
+	//配置反向代理api
+	reverseproxyList := []map[string]string{}
+	jsoniter.UnmarshalFromString(apiproject_config.GlobalConfig.ReverseproxyList, &reverseproxyList)
+	log.Logger.Info("初始化路由, 查询反向代理配置", zap.Any("reverseproxyList", reverseproxyList))
+	for _, reverseProxy := range reverseproxyList {
+		//代理匹配urlPrefix的api到target服务
+		engine.Use(middleware.ReverseProxyMiddleware(reverseProxy["urlPrefix"], middleware.ProxyOption{
+			Target:      reverseProxy["target"],
+			PathRewrite: "",
+		}))
+	}
 
 	return engine
 }

@@ -55,6 +55,9 @@ type Config struct {
 
 	TaskSwitch    bool   `ini:"task.switch"`
 	TaskTask1Cron string `ini:"task.task1.cron"`
+
+	//反向代理列表
+	ReverseproxyList string `ini:"reverseproxy.list"`
 }
 
 var GlobalConfig Config = Config{}
@@ -109,6 +112,11 @@ func Init() {
 	}
 
 	err = cfg.Section("task").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	err = cfg.Section("reverseproxy").MapTo(&GlobalConfig)
 	if err != nil {
 		panic(err)
 	}
