@@ -9,7 +9,7 @@ import (
 系统配置
 */
 type Config struct {
-	//运行环境:dev,test,pro
+	//运行环境:back-dev,back-test,front-dev,front-test
 	Profile string
 
 	ServiceName               string `ini:"service.name"`

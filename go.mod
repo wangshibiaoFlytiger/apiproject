@@ -21,25 +21,23 @@ require (
 	github.com/facebookgo/subset v0.0.0-20150612182917-8dac2c3c4870 // indirect
 	github.com/fastly/go-utils v0.0.0-20180712184237-d95a45783239 // indirect
 	github.com/gin-contrib/cors v0.0.0-20190424000812-bd1331c62cae
-	github.com/gin-contrib/sse v0.0.0-20190301062529-5545eab6dad3 // indirect
-	github.com/gin-gonic/gin v1.3.0
+	github.com/gin-contrib/multitemplate v0.0.0-20191128031210-95dee0dedf35
+	github.com/gin-gonic/gin v1.5.0
 	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
 	github.com/go-ini/ini v1.42.0
 	github.com/go-redis/redis v6.15.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
-	github.com/golang/protobuf v1.3.1 // indirect
 	github.com/google/go-cmp v0.3.0 // indirect
 	github.com/iGoogle-ink/gopay v1.2.1
 	github.com/imroc/req v0.2.3
 	github.com/jehiah/go-strftime v0.0.0-20171201141054-1d33003b3869 // indirect
 	github.com/jinzhu/gorm v1.9.5
 	github.com/jonboulle/clockwork v0.1.0 // indirect
-	github.com/json-iterator/go v1.1.6
+	github.com/json-iterator/go v1.1.7
 	github.com/kayon/iploc v0.0.0-20190319151701-e279c2dd95c0
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.2.0+incompatible
 	github.com/lestrrat-go/strftime v0.0.0-20190725011945-5c849dd2c51d // indirect
-	github.com/mattn/go-isatty v0.0.7 // indirect
 	github.com/moul/http2curl v1.0.0 // indirect
 	github.com/mroth/weightedrand v0.2.1
 	github.com/onsi/ginkgo v1.8.0 // indirect

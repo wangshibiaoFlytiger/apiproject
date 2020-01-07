@@ -8,8 +8,17 @@ import (
 
 //渲染首页入口页面
 func Index(ctx *gin.Context) {
-	ctx.HTML(http.StatusOK, "index.html", gin.H{
-		"title":   "我是模板变量的内容",
-		"encrypt": config.GlobalConfig.ServiceApiResponseEncrypt,
-	})
+	serviceName := config.GlobalConfig.ServiceName
+	//配置前端服务页面
+	if serviceName == "apiprojectBack" {
+		ctx.HTML(http.StatusOK, "back.html", gin.H{
+			"title":   "我是后台管理",
+			"encrypt": config.GlobalConfig.ServiceApiResponseEncrypt,
+		})
+	} else if serviceName == "apiprojectFront" { //配置后台管理页面
+		ctx.HTML(http.StatusOK, "front.html", gin.H{
+			"title":   "我是前端页面",
+			"encrypt": config.GlobalConfig.ServiceApiResponseEncrypt,
+		})
+	}
 }

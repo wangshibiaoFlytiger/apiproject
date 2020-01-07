@@ -45,9 +45,9 @@ func parseCliParam() {
 	app.Flags = []cli.Flag{
 		//参数string, int, bool
 		cli.StringFlag{
-			Name:  "profile, p",        //参数名称
-			Value: "dev",               //参数默认值
-			Usage: "运行环境:dev,test,pro", //参数功能描述
+			Name:  "profile, p",                                   //参数名称
+			Value: "dev",                                          //参数默认值
+			Usage: "运行环境:back-dev,back-test,front-dev,front-test", //参数功能描述
 		},
 	}
 	//该程序执行的代码

@@ -10,10 +10,10 @@ import (
 	"apiproject/middleware"
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 	"go.uber.org/zap"
-	"html/template"
 )
 
 /**
@@ -35,22 +35,18 @@ func Init() *gin.Engine {
 	/***********************start 通过go.rice配置页面模板 **********************/
 	//配置模板文件的根目录
 	templateBox := rice.MustFindBox("../public/template")
-
+	renderer := multitemplate.NewRenderer()
 	//配置模板文件路径列表, 需填写相对于模板相对路径
-	list := [...]string{"index.html"}
-	for _, x := range list {
-		templateString, err := templateBox.String(x)
+	fileNameList := [...]string{"front.html", "back.html"}
+	for _, fileName := range fileNameList {
+		templateString, err := templateBox.String(fileName)
 		if err != nil {
 			panic(err)
 		}
 
-		tmplMessage, err := template.New(x).Parse(templateString)
-		if err != nil {
-			panic(err)
-		}
-
-		engine.SetHTMLTemplate(tmplMessage)
+		renderer.AddFromString(fileName, templateString)
 	}
+	engine.HTMLRender = renderer
 	/***********************end 配置页面模板 **********************/
 
 	//通过go.rice配置静态文件目录
