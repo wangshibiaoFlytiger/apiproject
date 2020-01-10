@@ -11,6 +11,7 @@ require (
 	github.com/chromedp/chromedp v0.5.0
 	github.com/confluentinc/confluent-kafka-go v1.1.0
 	github.com/davidscholberg/go-durationfmt v0.0.0-20170122144659-64843a2083d3
+	github.com/disintegration/imaging v1.6.2
 	github.com/elazarl/goproxy v0.0.0-20190711103511-473e67f1d7d2 // indirect
 	github.com/elazarl/goproxy/ext v0.0.0-20190711103511-473e67f1d7d2 // indirect
 	github.com/emirpasic/gods v1.12.0
