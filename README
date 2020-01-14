@@ -25,10 +25,11 @@ controller层: c_
 四. 测试代码
 执行单元测试, 需要进入test目录, 然后执行go test
 
-五. 自动编译
-go get github.com/liudng/dogo
-vi ./dogo_auto_make.json
-dogo -c ./dogo_auto_make.json
+五. live reload 自动编译并运行
+go get -u github.com/cosmtrek/air
+项目根目录创建liveReload.conf文件:
+    编辑配置项bin,full_bin,exclude_file(将rice-box.go移除)
+执行命令 air -c ./liveReload.conf
 
 六. 集成自动测试框架goconvey
 go get github.com/smartystreets/goconvey
