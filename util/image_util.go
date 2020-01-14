@@ -30,7 +30,7 @@ func ResizeImage(srcPath string, dstPath string, width int, height int) error {
 /**
 从图片中央按指定分辨率切图: 同时压缩图片质量
 */
-func CropImage(srcPath string, dstPath string, width int, height int) error {
+func CropImageCenter(srcPath string, dstPath string, width int, height int) error {
 	img, err := imaging.Open(srcPath)
 	if err != nil {
 		log.Logger.Error("从图片中央按指定分辨率切图, 异常", zap.Error(err))
