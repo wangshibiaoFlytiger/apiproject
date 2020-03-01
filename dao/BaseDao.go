@@ -3,7 +3,9 @@ package dao
 import (
 	"apiproject/entity"
 	"apiproject/log"
+	"apiproject/model"
 	"errors"
+	"github.com/jinzhu/gorm"
 	"go.uber.org/zap"
 	"reflect"
 	"strings"
@@ -90,4 +92,18 @@ func (this *BaseDao) BulkInsert(values interface{}, validColList []string) error
 	}
 
 	return err
+}
+
+/**
+查询分页数据:
+注意: db实参需要绑定具体表
+*/
+func (this *BaseDao) FindPageData(db *gorm.DB, page *model.Page) error {
+	db.Count(&page.ItemCount)
+	db = db.Offset((page.PageNo - 1) * page.PageSize).Limit(page.PageSize)
+	db.Order("created_at desc").Find(page.ItemList)
+
+	page.PageCount = page.ItemCount / page.PageSize
+
+	return nil
 }

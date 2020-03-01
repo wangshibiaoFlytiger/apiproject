@@ -2,6 +2,7 @@ package d_video
 
 import (
 	"apiproject/dao"
+	"apiproject/model"
 	m_video "apiproject/model/video"
 )
 
@@ -17,4 +18,24 @@ func (this *VideoDao) FindVideoList() []m_video.Video {
 	dao.Db.Find(&videoList)
 
 	return videoList
+}
+
+/**
+分页查找视频列表
+*/
+func (this *VideoDao) FindVideoListPage(pageNo int, pageSize int) *model.Page {
+	db := dao.Db.Model(&m_video.Video{})
+
+	page := &model.Page{
+		PageNo:    pageNo,
+		PageSize:  pageSize,
+		PageCount: 0,
+		ItemCount: 0,
+		ItemList:  &[]m_video.Video{},
+	}
+	if err := this.FindPageData(db, page); err != nil {
+		return nil
+	}
+
+	return page
 }

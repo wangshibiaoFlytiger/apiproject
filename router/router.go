@@ -63,6 +63,7 @@ func Init() *gin.Engine {
 		videoGroup.Use(middleware.EncryptResponseMiddleware)
 	}
 	videoGroup.GET("/findList", c_video.FindVideoList)
+	videoGroup.GET("/findVideoListPage", c_video.FindVideoListPage)
 	videoGroup.GET("/findVideoByWhere", c_video.FindVideoByWhere)
 	videoGroup.GET("/addVideo", c_video.AddVideo)
 	videoGroup.GET("/bulkAddVideo", c_video.BulkAddVideo)

@@ -4,6 +4,7 @@ import (
 	"apiproject/dao"
 	"apiproject/entity"
 	"apiproject/log"
+	"apiproject/model"
 	m_video "apiproject/model/video"
 	"apiproject/util"
 	"github.com/gin-gonic/gin"
@@ -20,6 +21,28 @@ func FindVideoList(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
 		"data": videoList,
+	})
+}
+
+/**
+分页查询视频列表接口
+*/
+func FindVideoListPage(ctx *gin.Context) {
+	page := model.Page{}
+	if err := ctx.ShouldBind(&page); err != nil {
+		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 0,
+			"data": nil,
+			"msg":  "参数错误",
+		})
+		return
+	}
+	log.Logger.Info("绑定请求参数到对象", zap.Any("page", page))
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 1,
+		"data": videoService.FindVideoListPage(page.PageNo, page.PageSize),
 	})
 }
 

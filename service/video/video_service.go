@@ -3,6 +3,7 @@ package s_video
 import (
 	"apiproject/entity"
 	"apiproject/log"
+	"apiproject/model"
 	m_video "apiproject/model/video"
 	"apiproject/util"
 	"go.uber.org/zap"
@@ -16,6 +17,11 @@ type VideoService struct {
 func (this *VideoService) FindVideoList() []m_video.Video {
 	videoList := videoDao.FindVideoList()
 	return videoList
+}
+
+//分页查询视频列表
+func (this *VideoService) FindVideoListPage(pageNo int, pageSize int) *model.Page {
+	return videoDao.FindVideoListPage(pageNo, pageSize)
 }
 
 /**
