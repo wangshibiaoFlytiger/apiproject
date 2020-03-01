@@ -6,6 +6,7 @@ import (
 	"apiproject/log"
 	"apiproject/model"
 	m_video "apiproject/model/video"
+	s_video "apiproject/service/video"
 	"apiproject/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -17,7 +18,7 @@ import (
 查询视频列表接口
 */
 func FindVideoList(ctx *gin.Context) {
-	videoList := videoService.FindVideoList()
+	videoList := s_video.VideoService.FindVideoList()
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
 		"data": videoList,
@@ -42,7 +43,7 @@ func FindVideoListPage(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
-		"data": videoService.FindVideoListPage(page.PageNo, page.PageSize),
+		"data": s_video.VideoService.FindVideoListPage(page.PageNo, page.PageSize),
 	})
 }
 
@@ -103,7 +104,7 @@ func AddVideo(ctx *gin.Context) {
 批量添加视频
 */
 func BulkAddVideo(ctx *gin.Context) {
-	videoService.BulkAddVideo()
+	s_video.VideoService.BulkAddVideo()
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,

@@ -3,6 +3,7 @@ package cron
 import (
 	"apiproject/config"
 	"apiproject/log"
+	s_task "apiproject/service/task"
 	"github.com/rfyiamcool/cronlib"
 	"go.uber.org/zap"
 )
@@ -21,7 +22,7 @@ func Init() {
 
 	cronSchduler := cronlib.New()
 
-	err := registerTask(cronSchduler, "定时任务1", config.GlobalConfig.TaskTask1Cron, taskService.Task1)
+	err := registerTask(cronSchduler, "定时任务1", config.GlobalConfig.TaskTask1Cron, s_task.TaskService.Task1)
 	if err != nil {
 		panic(err)
 	}

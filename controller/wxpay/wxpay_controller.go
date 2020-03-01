@@ -1,6 +1,7 @@
 package c_wxpay
 
 import (
+	s_wxpay "apiproject/service/wxpay"
 	"apiproject/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -10,7 +11,7 @@ import (
 微信H5支付
 */
 func WxH5Pay(ctx *gin.Context) {
-	mwebUrl, success := wxpayService.WxH5pay("标题", util.GenUniqueId().String(), 1, ctx.ClientIP())
+	mwebUrl, success := s_wxpay.WxpayService.WxH5pay("标题", util.GenUniqueId().String(), 1, ctx.ClientIP())
 	if !success {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"code": 0,
@@ -29,5 +30,5 @@ func WxH5Pay(ctx *gin.Context) {
 微信H5支付的回调
 */
 func WxH5PayCallback(ctx *gin.Context) {
-	ctx.XML(http.StatusOK, wxpayService.WxH5payCallback())
+	ctx.XML(http.StatusOK, s_wxpay.WxpayService.WxH5payCallback())
 }

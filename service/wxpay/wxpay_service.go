@@ -7,13 +7,15 @@ import (
 	"go.uber.org/zap"
 )
 
-type WxpayService struct {
+var WxpayService = &wxpayService{}
+
+type wxpayService struct {
 }
 
 /**
 微信H5支付
 */
-func (this *WxpayService) WxH5pay(title string, orderNo string, fee int64, userIp string) (mwebUrl string, success bool) {
+func (this *wxpayService) WxH5pay(title string, orderNo string, fee int64, userIp string) (mwebUrl string, success bool) {
 	//初始化微信客户端
 	//    appId：应用ID
 	//    MchID：商户ID
@@ -50,7 +52,7 @@ func (this *WxpayService) WxH5pay(title string, orderNo string, fee int64, userI
 /**
 查询微信订单是否支付完成
 */
-func (this *WxpayService) IsOrderSuccess(orderNo string) (success bool) {
+func (this *wxpayService) IsOrderSuccess(orderNo string) (success bool) {
 	//初始化微信客户端
 	//    appId：应用ID
 	//    MchID：商户ID
@@ -83,7 +85,7 @@ func (this *WxpayService) IsOrderSuccess(orderNo string) (success bool) {
 /**
 微信H5支付的回调
 */
-func (this *WxpayService) WxH5payCallback() interface{} {
+func (this *wxpayService) WxH5payCallback() interface{} {
 	type xml struct {
 		ReturnCode string `xml:"return_code"`
 		ReturnMsg  string `xml:"return_msg"`

@@ -6,14 +6,16 @@ import (
 	m_video "apiproject/model/video"
 )
 
-type VideoDao struct {
+var VideoDao = &videoDao{}
+
+type videoDao struct {
 	dao.BaseDao
 }
 
 /**
 查找视频列表
 */
-func (this *VideoDao) FindVideoList() []m_video.Video {
+func (this *videoDao) FindVideoList() []m_video.Video {
 	var videoList []m_video.Video
 	dao.Db.Find(&videoList)
 
@@ -23,7 +25,7 @@ func (this *VideoDao) FindVideoList() []m_video.Video {
 /**
 分页查找视频列表
 */
-func (this *VideoDao) FindVideoListPage(pageNo int, pageSize int) *model.Page {
+func (this *videoDao) FindVideoListPage(pageNo int, pageSize int) *model.Page {
 	db := dao.Db.Model(&m_video.Video{})
 
 	page := &model.Page{

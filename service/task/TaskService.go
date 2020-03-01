@@ -2,12 +2,14 @@ package s_task
 
 import "apiproject/log"
 
-type TaskService struct {
+var TaskService = &taskService{}
+
+type taskService struct {
 }
 
 /**
 执行任务1
 */
-func (this *TaskService) Task1() {
+func (this *taskService) Task1() {
 	log.Logger.Info("执行任务1, 完成")
 }

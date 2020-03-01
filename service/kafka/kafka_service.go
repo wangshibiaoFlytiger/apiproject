@@ -7,13 +7,15 @@ import (
 	"go.uber.org/zap"
 )
 
-type KafkaService struct {
+var KafkaService = &kafkaService{}
+
+type kafkaService struct {
 }
 
 /**
 发送kafka消息
 */
-func (this *KafkaService) SendKafkaMessage(topic string, message string) bool {
+func (this *kafkaService) SendKafkaMessage(topic string, message string) bool {
 	success := false
 	// Optional delivery channel, if not specified the Producer object's
 	// .Events channel is used.
