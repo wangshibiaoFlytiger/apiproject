@@ -4,6 +4,7 @@ import (
 	"github.com/Pallinder/go-randomdata"
 	"github.com/bwmarrin/snowflake"
 	uuid "github.com/satori/go.uuid"
+	"time"
 )
 
 /**
@@ -17,6 +18,8 @@ func GenUniqueId() snowflake.ID {
 		panic(err)
 	}
 
+	//等待1毫秒,避免发生ID重复的问题
+	time.Sleep(1 * time.Millisecond)
 	// Generate a snowflake ID.
 	id := node.Generate()
 
