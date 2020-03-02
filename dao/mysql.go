@@ -2,6 +2,7 @@ package dao
 
 import (
 	"apiproject/config"
+	"apiproject/util"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -29,9 +30,8 @@ func Init() {
 	Db.DB().SetMaxOpenConns(config.GlobalConfig.MysqlMaxOpenCount)
 
 	//为插入,更新,删除操作替换默认回调
-	//Db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
-	Db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
-	Db.Callback().Delete().Replace("gorm:delete", deleteCallback)
+	//在默认回调gorm:before_create之前注册自定义回调,用于自动生成主键ID
+	Db.Callback().Create().Before("gorm:before_create").Register("generate_id", generateIdForCreateCallback)
 
 	// 启用Logger，显示详细日志
 	Db.LogMode(true)
@@ -40,70 +40,15 @@ func Init() {
 }
 
 /**
-updateTimeStampForCreateCallback will set `CreatedAt`, `UpdatedAt` when creating
-该插入回调没有验证成功, 提示错误:using unaddressable value
+模型创建之前自动生成主键ID
 */
-func updateTimeStampForCreateCallback(scope *gorm.Scope) {
+func generateIdForCreateCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
-		now := gorm.NowFunc()
-
-		if createdAtField, ok := scope.FieldByName("CreatedAt"); ok {
-			if createdAtField.IsBlank {
-				err := createdAtField.Set(now)
-				fmt.Println(err)
-			}
-		}
-
-		if updatedAtField, ok := scope.FieldByName("UpdatedAt"); ok {
-			if updatedAtField.IsBlank {
-				err := updatedAtField.Set(now)
+		if idField, ok := scope.FieldByName("ID"); ok {
+			if idField.IsBlank {
+				err := idField.Set(util.GenUniqueId())
 				fmt.Println(err)
 			}
 		}
 	}
-}
-
-// updateTimeStampForUpdateCallback will set `UpdatedAt` when updating
-func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
-	if _, ok := scope.Get("gorm:update_column"); !ok {
-		scope.SetColumn("UpdatedAt", gorm.NowFunc())
-	}
-}
-
-// deleteCallback used to delete data from database or set deleted_at to current time (when using with soft delete)
-func deleteCallback(scope *gorm.Scope) {
-	if !scope.HasError() {
-		var extraOption string
-		if str, ok := scope.Get("gorm:delete_option"); ok {
-			extraOption = fmt.Sprint(str)
-		}
-
-		deletedAtField, hasDeletedAtField := scope.FieldByName("DeletedAt")
-
-		if !scope.Search.Unscoped && hasDeletedAtField {
-			scope.Raw(fmt.Sprintf(
-				"UPDATE %v SET %v=%v%v%v",
-				scope.QuotedTableName(),
-				scope.Quote(deletedAtField.DBName),
-				scope.AddToVars(gorm.NowFunc()),
-				addExtraSpaceIfExist(scope.CombinedConditionSql()),
-				addExtraSpaceIfExist(extraOption),
-			)).Exec()
-		} else {
-			scope.Raw(fmt.Sprintf(
-				"DELETE FROM %v%v%v",
-				scope.QuotedTableName(),
-				addExtraSpaceIfExist(scope.CombinedConditionSql()),
-				addExtraSpaceIfExist(extraOption),
-			)).Exec()
-		}
-	}
-}
-
-// addExtraSpaceIfExist adds a separator
-func addExtraSpaceIfExist(str string) string {
-	if str != "" {
-		return " " + str
-	}
-	return ""
 }
