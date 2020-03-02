@@ -1,6 +1,7 @@
 package s_video
 
 import (
+	"apiproject/dao"
 	d_video "apiproject/dao/video"
 	"apiproject/entity"
 	"apiproject/log"
@@ -17,14 +18,28 @@ type videoService struct {
 }
 
 //查询视频列表
-func (this *videoService) FindVideoList() []m_video.Video {
-	videoList := d_video.VideoDao.FindVideoList()
-	return videoList
+func (this *videoService) FindVideoList() (videoList []*m_video.Video, err error) {
+	if err := d_video.VideoDao.FindList(dao.Db, &videoList); err != nil {
+		return nil, err
+	}
+
+	return videoList, nil
 }
 
 //分页查询视频列表
 func (this *videoService) FindVideoListPage(pageNo int, pageSize int) *model.Page {
-	return d_video.VideoDao.FindVideoListPage(pageNo, pageSize)
+	page := &model.Page{
+		PageNo:    pageNo,
+		PageSize:  pageSize,
+		PageCount: 0,
+		ItemCount: 0,
+		ItemList:  &[]m_video.Video{},
+	}
+	if err := d_video.VideoDao.FindPageData(dao.Db.Model(&m_video.Video{}), page); err != nil {
+		return nil
+	}
+
+	return page
 }
 
 /**
@@ -49,7 +64,7 @@ func (this *videoService) BulkAddVideo() {
 	videoList = append(videoList, video1)
 	videoList = append(videoList, video2)
 
-	error := d_video.VideoDao.BulkInsert(videoList, []string{"id", "site_id", "title", "created_at", "updated_at"})
+	error := d_video.VideoDao.BulkInsert(dao.Db, videoList, []string{"id", "site_id", "title", "created_at", "updated_at"})
 	if error != nil {
 		log.Logger.Error("批量添加视频失败", zap.Error(error))
 	}

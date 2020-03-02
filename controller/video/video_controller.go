@@ -2,23 +2,30 @@ package c_video
 
 import (
 	"apiproject/dao"
-	"apiproject/entity"
+	d_video "apiproject/dao/video"
 	"apiproject/log"
 	"apiproject/model"
 	m_video "apiproject/model/video"
 	s_video "apiproject/service/video"
-	"apiproject/util"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net/http"
-	"time"
 )
 
 /**
 查询视频列表接口
 */
 func FindVideoList(ctx *gin.Context) {
-	videoList := s_video.VideoService.FindVideoList()
+	videoList, err := s_video.VideoService.FindVideoList()
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 0,
+			"data": nil,
+			"msg":  err.Error(),
+		})
+		return
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
 		"data": videoList,
@@ -35,7 +42,7 @@ func FindVideoListPage(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": 0,
 			"data": nil,
-			"msg":  "参数错误",
+			"msg":  err.Error(),
 		})
 		return
 	}
@@ -74,8 +81,16 @@ func FindVideoByWhere(ctx *gin.Context) {
 	}
 	log.Logger.Info("绑定请求参数到对象", zap.Any("videoQuery", videoQuery))
 
-	videoList := []m_video.Video{}
-	dao.Db.Where("site_id = ? and title like ?", videoQuery.SiteId, "%7%").Find(&videoList)
+	videoList := []*m_video.Video{}
+	if err := d_video.VideoDao.FindList(dao.Db.Where("site_id = ? and title like ?", videoQuery.SiteId, "%7%"), &videoList); err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 0,
+			"data": nil,
+			"msg":  err.Error(),
+		})
+		return
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
 		"data": videoList,
@@ -86,13 +101,17 @@ func FindVideoByWhere(ctx *gin.Context) {
 添加视频
 */
 func AddVideo(ctx *gin.Context) {
-	video := m_video.Video{}
-	video.ID = util.GenUniqueId()
-	video.Title = "title4"
-	jsonTime := &entity.JsonTime{time.Now()}
-	video.CreatedAt = jsonTime
-	video.UpdatedAt = jsonTime
-	dao.Db.Create(video)
+	video := &m_video.Video{
+		Title: "test333",
+	}
+	if err := d_video.VideoDao.Insert(dao.Db, video); err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 0,
+			"data": nil,
+			"msg":  err.Error(),
+		})
+		return
+	}
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
@@ -117,12 +136,26 @@ func BulkAddVideo(ctx *gin.Context) {
 */
 func UpdateVideo(ctx *gin.Context) {
 	//绑定参数到对象
-	videoBind := m_video.Video{}
-	if ctx.ShouldBind(&videoBind) == nil {
-		log.Logger.Info("绑定请求参数到对象", zap.Any("videoBind", videoBind))
+	video := m_video.Video{}
+	if err := ctx.ShouldBind(&video); err != nil {
+		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 0,
+			"data": nil,
+			"msg":  "参数错误",
+		})
+		return
 	}
+	log.Logger.Info("绑定请求参数到对象", zap.Any("video", video))
 
-	dao.Db.Model(&m_video.Video{}).Where("id = ?", "id4").Update(videoBind)
+	if err := d_video.VideoDao.Update(dao.Db.Where("id = ?", "id4"), &video); err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 0,
+			"data": nil,
+			"msg":  err.Error(),
+		})
+		return
+	}
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
@@ -135,12 +168,26 @@ func UpdateVideo(ctx *gin.Context) {
 */
 func DeleteVideo(ctx *gin.Context) {
 	//绑定参数到对象
-	videoBind := m_video.Video{}
-	if ctx.ShouldBind(&videoBind) == nil {
-		log.Logger.Info("绑定请求参数到对象", zap.Any("videoBind", videoBind))
+	video := m_video.Video{}
+	if err := ctx.ShouldBind(&video); err != nil {
+		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 0,
+			"data": nil,
+			"msg":  "参数错误",
+		})
+		return
 	}
+	log.Logger.Info("绑定请求参数到对象", zap.Any("video", video))
 
-	dao.Db.Where("id = ?", videoBind.ID).Delete(&m_video.Video{})
+	if err := d_video.VideoDao.Delete(dao.Db.Where("id = ?", video.ID), &m_video.Video{}); err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 0,
+			"data": nil,
+			"msg":  err.Error(),
+		})
+		return
+	}
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 1,
