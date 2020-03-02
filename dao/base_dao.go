@@ -15,7 +15,10 @@ import (
 type BaseDao struct {
 }
 
-// 批量插入数据  values 参数必须为 数组， validColList 为想插入的字段
+/**
+批量插入数据  values 参数必须为 数组， validColList 为想插入的字段
+注意: 该方法使用raw sql实现, 所以不会触发gorm的回调函数
+*/
 func (this *BaseDao) BulkInsert(values interface{}, validColList []string) error {
 
 	t1 := time.Now()
