@@ -124,6 +124,10 @@ func (this *BaseDao) FindPageData(whereBindTable *gorm.DB, page *model.Page) (er
 	whereBindTable.Count(&page.ItemCount)
 	whereBindTable = whereBindTable.Offset((page.PageNo - 1) * page.PageSize).Limit(page.PageSize)
 	whereBindTable.Order("created_at desc").Find(page.ItemList)
+	if err := whereBindTable.Order("created_at desc").Find(page.ItemList).Error; err != nil {
+		log.Logger.Error("查询分页数据, 异常", zap.Error(err))
+		return err
+	}
 
 	page.PageCount = page.ItemCount / page.PageSize
 
