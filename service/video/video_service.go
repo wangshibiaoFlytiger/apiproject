@@ -29,11 +29,9 @@ func (this *videoService) FindVideoList() (videoList []*m_video.Video, err error
 //分页查询视频列表
 func (this *videoService) FindVideoListPage(pageNo int, pageSize int) *model.Page {
 	page := &model.Page{
-		PageNo:    pageNo,
-		PageSize:  pageSize,
-		PageCount: 0,
-		ItemCount: 0,
-		ItemList:  &[]m_video.Video{},
+		PageNo:   pageNo,
+		PageSize: pageSize,
+		ItemList: &[]*m_video.Video{},
 	}
 	if err := d_video.VideoDao.FindPageData(dao.Db.Model(&m_video.Video{}), page); err != nil {
 		return nil
