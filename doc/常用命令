@@ -1,0 +1,2 @@
+1. 从日志中统计接口耗时(按耗时大小逆序)
+grep 日志 /data/workspace/github/go/private/apiproject/log/info.log | grep backend | awk -F '"' '{print $24, $36, $39}' | head -n 100 | sed "s/://g" | sed "s/}//g" | sort -k 3 -nr
