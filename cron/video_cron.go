@@ -4,7 +4,7 @@ import (
 	"apiproject/config"
 	"apiproject/log"
 	s_task "apiproject/service/task"
-	"github.com/rfyiamcool/cronlib"
+	"github.com/robfig/cron/v3"
 	"go.uber.org/zap"
 )
 
@@ -20,25 +20,29 @@ func Init() {
 		return
 	}
 
-	cronSchduler := cronlib.New()
+	cronSchduler := cron.New(cron.WithSeconds())
 
 	err := registerTask(cronSchduler, "定时任务1", config.GlobalConfig.TaskTask1Cron, s_task.TaskService.Task1)
 	if err != nil {
 		panic(err)
 	}
-
 	cronSchduler.Start()
+
+	err = registerTask(cronSchduler, "定时任务2", config.GlobalConfig.TaskTask1Cron, s_task.TaskService.Task2)
+	if err != nil {
+		panic(err)
+	}
 }
 
 /**
-注册新闻爬取任务
+注册定时任务
 */
-func registerTask(cronSchduler *cronlib.CronSchduler, jobName string, jobSpec string,
+func registerTask(cronSchduler *cron.Cron, jobName string, jobSpec string,
 	callbackTask CallbackTask) error {
 	log.Logger.Info("注册定时任务", zap.String("jobName", jobName), zap.String("jobSpec", jobSpec))
 
 	//创建定时任务
-	job, err := cronlib.NewJobModel(
+	entryId, err := cronSchduler.AddFunc(
 		jobSpec,
 		func() {
 			log.Logger.Info("定时任务开始执行", zap.Any("jobName", jobName), zap.Any("jobSpec", jobSpec))
@@ -50,11 +54,7 @@ func registerTask(cronSchduler *cronlib.CronSchduler, jobName string, jobSpec st
 		return err
 	}
 
-	//注册定时任务
-	err = cronSchduler.Register(jobName, job)
-	if err != nil {
-		return err
-	}
+	log.Logger.Info("注册定时任务, 完成", zap.Any("entryId", entryId))
 
 	return nil
 }

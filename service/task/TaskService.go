@@ -13,3 +13,10 @@ type taskService struct {
 func (this *taskService) Task1() {
 	log.Logger.Info("执行任务1, 完成")
 }
+
+/**
+执行任务2
+*/
+func (this *taskService) Task2() {
+	log.Logger.Info("执行任务2, 完成")
+}

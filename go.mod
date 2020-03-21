@@ -45,7 +45,7 @@ require (
 	github.com/mroth/weightedrand v0.2.1
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
-	github.com/rfyiamcool/cronlib v0.0.0-20190415113320-e596616eb4c0
+	github.com/robfig/cron/v3 v3.0.0
 	github.com/satori/go.uuid v1.2.0
 	github.com/smartystreets/goconvey v0.0.0-20190330032615-68dc04aab96a
 	github.com/tebeka/strftime v0.1.3 // indirect
