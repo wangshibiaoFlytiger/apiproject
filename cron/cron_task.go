@@ -9,7 +9,8 @@ import (
 //全局定时任务调度器
 var CronSchduler *cron.Cron
 
-type CallbackTask func()
+//定时任务的回调函数支持任意类型的参数
+type CallbackTask func(interface{})
 
 /**
 启动定时任务列表
@@ -23,7 +24,7 @@ func Init() {
 /**
 注册定时任务
 */
-func RegisterTask(jobName string, jobSpec string, callbackTask CallbackTask) (entryId cron.EntryID, err error) {
+func RegisterTask(jobName string, jobSpec string, callbackTask CallbackTask, taskPara interface{}) (entryId cron.EntryID, err error) {
 	log.Logger.Info("注册定时任务", zap.String("jobName", jobName), zap.String("jobSpec", jobSpec))
 
 	//创建定时任务
@@ -31,7 +32,7 @@ func RegisterTask(jobName string, jobSpec string, callbackTask CallbackTask) (en
 		jobSpec,
 		func() {
 			log.Logger.Info("定时任务开始执行", zap.Any("jobName", jobName), zap.Any("jobSpec", jobSpec))
-			callbackTask()
+			callbackTask(taskPara)
 			log.Logger.Info("定时任务执行完成", zap.Any("jobName", jobName), zap.Any("jobSpec", jobSpec))
 		},
 	)

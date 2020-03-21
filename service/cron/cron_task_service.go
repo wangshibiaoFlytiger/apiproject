@@ -189,7 +189,7 @@ func (this *cronTaskService) DeleteCronTask(cronTaskId snowflake.ID) (err error)
 func (this *cronTaskService) RegisterCronTask(cronTask *m_cron.CronTask) (entryId cron2.EntryID, err error) {
 	if cronTask.Type == "task1" {
 		//注册定时任务
-		entryId, err = cron.RegisterTask(cronTask.Title, cronTask.Spec, s_task.TaskService.Task1)
+		entryId, err = cron.RegisterTask(cronTask.Title, cronTask.Spec, s_task.TaskService.Task1, cronTask)
 		if err != nil {
 			log.Logger.Error("添加类型为task1的定时任务, 注册异常", zap.Any("cronTask", cronTask), zap.Error(err))
 			return 0, err
