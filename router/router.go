@@ -52,11 +52,12 @@ func Init() *gin.Engine {
 	//通过go.rice配置静态文件目录
 	engine.StaticFS("/static", rice.MustFindBox("../public/static").HTTPBox())
 
-	//配置首页入口
+	/***********************start 配置首页入口 **********************/
 	engine.GET("/", controller.Index)
 	engine.GET("/index", controller.Index)
+	/***********************end 配置首页入口 **********************/
 
-	//视频相关接口
+	/***********************start 视频相关接口 **********************/
 	videoGroup := engine.Group("/api/video")
 	//加密api响应数据中间件
 	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
@@ -69,16 +70,18 @@ func Init() *gin.Engine {
 	videoGroup.GET("/bulkAddVideo", c_video.BulkAddVideo)
 	videoGroup.POST("/updateVideo", c_video.UpdateVideo)
 	videoGroup.POST("/deleteVideo", c_video.DeleteVideo)
+	/***********************end 视频相关接口 **********************/
 
-	//kafka相关
+	/***********************start kafka相关接口 **********************/
 	kafkaGroup := engine.Group("/api/kafka")
 	//加密api响应数据中间件
 	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
 		kafkaGroup.Use(middleware.EncryptResponseMiddleware)
 	}
 	kafkaGroup.GET("/sendMessage", c_kafka.SendMessage)
+	/***********************end kafka相关接口 **********************/
 
-	//微信支付相关
+	/***********************start 微信支付相关接口 **********************/
 	wxpayGroup := engine.Group("/api/wxpay")
 	//加密api响应数据中间件
 	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
@@ -86,8 +89,9 @@ func Init() *gin.Engine {
 	}
 	wxpayGroup.POST("/wxH5Pay", c_wxpay.WxH5Pay)
 	wxpayGroup.POST("/wxH5PayCallback", c_wxpay.WxH5PayCallback)
+	/***********************end 微信支付相关接口 **********************/
 
-	//配置反向代理api
+	/***********************start 反向代理相关接口 **********************/
 	reverseproxyList := []map[string]string{}
 	jsoniter.UnmarshalFromString(apiproject_config.GlobalConfig.ReverseproxyList, &reverseproxyList)
 	log.Logger.Info("初始化路由, 查询反向代理配置", zap.Any("reverseproxyList", reverseproxyList))
@@ -98,6 +102,7 @@ func Init() *gin.Engine {
 			PathRewrite: "",
 		}))
 	}
+	/***********************end 反向代理相关接口 **********************/
 
 	return engine
 }
