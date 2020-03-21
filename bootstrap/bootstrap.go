@@ -9,6 +9,8 @@ import (
 	"apiproject/kafka"
 	"apiproject/log"
 	"apiproject/mongo"
+	s_cron "apiproject/service/cron"
+	"go.uber.org/zap"
 )
 
 /**
@@ -26,6 +28,10 @@ func Init() {
 	log.Init()
 
 	ip_location.Init()
+
 	//初始化定时任务
 	cron.Init()
+	if err := s_cron.CronTaskService.LoadCronTaskList(); err != nil {
+		log.Logger.Error("系统初始化, 加载定时任务列表, 异常", zap.Error(err))
+	}
 }

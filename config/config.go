@@ -53,9 +53,6 @@ type Config struct {
 
 	IplocationQqwryPath string `ini:"iplocation.qqwry.path"`
 
-	TaskSwitch    bool   `ini:"task.switch"`
-	TaskTask1Cron string `ini:"task.task1.cron"`
-
 	//反向代理列表
 	ReverseproxyList string `ini:"reverseproxy.list"`
 }
@@ -107,11 +104,6 @@ func Init() {
 	}
 
 	err = cfg.Section("iplocation").MapTo(&GlobalConfig)
-	if err != nil {
-		panic(err)
-	}
-
-	err = cfg.Section("task").MapTo(&GlobalConfig)
 	if err != nil {
 		panic(err)
 	}

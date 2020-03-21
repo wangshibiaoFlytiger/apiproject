@@ -3,6 +3,7 @@ package router
 import (
 	apiproject_config "apiproject/config"
 	"apiproject/controller"
+	c_cron "apiproject/controller/cron"
 	c_kafka "apiproject/controller/kafka"
 	c_video "apiproject/controller/video"
 	c_wxpay "apiproject/controller/wxpay"
@@ -90,6 +91,15 @@ func Init() *gin.Engine {
 	wxpayGroup.POST("/wxH5Pay", c_wxpay.WxH5Pay)
 	wxpayGroup.POST("/wxH5PayCallback", c_wxpay.WxH5PayCallback)
 	/***********************end 微信支付相关接口 **********************/
+
+	/***********************start 定时任务相关接口 **********************/
+	cronTaskGroup := engine.Group("/api/cronTask")
+	cronTaskGroup.POST("/addCronTask", c_cron.AddCronTask)
+	cronTaskGroup.DELETE("/deleteCronTask", c_cron.DeleteCronTask)
+	cronTaskGroup.POST("/enableCronTask", c_cron.EnableCronTask)
+	cronTaskGroup.POST("/disableCronTask", c_cron.DisableCronTask)
+	cronTaskGroup.GET("/findCronTaskList", c_cron.FindCronTaskList)
+	/***********************end 定时任务相关接口 **********************/
 
 	/***********************start 反向代理相关接口 **********************/
 	reverseproxyList := []map[string]string{}
