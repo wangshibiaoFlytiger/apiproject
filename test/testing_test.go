@@ -9,6 +9,6 @@ import (
 测试service层方法
 */
 func TestVideoService(t *testing.T) {
-	videoList := s_video.VideoService.FindVideoList()
+	videoList, _ := s_video.VideoService.FindVideoList()
 	t.Log(videoList)
 }

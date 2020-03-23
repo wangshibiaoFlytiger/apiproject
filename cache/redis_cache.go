@@ -13,7 +13,7 @@ var RedisClient *redis.Client
 /**
 初始化redis
 */
-func Init() {
+func initRedis() {
 	if !config.GlobalConfig.RedisSwitch {
 		return
 	}

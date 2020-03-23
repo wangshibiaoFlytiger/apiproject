@@ -28,6 +28,9 @@ type Config struct {
 	RedisDb       int    `ini:"redis.db"`
 	RedisPoolSize int    `ini:"redis.pool.size"`
 
+	LocalcacheDefaultExpirationSeconds int `ini:"localcache.defaultExpiration.seconds"`
+	LocalcacheCleanupIntervalSeconds   int `ini:"localcache.cleanupInterval.seconds"`
+
 	MongoSwitch    bool   `ini:"mongo.switch"`
 	MongoAddr      string `ini:"mongo.addr"`
 	MongoDatabase  string `ini:"mongo.database"`
@@ -84,6 +87,11 @@ func Init() {
 	}
 
 	err = cfg.Section("redis").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	err = cfg.Section("localcache").MapTo(&GlobalConfig)
 	if err != nil {
 		panic(err)
 	}

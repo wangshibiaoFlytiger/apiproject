@@ -1,6 +1,7 @@
 package c_video
 
 import (
+	"apiproject/cache"
 	"apiproject/dao"
 	d_video "apiproject/dao/video"
 	"apiproject/log"
@@ -16,6 +17,16 @@ import (
 查询视频列表接口
 */
 func FindVideoList(ctx *gin.Context) {
+	//先读取本地缓存
+	videoList, exist := cache.LocalCache.Get("FindVideoList")
+	if exist {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": 1,
+			"data": videoList,
+		})
+		return
+	}
+
 	videoList, err := s_video.VideoService.FindVideoList()
 	if err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
@@ -30,6 +41,9 @@ func FindVideoList(ctx *gin.Context) {
 		"code": 1,
 		"data": videoList,
 	})
+
+	//响应数据缓存到本地
+	cache.LocalCache.SetDefault("FindVideoList", videoList)
 }
 
 /**
