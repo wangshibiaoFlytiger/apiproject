@@ -56,7 +56,7 @@ func (this *BaseDao) BulkInsert(db *gorm.DB, values interface{}, validColList []
 		return nil
 	}
 
-	scope := Db.NewScope(val.Index(0).Interface())
+	scope := db.NewScope(val.Index(0).Interface())
 	var realColList []string
 	if len(validColList) == 0 {
 		for _, field := range scope.Fields() {
@@ -86,7 +86,7 @@ func (this *BaseDao) BulkInsert(db *gorm.DB, values interface{}, validColList []
 
 		inserts = append(inserts, rowSQL)
 		//vals = append(vals, elem.Prop1, elem.Prop2, elem.Prop3)
-		elemScope := Db.NewScope(data)
+		elemScope := db.NewScope(data)
 		for _, validCol := range realColList {
 			field, ok := elemScope.FieldByName(validCol)
 			if !ok {
