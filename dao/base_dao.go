@@ -157,6 +157,23 @@ func (this *BaseDao) Get(where *gorm.DB, itemOut interface{}) (err error) {
 	return nil
 }
 
+/**
+判断某记录是否存在: 若存在, 同时返回对应记录
+*/
+func (this *BaseDao) Exist(where *gorm.DB, itemOut interface{}) (exist bool, err error) {
+	err = where.First(itemOut).Error
+	if err == gorm.ErrRecordNotFound {
+		return false, nil
+	}
+
+	if err != nil {
+		log.Logger.Error("判断某记录是否存在, 异常", zap.Error(err))
+		return false, err
+	}
+
+	return true, nil
+}
+
 func (this *BaseDao) Update(whereBindTable *gorm.DB, item interface{}) (err error) {
 	if err := whereBindTable.Updates(item).Error; err != nil {
 		return err
