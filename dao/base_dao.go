@@ -129,7 +129,12 @@ func (this *BaseDao) FindPageData(whereBindTable *gorm.DB, page *model.Page) (er
 		return err
 	}
 
-	page.PageCount = page.ItemCount / page.PageSize
+	remainder := page.ItemCount / page.PageSize
+	mod := page.ItemCount % page.PageSize
+	page.PageCount = remainder
+	if mod > 0 {
+		page.PageCount = remainder + 1
+	}
 
 	return nil
 }
