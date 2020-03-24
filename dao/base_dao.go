@@ -157,8 +157,8 @@ func (this *BaseDao) Get(where *gorm.DB, itemOut interface{}) (err error) {
 	return nil
 }
 
-func (this *BaseDao) Update(db *gorm.DB, item interface{}) (err error) {
-	if err := db.Save(item).Error; err != nil {
+func (this *BaseDao) Update(whereBindTable *gorm.DB, item interface{}) (err error) {
+	if err := whereBindTable.Updates(item).Error; err != nil {
 		return err
 	}
 

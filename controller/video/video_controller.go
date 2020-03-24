@@ -162,7 +162,7 @@ func UpdateVideo(ctx *gin.Context) {
 	}
 	log.Logger.Info("绑定请求参数到对象", zap.Any("video", video))
 
-	if err := d_video.VideoDao.Update(dao.Db.Where("id = ?", "id4"), &video); err != nil {
+	if err := d_video.VideoDao.Update(dao.Db.Model(&video).Where("id = ?", "id4"), &video); err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": 0,
 			"data": nil,
