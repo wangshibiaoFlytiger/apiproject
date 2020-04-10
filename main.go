@@ -13,6 +13,9 @@ import (
 
 //当有新的.go源文件引用静态文件时, 注意同步修改如下命令的--import-path参数
 //go:generate rice -v --import-path "./router" --import-path "./config"  embed-go
+
+//生成swagger api接口文档, 注意指定-g参数
+//go:generate swag init -g router/router.go
 func main() {
 	//解析命令行参数
 	parseCliParam()

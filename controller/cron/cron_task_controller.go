@@ -12,6 +12,19 @@ import (
 /**
 添加定时任务
 */
+
+/************************start swagger api定义注解 **************/
+// ShowAccount godoc
+// @Summary 添加定时任务
+// @Description 添加定时任务
+// @Tags 定时任务
+// @ID AddCronTask
+// @Accept  json
+// @Produce  json
+// @Param cronTask body m_cron.CronTask true "定时任务"
+// @Success 200 {object} gin.H
+// @Router /api/cronTask/addCronTask [post]
+/************************end swagger api定义注解 **************/
 func AddCronTask(ctx *gin.Context) {
 	para := m_cron.CronTask{}
 	if err := ctx.ShouldBind(&para); err != nil {

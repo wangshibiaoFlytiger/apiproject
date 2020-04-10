@@ -7,6 +7,7 @@ import (
 	c_kafka "apiproject/controller/kafka"
 	c_video "apiproject/controller/video"
 	c_wxpay "apiproject/controller/wxpay"
+	"apiproject/docs"
 	"apiproject/log"
 	"apiproject/middleware"
 	rice "github.com/GeertJohan/go.rice"
@@ -14,12 +15,19 @@ import (
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"go.uber.org/zap"
 )
 
 /**
 初始化路由
 */
+
+/************************start swagger api定义注解 **************/
+// @contact.name Wang Shibiao
+// @contact.email 645102170@qq.com
+/************************end swagger api定义注解 **************/
 func Init() *gin.Engine {
 	engine := gin.Default()
 
@@ -52,6 +60,18 @@ func Init() *gin.Engine {
 
 	//通过go.rice配置静态文件目录
 	engine.StaticFS("/static", rice.MustFindBox("../public/static").HTTPBox())
+
+	/***********************start swagger api接口文档相关 **********************/
+	//自定义swagger相关变量
+	docs.SwaggerInfo.Title = "API接口文档"
+	docs.SwaggerInfo.Description = "这是golang开发的api服务"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "localhost:8080"
+	docs.SwaggerInfo.BasePath = "/api2"
+	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+
+	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	/***********************end swagger api接口文档相关 **********************/
 
 	/***********************start 配置首页入口 **********************/
 	engine.GET("/", controller.Index)
