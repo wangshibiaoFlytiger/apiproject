@@ -58,11 +58,13 @@ func GetImgInfo(imgPath string) (width int, height int, formatName string, err e
 	file, err := os.Open(imgPath)
 	defer file.Close()
 	if err != nil {
+		log.Logger.Error("获取图片信息, 打开文件, 异常", zap.Error(err))
 		return
 	}
 
 	config, formatName, err := image.DecodeConfig(file)
 	if err != nil {
+		log.Logger.Error("获取图片信息, 解码文件, 异常", zap.Error(err))
 		return
 	}
 
