@@ -16,6 +16,16 @@ import (
 /**
 查询视频列表接口
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 查询视频列表接口
+// @Description 查询视频列表接口
+// @Tags 视频
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} gin.H
+// @Router /api/video/findVideoList [get]
+/************************end swagger api定义注解 **************/
 func FindVideoList(ctx *gin.Context) {
 	//先读取本地缓存
 	videoList, exist := cache.LocalCache.Get("FindVideoList")
@@ -49,6 +59,17 @@ func FindVideoList(ctx *gin.Context) {
 /**
 分页查询视频列表接口
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 分页查询视频列表接口
+// @Description 分页查询视频列表接口
+// @Tags 视频
+// @Accept  json
+// @Produce  json
+// @Param page query model.Page false "查询条件"
+// @Success 200 {object} gin.H
+// @Router /api/video/findVideoListPage [get]
+/************************end swagger api定义注解 **************/
 func FindVideoListPage(ctx *gin.Context) {
 	page := model.Page{}
 	if err := ctx.ShouldBind(&page); err != nil {
@@ -71,6 +92,17 @@ func FindVideoListPage(ctx *gin.Context) {
 /**
 按条件查询视频列表接口
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 按条件查询视频列表接口
+// @Description 按条件查询视频列表接口
+// @Tags 视频
+// @Accept  json
+// @Produce  json
+// @Param video query m_video.Video false "查询条件"
+// @Success 200 {object} gin.H
+// @Router /api/video/findVideoByWhere [get]
+/************************end swagger api定义注解 **************/
 func FindVideoByWhere(ctx *gin.Context) {
 	/**
 	绑定query参数到对象.
@@ -114,6 +146,17 @@ func FindVideoByWhere(ctx *gin.Context) {
 /**
 添加视频
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 添加视频
+// @Description 添加视频
+// @Tags 视频
+// @Accept  json
+// @Produce  json
+// @Param video body m_video.Video false "视频对象"
+// @Success 200 {object} gin.H
+// @Router /api/video/addVideo [post]
+/************************end swagger api定义注解 **************/
 func AddVideo(ctx *gin.Context) {
 	video := &m_video.Video{
 		Title: "test333",
@@ -136,6 +179,16 @@ func AddVideo(ctx *gin.Context) {
 /**
 批量添加视频
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 批量添加视频
+// @Description 批量添加视频
+// @Tags 视频
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} gin.H
+// @Router /api/video/bulkAddVideo [post]
+/************************end swagger api定义注解 **************/
 func BulkAddVideo(ctx *gin.Context) {
 	s_video.VideoService.BulkAddVideo()
 
@@ -148,6 +201,17 @@ func BulkAddVideo(ctx *gin.Context) {
 /**
 更新视频
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 更新视频
+// @Description 更新视频
+// @Tags 视频
+// @Accept  json
+// @Produce  json
+// @Param video body m_video.Video false "视频对象"
+// @Success 200 {object} gin.H
+// @Router /api/video/updateVideo [post]
+/************************end swagger api定义注解 **************/
 func UpdateVideo(ctx *gin.Context) {
 	//绑定参数到对象
 	video := m_video.Video{}
@@ -180,6 +244,17 @@ func UpdateVideo(ctx *gin.Context) {
 /**
 删除视频
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 删除视频
+// @Description 删除视频
+// @Tags 视频
+// @Accept  json
+// @Produce  json
+// @Param video body m_video.Video false "条件"
+// @Success 200 {object} gin.H
+// @Router /api/video/deleteVideo [delete]
+/************************end swagger api定义注解 **************/
 func DeleteVideo(ctx *gin.Context) {
 	//绑定参数到对象
 	video := m_video.Video{}

@@ -14,11 +14,9 @@ import (
 */
 
 /************************start swagger api定义注解 **************/
-// ShowAccount godoc
 // @Summary 添加定时任务
 // @Description 添加定时任务
 // @Tags 定时任务
-// @ID AddCronTask
 // @Accept  json
 // @Produce  json
 // @Param cronTask body m_cron.CronTask true "定时任务"
@@ -57,6 +55,17 @@ func AddCronTask(ctx *gin.Context) {
 /**
 删除定时任务
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 删除定时任务
+// @Description 删除定时任务
+// @Tags 定时任务
+// @Accept  json
+// @Produce  json
+// @Param cronTask body m_cron.CronTask true "定时任务"
+// @Success 200 {object} gin.H
+// @Router /api/cronTask/deleteCronTask [delete]
+/************************end swagger api定义注解 **************/
 func DeleteCronTask(ctx *gin.Context) {
 	para := m_cron.CronTask{}
 	if err := ctx.ShouldBind(&para); err != nil {
@@ -88,6 +97,17 @@ func DeleteCronTask(ctx *gin.Context) {
 /**
 启用定时任务
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 启用定时任务
+// @Description 启用定时任务
+// @Tags 定时任务
+// @Accept  json
+// @Produce  json
+// @Param cronTask body m_cron.CronTask true "定时任务"
+// @Success 200 {object} gin.H
+// @Router /api/cronTask/enableCronTask [post]
+/************************end swagger api定义注解 **************/
 func EnableCronTask(ctx *gin.Context) {
 	para := m_cron.CronTask{}
 	if err := ctx.ShouldBind(&para); err != nil {
@@ -119,6 +139,17 @@ func EnableCronTask(ctx *gin.Context) {
 /**
 禁用定时任务
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 禁用定时任务
+// @Description 禁用定时任务
+// @Tags 定时任务
+// @Accept  json
+// @Produce  json
+// @Param cronTask body m_cron.CronTask true "定时任务"
+// @Success 200 {object} gin.H
+// @Router /api/cronTask/disableCronTask [post]
+/************************end swagger api定义注解 **************/
 func DisableCronTask(ctx *gin.Context) {
 	para := m_cron.CronTask{}
 	if err := ctx.ShouldBind(&para); err != nil {
@@ -150,6 +181,16 @@ func DisableCronTask(ctx *gin.Context) {
 /**
 查询定时任务列表
 */
+
+/************************start swagger api定义注解 **************/
+// @Summary 查询定时任务列表
+// @Description 查询定时任务列表
+// @Tags 定时任务
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} gin.H
+// @Router /api/cronTask/findCronTaskList [get]
+/************************end swagger api定义注解 **************/
 func FindCronTaskList(ctx *gin.Context) {
 	cronTaskList, err := s_cron.CronTaskService.FindCronTaskList()
 	if err != nil {
