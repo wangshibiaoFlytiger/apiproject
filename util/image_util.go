@@ -4,6 +4,8 @@ import (
 	"apiproject/log"
 	"github.com/disintegration/imaging"
 	"go.uber.org/zap"
+	"image"
+	"os"
 )
 
 /**
@@ -47,4 +49,22 @@ func CropImageCenter(srcPath string, dstPath string, width int, height int) erro
 	}
 
 	return nil
+}
+
+/**
+获取图片信息
+*/
+func GetImgInfo(imgPath string) (width int, height int, formatName string, err error) {
+	file, err := os.Open(imgPath)
+	defer file.Close()
+	if err != nil {
+		return
+	}
+
+	config, formatName, err := image.DecodeConfig(file)
+	if err != nil {
+		return
+	}
+
+	return config.Width, config.Height, formatName, nil
 }
