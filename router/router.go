@@ -66,7 +66,6 @@ func Init() *gin.Engine {
 	docs.SwaggerInfo.Title = "API接口文档"
 	docs.SwaggerInfo.Description = "这是golang开发的api服务"
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "localhost:8080"
 	docs.SwaggerInfo.BasePath = "/"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
