@@ -179,7 +179,22 @@ func (this *BaseDao) Exist(where *gorm.DB, itemOut interface{}) (exist bool, err
 	return true, nil
 }
 
+/**
+1. whereBindTable参数绑定的对象, 若有id值, 则执行单条更新, 否则为批量更新
+2. Callbacks在批量更新时不会运行
+*/
 func (this *BaseDao) Update(whereBindTable *gorm.DB, item interface{}) (err error) {
+	/**
+	注意: 同时支持单条记录更新或批量更新
+	1. 单条更新
+	db.First(&user)
+	db.Model(&user).Updates(User{Name: "hello", Age: 18})
+	-> 对应的sql: UPDATE users SET name='hello', age=18, updated_at = '2013-11-17 21:34:10' WHERE id = 111;
+
+	2.　批量更新: Callbacks在批量更新时不会运行
+	db.Model(User{}).Updates(User{Name: "hello", Age: 18})
+	-> 对应的sql: UPDATE users SET name='hello', age=18;
+	*/
 	if err := whereBindTable.Updates(item).Error; err != nil {
 		return err
 	}
