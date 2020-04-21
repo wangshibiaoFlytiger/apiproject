@@ -12,6 +12,7 @@ import (
 	"apiproject/middleware"
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/gzip"
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
@@ -43,6 +44,10 @@ func Init() *gin.Engine {
 	//全局配置api日志访问中间件
 	engine.Use(middleware.ApiLogMiddleware)
 	/**************************end 访问日志中间件 *****************/
+
+	/**************************start gzip数据压缩中间件 *****************/
+	engine.Use(gzip.Gzip(gzip.DefaultCompression))
+	/**************************end gzip数据压缩中间件 *****************/
 
 	/***********************start 通过go.rice配置页面模板 **********************/
 	//配置模板文件的根目录

@@ -23,6 +23,7 @@ require (
 	github.com/facebookgo/subset v0.0.0-20150612182917-8dac2c3c4870 // indirect
 	github.com/fastly/go-utils v0.0.0-20180712184237-d95a45783239 // indirect
 	github.com/gin-contrib/cors v0.0.0-20190424000812-bd1331c62cae
+	github.com/gin-contrib/gzip v0.0.1
 	github.com/gin-contrib/multitemplate v0.0.0-20191128031210-95dee0dedf35
 	github.com/gin-gonic/gin v1.6.2
 	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
