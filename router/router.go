@@ -34,10 +34,10 @@ func Init() *gin.Engine {
 
 	/**************************start cors跨域中间件 *****************/
 	//支持跨域
-	config := cors.DefaultConfig()
-	config.AddAllowHeaders("X-Requested-With")
-	config.AllowAllOrigins = true
-	engine.Use(cors.New(config))
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AddAllowHeaders("X-Requested-With")
+	corsConfig.AllowAllOrigins = true
+	engine.Use(cors.New(corsConfig))
 	/**************************end cors跨域中间件 *****************/
 
 	/**************************start 访问日志中间件 *****************/
