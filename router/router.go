@@ -31,15 +31,18 @@ import (
 func Init() *gin.Engine {
 	engine := gin.Default()
 
-	/**************************start 配置中间件 *****************/
+	/**************************start cors跨域中间件 *****************/
 	//支持跨域
 	config := cors.DefaultConfig()
 	config.AddAllowHeaders("X-Requested-With")
 	config.AllowAllOrigins = true
 	engine.Use(cors.New(config))
+	/**************************end cors跨域中间件 *****************/
+
+	/**************************start 访问日志中间件 *****************/
 	//全局配置api日志访问中间件
 	engine.Use(middleware.ApiLogMiddleware)
-	/**************************end 配置中间件 *****************/
+	/**************************end 访问日志中间件 *****************/
 
 	/***********************start 通过go.rice配置页面模板 **********************/
 	//配置模板文件的根目录
