@@ -11,6 +11,8 @@ import (
 	"apiproject/log"
 	"apiproject/middleware"
 	rice "github.com/GeertJohan/go.rice"
+	"github.com/gin-contrib/cache"
+	"github.com/gin-contrib/cache/persistence"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/expvar"
 	"github.com/gin-contrib/gzip"
@@ -21,6 +23,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"go.uber.org/zap"
+	"time"
 )
 
 /**
@@ -64,6 +67,9 @@ func Init() *gin.Engine {
 	/**************************start expvar中间件(用于导出系统公用变量: 包括系统资源占用情况) *****************/
 	engine.GET("/api/system/expvar", expvar.Handler())
 	/**************************end expvar中间件(用于导出系统公用变量: 包括系统资源占用情况) *****************/
+
+	//用于缓存响应数据
+	responseCacheStore := persistence.NewInMemoryStore(time.Second)
 
 	/**************************start RequestSizeLimiter中间件(用于限制request body的字节数量) *****************/
 	engine.Use(limits.RequestSizeLimiter(config.GlobalConfig.ServiceRequestbodyLimitByteCount))
@@ -145,7 +151,10 @@ func Init() *gin.Engine {
 	cronTaskGroup.DELETE("/deleteCronTask", c_cron.DeleteCronTask)
 	cronTaskGroup.POST("/enableCronTask", c_cron.EnableCronTask)
 	cronTaskGroup.POST("/disableCronTask", c_cron.DisableCronTask)
-	cronTaskGroup.GET("/findCronTaskList", c_cron.FindCronTaskList)
+	//该接口启用缓存
+	cronTaskGroup.GET("/findCronTaskList", cache.CachePage(responseCacheStore,
+		time.Duration(config.GlobalConfig.ServiceResponsecacheDefaultExpirationSeconds)*time.Second,
+		c_cron.FindCronTaskList))
 	/***********************end 定时任务相关接口 **********************/
 
 	/***********************start 反向代理相关接口 **********************/
