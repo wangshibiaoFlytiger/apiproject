@@ -1,7 +1,7 @@
 package router
 
 import (
-	apiproject_config "apiproject/config"
+	config "apiproject/config"
 	"apiproject/controller"
 	c_cron "apiproject/controller/cron"
 	c_kafka "apiproject/controller/kafka"
@@ -66,7 +66,7 @@ func Init() *gin.Engine {
 	/**************************end expvar中间件(用于导出系统公用变量: 包括系统资源占用情况) *****************/
 
 	/**************************start RequestSizeLimiter中间件(用于限制request body的字节数量) *****************/
-	engine.Use(limits.RequestSizeLimiter(apiproject_config.GlobalConfig.ServiceRequestbodyLimitByteCount))
+	engine.Use(limits.RequestSizeLimiter(config.GlobalConfig.ServiceRequestbodyLimitByteCount))
 	/**************************end RequestSizeLimiter中间件(用于限制request body的字节数量) *****************/
 
 	/***********************start 通过go.rice配置页面模板 **********************/
@@ -108,7 +108,7 @@ func Init() *gin.Engine {
 	/***********************start 视频相关接口 **********************/
 	videoGroup := engine.Group("/api/video")
 	//加密api响应数据中间件
-	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
+	if config.GlobalConfig.ServiceApiResponseEncrypt {
 		videoGroup.Use(middleware.EncryptResponseMiddleware)
 	}
 	videoGroup.GET("/findList", c_video.FindVideoList)
@@ -123,7 +123,7 @@ func Init() *gin.Engine {
 	/***********************start kafka相关接口 **********************/
 	kafkaGroup := engine.Group("/api/kafka")
 	//加密api响应数据中间件
-	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
+	if config.GlobalConfig.ServiceApiResponseEncrypt {
 		kafkaGroup.Use(middleware.EncryptResponseMiddleware)
 	}
 	kafkaGroup.GET("/sendMessage", c_kafka.SendMessage)
@@ -132,7 +132,7 @@ func Init() *gin.Engine {
 	/***********************start 微信支付相关接口 **********************/
 	wxpayGroup := engine.Group("/api/wxpay")
 	//加密api响应数据中间件
-	if apiproject_config.GlobalConfig.ServiceApiResponseEncrypt {
+	if config.GlobalConfig.ServiceApiResponseEncrypt {
 		wxpayGroup.Use(middleware.EncryptResponseMiddleware)
 	}
 	wxpayGroup.POST("/wxH5Pay", c_wxpay.WxH5Pay)
@@ -150,7 +150,7 @@ func Init() *gin.Engine {
 
 	/***********************start 反向代理相关接口 **********************/
 	reverseproxyList := []map[string]string{}
-	jsoniter.UnmarshalFromString(apiproject_config.GlobalConfig.ReverseproxyList, &reverseproxyList)
+	jsoniter.UnmarshalFromString(config.GlobalConfig.ReverseproxyList, &reverseproxyList)
 	log.Logger.Info("初始化路由, 查询反向代理配置", zap.Any("reverseproxyList", reverseproxyList))
 	for _, reverseProxy := range reverseproxyList {
 		//代理匹配urlPrefix的api到target服务
