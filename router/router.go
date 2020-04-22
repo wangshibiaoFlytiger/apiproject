@@ -15,6 +15,7 @@ import (
 	"github.com/gin-contrib/expvar"
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-contrib/multitemplate"
+	"github.com/gin-contrib/size"
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 	swaggerFiles "github.com/swaggo/files"
@@ -63,6 +64,10 @@ func Init() *gin.Engine {
 	/**************************start expvar中间件(用于导出系统公用变量: 包括系统资源占用情况) *****************/
 	engine.GET("/api/system/expvar", expvar.Handler())
 	/**************************end expvar中间件(用于导出系统公用变量: 包括系统资源占用情况) *****************/
+
+	/**************************start RequestSizeLimiter中间件(用于限制request body的字节数量) *****************/
+	engine.Use(limits.RequestSizeLimiter(apiproject_config.GlobalConfig.ServiceRequestbodyLimitByteCount))
+	/**************************end RequestSizeLimiter中间件(用于限制request body的字节数量) *****************/
 
 	/***********************start 通过go.rice配置页面模板 **********************/
 	//配置模板文件的根目录

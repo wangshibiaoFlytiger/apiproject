@@ -12,9 +12,10 @@ type Config struct {
 	//运行环境:back-dev,back-test,front-dev,front-test
 	Profile string
 
-	ServiceName               string `ini:"service.name"`
-	ServicePort               int    `ini:"service.port"`
-	ServiceApiResponseEncrypt bool   `ini:"service.api.response.encrypt"`
+	ServiceName                      string `ini:"service.name"`
+	ServicePort                      int    `ini:"service.port"`
+	ServiceApiResponseEncrypt        bool   `ini:"service.api.response.encrypt"`
+	ServiceRequestbodyLimitByteCount int64  `ini:"service.requestbody.limit.byte.count"`
 
 	MysqlSwitch       bool   `ini:"mysql.switch"`
 	MysqlUrl          string `ini:"mysql.url"`

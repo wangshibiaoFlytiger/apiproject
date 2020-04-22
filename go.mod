@@ -26,6 +26,7 @@ require (
 	github.com/gin-contrib/expvar v0.0.1
 	github.com/gin-contrib/gzip v0.0.1
 	github.com/gin-contrib/multitemplate v0.0.0-20191128031210-95dee0dedf35
+	github.com/gin-contrib/size v0.0.0-20200226145816-24aa35f64b9f
 	github.com/gin-gonic/gin v1.6.2
 	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
 	github.com/go-ini/ini v1.42.0
