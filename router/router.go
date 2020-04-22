@@ -12,6 +12,7 @@ import (
 	"apiproject/middleware"
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/expvar"
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
@@ -58,6 +59,10 @@ func Init() *gin.Engine {
 	*/
 	engine.Use(gzip.Gzip(gzip.DefaultCompression))
 	/**************************end gzip数据压缩中间件 *****************/
+
+	/**************************start expvar中间件(用于导出系统公用变量: 包括系统资源占用情况) *****************/
+	engine.GET("/api/system/expvar", expvar.Handler())
+	/**************************end expvar中间件(用于导出系统公用变量: 包括系统资源占用情况) *****************/
 
 	/***********************start 通过go.rice配置页面模板 **********************/
 	//配置模板文件的根目录
