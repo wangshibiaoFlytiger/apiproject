@@ -46,6 +46,16 @@ func Init() *gin.Engine {
 	/**************************end 访问日志中间件 *****************/
 
 	/**************************start gzip数据压缩中间件 *****************/
+	/**
+	客户端若想获取压缩的数据, 则需要指定http头, 测试过程如下
+	1. 不指定header头, 请求返回的结果没有经过压缩
+	curl http://localhost:8080/api/cronTask/findCronTaskList -o ./api_resp_src
+	2. 接收压缩的数据, 同时保存压缩数据到本地文件
+	curl http://localhost:8080/api/cronTask/findCronTaskList -H 'Accept-Encoding: gzip, deflate, sdch' -o ./api_resp_compress.gz
+	保存的本地gip格式的压缩文件, 可以使用如下命令解压: gzip -d ./api_resp_compress.gz
+	3. 使用--compressed将会自动解压收到的压缩数据, 保存解压后的数据到本地文件
+	curl http://localhost:8080/api/cronTask/findCronTaskList -H 'Accept-Encoding: gzip, deflate, sdch' --compressed -o ./api_resp_auto_uncompress
+	*/
 	engine.Use(gzip.Gzip(gzip.DefaultCompression))
 	/**************************end gzip数据压缩中间件 *****************/
 
