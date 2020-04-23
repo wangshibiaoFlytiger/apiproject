@@ -77,20 +77,7 @@ upx --brute 可执行文件路径
 go get github.com/bwmarrin/snowflake
 
 十三. kafka消息队列
-1. 安装客户端库的依赖库librdkafka
-git clone https://github.com/edenhill/librdkafka.git
-cd librdkafka
-./configure --prefix /home/wangshibiao/programs/librdkafka
-make
-sudo make install
-
-2. 设置环境变量
-vi /etc/profile.d/wangshibiao.sh
-    export PKG_CONFIG_PATH=/home/wangshibiao/programs/librdkafka/lib/pkgconfig
-source /etc/profile
-
-3. 安装客户端
-go get -u gopkg.in/confluentinc/confluent-kafka-go/kafka
+confluent-kafka-go在后期使用过程中, kafka服务端报未知异常, 故舍弃该客户端, 改用sarama
 
 十四. 纯真ip归属地查询
 1. 直接执行如下命令会提示安装失败: malformed module path "github.com/kayon/iploc/...": double dot

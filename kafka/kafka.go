@@ -2,11 +2,12 @@ package kafka
 
 import (
 	"apiproject/config"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"github.com/Shopify/sarama"
 	"log"
+	"strings"
 )
 
-var KafkaProducer *kafka.Producer
+var KafkaProducer sarama.SyncProducer
 
 /**
 初始化kafka
@@ -17,10 +18,16 @@ func Init() {
 	}
 
 	var err error
-	KafkaProducer, err = kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": config.GlobalConfig.KafkaBroker})
-
+	clientConfig := sarama.NewConfig()
+	clientConfig.Producer.Return.Successes = true
+	client, err := sarama.NewClient(strings.Split(config.GlobalConfig.KafkaBroker, ","), clientConfig)
 	if err != nil {
-		log.Panicln("初始化kafka, 异常", err)
+		log.Panicf("初始化kafka, 创建client, 异常: %q", err)
+	}
+
+	KafkaProducer, err = sarama.NewSyncProducerFromClient(client)
+	if err != nil {
+		log.Panicf("初始化kafka, 创建生产者, 异常: %q", err)
 	}
 
 	log.Println("初始化kafka, 完成", config.GlobalConfig.KafkaBroker)

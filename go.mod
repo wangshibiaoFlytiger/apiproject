@@ -6,11 +6,11 @@ require (
 	cloud.google.com/go v0.38.0 // indirect
 	github.com/GeertJohan/go.rice v1.0.0
 	github.com/Pallinder/go-randomdata v1.2.0
+	github.com/Shopify/sarama v1.26.1
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/beevik/etree v1.1.0
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/chromedp/chromedp v0.5.0
-	github.com/confluentinc/confluent-kafka-go v1.1.0
 	github.com/davidscholberg/go-durationfmt v0.0.0-20170122144659-64843a2083d3
 	github.com/disintegration/imaging v1.6.2
 	github.com/elazarl/goproxy v0.0.0-20190711103511-473e67f1d7d2 // indirect
@@ -36,7 +36,6 @@ require (
 	github.com/go-redis/redis v6.15.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang/protobuf v1.3.5 // indirect
-	github.com/google/go-cmp v0.3.0 // indirect
 	github.com/iGoogle-ink/gopay v1.2.1
 	github.com/imroc/req v0.2.3
 	github.com/jehiah/go-strftime v0.0.0-20171201141054-1d33003b3869 // indirect

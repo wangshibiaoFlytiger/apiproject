@@ -2,9 +2,9 @@ package log
 
 import (
 	"apiproject/config"
-	kafka2 "apiproject/kafka"
+	"apiproject/kafka"
 	"errors"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"github.com/Shopify/sarama"
 	"go.uber.org/zap"
 )
 
@@ -27,28 +27,12 @@ func (this *KafkaLogHook) Write(p []byte) (n int, err error) {
 发送kafka日志
 */
 func (this *KafkaLogHook) SendKafkaMessage(topic string, message string) bool {
-	success := false
-	// Optional delivery channel, if not specified the Producer object's
-	// .Events channel is used.
-	deliveryChan := make(chan kafka.Event)
-
-	err := kafka2.KafkaProducer.Produce(&kafka.Message{
-		TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
-		Value:          []byte(message),
-		Headers:        []kafka.Header{{Key: "myTestHeader", Value: []byte("header values are binary")}},
-	}, deliveryChan)
-
-	e := <-deliveryChan
-	m := e.(*kafka.Message)
-
-	if m.TopicPartition.Error != nil {
+	partition, offset, err := kafka.KafkaProducer.SendMessage(&sarama.ProducerMessage{Topic: topic, Key: nil, Value: sarama.StringEncoder(message)})
+	if err != nil {
 		HookLogger.Error("发送kafka日志, 异常", zap.Any("topic", topic), zap.Any("message", message), zap.Error(err))
-	} else {
-		HookLogger.Info("发送kafka日志, 完成", zap.Any("topic", *m.TopicPartition.Topic), zap.Any("partition", m.TopicPartition.Partition), zap.Any("offset", m.TopicPartition.Offset))
-		success = true
+		return false
 	}
 
-	close(deliveryChan)
-
-	return success
+	HookLogger.Info("发送kafka日志, 完成", zap.Any("topic", topic), zap.Any("message", message), zap.Any("partition", partition), zap.Any("offset", offset))
+	return true
 }
