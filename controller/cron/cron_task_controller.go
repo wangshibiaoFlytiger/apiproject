@@ -19,12 +19,12 @@ import (
 // @Tags 定时任务
 // @Accept  json
 // @Produce  json
-// @Param cronTask body m_cron.CronTask true "定时任务"
+// @Param cronTask body ReqCronTask true "json对象"
 // @Success 200 {object} gin.H
 // @Router /api/cronTask/addCronTask [post]
 /************************end swagger api定义注解 **************/
 func AddCronTask(ctx *gin.Context) {
-	para := m_cron.CronTask{}
+	para := ReqCronTask{}
 	if err := ctx.ShouldBind(&para); err != nil {
 		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
 		ctx.JSON(http.StatusOK, gin.H{
@@ -37,7 +37,13 @@ func AddCronTask(ctx *gin.Context) {
 	log.Logger.Info("绑定请求参数到对象", zap.Any("para", para))
 
 	para.Status = 1
-	if err := s_cron.CronTaskService.AddCronTask(&para); err != nil {
+	if err := s_cron.CronTaskService.AddCronTask(&m_cron.CronTask{
+		Type:   para.Type,
+		Title:  para.Title,
+		Spec:   para.Spec,
+		Remark: para.Remark,
+		Status: para.Status,
+	}); err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": 0,
 			"data": nil,
@@ -62,12 +68,12 @@ func AddCronTask(ctx *gin.Context) {
 // @Tags 定时任务
 // @Accept  json
 // @Produce  json
-// @Param cronTask body m_cron.CronTask true "定时任务"
+// @Param cronTaskId query ReqCronTaskId true "查询参数"
 // @Success 200 {object} gin.H
 // @Router /api/cronTask/deleteCronTask [delete]
 /************************end swagger api定义注解 **************/
 func DeleteCronTask(ctx *gin.Context) {
-	para := m_cron.CronTask{}
+	para := ReqCronTaskId{}
 	if err := ctx.ShouldBind(&para); err != nil {
 		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
 		ctx.JSON(http.StatusOK, gin.H{
@@ -104,12 +110,12 @@ func DeleteCronTask(ctx *gin.Context) {
 // @Tags 定时任务
 // @Accept  json
 // @Produce  json
-// @Param cronTask body m_cron.CronTask true "定时任务"
+// @Param cronTaskId body ReqCronTaskId true "json对象"
 // @Success 200 {object} gin.H
 // @Router /api/cronTask/enableCronTask [post]
 /************************end swagger api定义注解 **************/
 func EnableCronTask(ctx *gin.Context) {
-	para := m_cron.CronTask{}
+	para := ReqCronTaskId{}
 	if err := ctx.ShouldBind(&para); err != nil {
 		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
 		ctx.JSON(http.StatusOK, gin.H{
@@ -146,12 +152,12 @@ func EnableCronTask(ctx *gin.Context) {
 // @Tags 定时任务
 // @Accept  json
 // @Produce  json
-// @Param cronTask body m_cron.CronTask true "定时任务"
+// @Param cronTaskId body ReqCronTaskId true "json对象"
 // @Success 200 {object} gin.H
 // @Router /api/cronTask/disableCronTask [post]
 /************************end swagger api定义注解 **************/
 func DisableCronTask(ctx *gin.Context) {
-	para := m_cron.CronTask{}
+	para := ReqCronTaskId{}
 	if err := ctx.ShouldBind(&para); err != nil {
 		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
 		ctx.JSON(http.StatusOK, gin.H{

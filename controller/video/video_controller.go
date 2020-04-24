@@ -5,7 +5,6 @@ import (
 	"apiproject/dao"
 	d_video "apiproject/dao/video"
 	"apiproject/log"
-	"apiproject/model"
 	m_video "apiproject/model/video"
 	s_video "apiproject/service/video"
 	"github.com/gin-gonic/gin"
@@ -66,12 +65,12 @@ func FindVideoList(ctx *gin.Context) {
 // @Tags 视频
 // @Accept  json
 // @Produce  json
-// @Param page query model.Page false "查询条件"
+// @Param page query ReqPage false "查询参数"
 // @Success 200 {object} gin.H
 // @Router /api/video/findVideoListPage [get]
 /************************end swagger api定义注解 **************/
 func FindVideoListPage(ctx *gin.Context) {
-	page := model.Page{}
+	page := ReqPage{}
 	if err := ctx.ShouldBind(&page); err != nil {
 		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
 		ctx.JSON(http.StatusOK, gin.H{
@@ -99,7 +98,7 @@ func FindVideoListPage(ctx *gin.Context) {
 // @Tags 视频
 // @Accept  json
 // @Produce  json
-// @Param video query m_video.Video false "查询条件"
+// @Param video query ReqFindVideoByWhere true "查询参数"
 // @Success 200 {object} gin.H
 // @Router /api/video/findVideoByWhere [get]
 /************************end swagger api定义注解 **************/
@@ -115,8 +114,8 @@ func FindVideoByWhere(ctx *gin.Context) {
 
 	建议用ShouldBind, 不要使用其他bind方法, 否则可能会返回400错误, 参考链接:https://learnku.com/docs/gin-gonic/2018/gin-readme/3819
 	*/
-	videoQuery := m_video.Video{}
-	if err := ctx.ShouldBind(&videoQuery); err != nil {
+	para := ReqFindVideoByWhere{}
+	if err := ctx.ShouldBind(&para); err != nil {
 		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": 0,
@@ -125,10 +124,10 @@ func FindVideoByWhere(ctx *gin.Context) {
 		})
 		return
 	}
-	log.Logger.Info("绑定请求参数到对象", zap.Any("videoQuery", videoQuery))
+	log.Logger.Info("绑定请求参数到对象", zap.Any("videoQuery", para))
 
 	videoList := []*m_video.Video{}
-	if err := d_video.VideoDao.FindList(dao.Db.Where("site_id = ? and title like ?", videoQuery.SiteId, "%7%"), &videoList); err != nil {
+	if err := d_video.VideoDao.FindList(dao.Db.Where("site_id = ? and title like %?%", para.SiteId, para.TitleLike), &videoList); err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": 0,
 			"data": nil,
@@ -153,7 +152,6 @@ func FindVideoByWhere(ctx *gin.Context) {
 // @Tags 视频
 // @Accept  json
 // @Produce  json
-// @Param video body m_video.Video false "视频对象"
 // @Success 200 {object} gin.H
 // @Router /api/video/addVideo [post]
 /************************end swagger api定义注解 **************/
@@ -208,7 +206,7 @@ func BulkAddVideo(ctx *gin.Context) {
 // @Tags 视频
 // @Accept  json
 // @Produce  json
-// @Param video body m_video.Video false "视频对象"
+// @Param video body m_video.Video true "json对象"
 // @Success 200 {object} gin.H
 // @Router /api/video/updateVideo [post]
 /************************end swagger api定义注解 **************/
@@ -251,13 +249,13 @@ func UpdateVideo(ctx *gin.Context) {
 // @Tags 视频
 // @Accept  json
 // @Produce  json
-// @Param video body m_video.Video false "条件"
+// @Param videoId query ReqVideoId false "查询参数"
 // @Success 200 {object} gin.H
 // @Router /api/video/deleteVideo [delete]
 /************************end swagger api定义注解 **************/
 func DeleteVideo(ctx *gin.Context) {
 	//绑定参数到对象
-	video := m_video.Video{}
+	video := ReqVideoId{}
 	if err := ctx.ShouldBind(&video); err != nil {
 		log.Logger.Error("绑定请求参数到对象异常", zap.Error(err))
 		ctx.JSON(http.StatusOK, gin.H{

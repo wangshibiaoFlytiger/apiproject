@@ -7,6 +7,7 @@ import (
 
 type CronTask struct {
 	model.BaseModel
+	//任务类型: 1种任务对应后台的一个任务处理函数
 	Type string `json:"type"`
 	//该ID由任务管理器生成, 作为任务的唯一标识
 	EntryId cron.EntryID `json:"entryId"`
