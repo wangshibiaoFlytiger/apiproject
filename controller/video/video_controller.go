@@ -281,3 +281,25 @@ func DeleteVideo(ctx *gin.Context) {
 		"data": nil,
 	})
 }
+
+/**
+查询视频总数
+*/
+
+/************************start swagger api定义注解 **************/
+// @Summary 查询视频总数
+// @Description 查询视频总数
+// @Tags 视频
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} gin.H
+// @Router /api/video/getCount [get]
+/************************end swagger api定义注解 **************/
+func GetCount(ctx *gin.Context) {
+	totalCount := d_video.VideoDao.GetCount(dao.Db.Model(&m_video.Video{}))
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 1,
+		"data": totalCount,
+	})
+}

@@ -124,6 +124,7 @@ func Init() *gin.Engine {
 	videoGroup.GET("/bulkAddVideo", c_video.BulkAddVideo)
 	videoGroup.POST("/updateVideo", c_video.UpdateVideo)
 	videoGroup.POST("/deleteVideo", c_video.DeleteVideo)
+	videoGroup.GET("/getCount", c_video.GetCount)
 	/***********************end 视频相关接口 **********************/
 
 	/***********************start kafka相关接口 **********************/

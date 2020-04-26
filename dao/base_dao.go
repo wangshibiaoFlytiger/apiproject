@@ -152,6 +152,15 @@ func (this *BaseDao) FindList(where *gorm.DB, itemListOut interface{}) (err erro
 }
 
 /**
+根据条件, 查询记录总数
+*/
+func (this *BaseDao) GetCount(whereBindTable *gorm.DB) (totalCount int) {
+	whereBindTable.Count(&totalCount)
+
+	return totalCount
+}
+
+/**
 查询单个对象
 */
 func (this *BaseDao) Get(where *gorm.DB, itemOut interface{}) (err error) {
