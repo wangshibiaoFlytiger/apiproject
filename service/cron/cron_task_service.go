@@ -69,7 +69,7 @@ func (this *cronTaskService) LoadCronTask(cronTask *m_cron.CronTask) (err error)
 	}
 
 	//更新定时任务: 为了更新任务的entryId
-	if err := d_video.CronTaskDao.Update(dao.Db, &cronTask); err != nil {
+	if err := d_video.CronTaskDao.Update(dao.Db.Model(cronTask).Where("id = ?", cronTask.ID), &cronTask); err != nil {
 		log.Logger.Error("加载定时任务, 更新定时任务, 异常", zap.Any("cronTask", cronTask), zap.Error(err))
 		return err
 	}
@@ -102,7 +102,7 @@ func (this *cronTaskService) EnableCronTask(cronTaskId snowflake.ID) (err error)
 	//更新数据库
 	cronTask.Status = 1
 	cronTask.EntryId = entryId
-	if err = d_video.CronTaskDao.Update(dao.Db, cronTask); err != nil {
+	if err = d_video.CronTaskDao.Update(dao.Db.Model(cronTask).Where("id = ?", cronTask.ID), cronTask); err != nil {
 		log.Logger.Error("启用定时任务, 更新定时任务, 异常", zap.Any("cronTask", cronTask), zap.Error(err))
 		return err
 	}
@@ -130,7 +130,7 @@ func (this *cronTaskService) DisableCronTask(cronTaskId snowflake.ID) (err error
 
 	//更新数据库
 	cronTask.Status = 2
-	if err = d_video.CronTaskDao.Update(dao.Db, cronTask); err != nil {
+	if err = d_video.CronTaskDao.Update(dao.Db.Model(cronTask).Where("id = ?", cronTask.ID), cronTask); err != nil {
 		log.Logger.Error("启用定时任务, 更新定时任务, 异常", zap.Any("cronTask", cronTask), zap.Error(err))
 		return err
 	}
