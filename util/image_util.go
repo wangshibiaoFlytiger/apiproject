@@ -70,3 +70,17 @@ func GetImgInfo(imgPath string) (width int, height int, formatName string, err e
 
 	return config.Width, config.Height, formatName, nil
 }
+
+/**
+下载图片到本地
+*/
+func DownloadImg(imgUrl string, localFullPath string) (width int, height int, formatName string, err error) {
+	//下载图片
+	if err = DownloadFileByLocalPath(imgUrl, localFullPath); err != nil {
+		log.Logger.Error("下载图片到本地, 异常", zap.Error(err))
+		return 0, 0, "", err
+	}
+
+	//获取图片信息
+	return GetImgInfo(localFullPath)
+}
