@@ -44,7 +44,9 @@ func DownloadFileByLocalPath(url string, localPath string) {
 		panic(err)
 	}
 
-	resp, err := req.Get(url)
+	resp, err := req.Get(url, req.Header{
+		"referer": url,
+	})
 	if err != nil {
 		panic(err)
 	}
