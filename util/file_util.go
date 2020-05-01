@@ -12,51 +12,53 @@ import (
 /**
 获取程序的可执行文件的绝对路径
 */
-func GetExePath() string {
-	exePath, err := filepath.Abs(filepath.Dir(os.Args[0]))
+func GetExePath() (exePath string, err error) {
+	exePath, err = filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
-		panic(err)
+		return "", err
 	}
 
-	return exePath
+	return exePath, nil
 }
 
 /**
 下载文件到本地, 按网络路径规则自动创建本地目录
 */
-func DownloadFileByNetPath(url string, rootDir string) (localFullPath string) {
+func DownloadFileByNetPath(url string, rootDir string) (localFullPath string, err error) {
 	uri := ParsePath(url)
 
 	//创建本地目录
 	localFullPath = rootDir + uri
-	DownloadFileByLocalPath(url, localFullPath)
+	if err = DownloadFileByLocalPath(url, localFullPath); err != nil {
+		log.Logger.Error("下载文件到本地, 按网络路径规则自动创建本地目录, 异常", zap.Any("url", url), zap.Any("rootDir", rootDir), zap.Error(err))
+		return "", err
+	}
 
-	return localFullPath
+	return localFullPath, nil
 }
 
 /**
 下载文件到本地
 */
-func DownloadFileByLocalPath(url string, localPath string) {
+func DownloadFileByLocalPath(url string, localPath string) (err error) {
 	//创建本地目录
-	err := CreateFileDir(localPath)
-	if err != nil {
-		panic(err)
+	if err = CreateFileDir(localPath); err != nil {
+		return err
 	}
 
 	resp, err := req.Get(url, req.Header{
 		"referer": url,
 	})
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	err = resp.ToFile(localPath)
-	if err != nil {
-		panic(err)
+	if err = resp.ToFile(localPath); err != nil {
+		return err
 	}
 
 	log.Logger.Info("下载文件到本地完成", zap.Any("url", url), zap.Any("path", localPath))
+	return nil
 }
 
 /**
