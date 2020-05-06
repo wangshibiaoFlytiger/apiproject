@@ -2,9 +2,11 @@ package util
 
 import (
 	"apiproject/log"
+	"github.com/gin-gonic/gin"
 	"github.com/imroc/req"
 	"go.uber.org/zap"
 	"io"
+	"mime/multipart"
 	"os"
 	"path/filepath"
 )
@@ -124,4 +126,20 @@ func CopyFile(srcPath string, dstPath string) (writeByteCount int64, err error) 
 
 	log.Logger.Info("复制文件, 完成", zap.Any("srcPath", srcPath), zap.Any("dstPath", dstPath))
 	return nBytes, err
+}
+
+/**
+上传文件
+*/
+func UploadFile(ctx *gin.Context, file *multipart.FileHeader, filePath string) (err error) {
+	if err = CreateFileDir(filePath); err != nil {
+		log.Logger.Error("上传文件, 创建目录, 异常", zap.Any("filePath", filePath), zap.Error(err))
+		return err
+	}
+	if err = ctx.SaveUploadedFile(file, filePath); err != nil {
+		log.Logger.Error("上传文件, 保存文件, 异常", zap.Any("filePath", filePath), zap.Error(err))
+		return err
+	}
+
+	return nil
 }
