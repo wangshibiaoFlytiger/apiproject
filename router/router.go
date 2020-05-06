@@ -5,6 +5,7 @@ import (
 	"apiproject/controller"
 	c_cron "apiproject/controller/cron"
 	c_kafka "apiproject/controller/kafka"
+	c_upload "apiproject/controller/upload"
 	c_video "apiproject/controller/video"
 	c_wxpay "apiproject/controller/wxpay"
 	"apiproject/docs"
@@ -157,6 +158,11 @@ func Init() *gin.Engine {
 		time.Duration(config.GlobalConfig.ServiceResponsecacheDefaultExpirationSeconds)*time.Second,
 		c_cron.FindCronTaskList))
 	/***********************end 定时任务相关接口 **********************/
+
+	/***********************start 上传相关接口 **********************/
+	uploadGroup := engine.Group("/api/upload")
+	uploadGroup.POST("/uploadFile", c_upload.UploadFile)
+	/***********************end 上传相关接口 **********************/
 
 	/***********************start 反向代理相关接口 **********************/
 	reverseproxyList := []map[string]string{}
