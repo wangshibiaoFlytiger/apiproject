@@ -40,7 +40,7 @@ func CropImageCenter(srcPath string, dstPath string, width int, height int) erro
 	}
 
 	//切图
-	img = imaging.CropAnchor(img, width, height, imaging.Center)
+	img = imaging.Fill(img, width, height, imaging.Center, imaging.Lanczos)
 
 	err = imaging.Save(img, dstPath, imaging.JPEGQuality(50))
 	if err != nil {
