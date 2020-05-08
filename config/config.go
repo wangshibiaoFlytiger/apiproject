@@ -10,56 +10,56 @@ import (
 */
 type Config struct {
 	//运行环境:back-dev,back-test,front-dev,front-test
-	Profile string
+	Profile string `json:"profile"`
 
-	ServiceName                                  string `ini:"service.name"`
-	ServicePort                                  int    `ini:"service.port"`
-	ServiceApiResponseEncrypt                    bool   `ini:"service.api.response.encrypt"`
-	ServiceRequestbodyLimitByteCount             int64  `ini:"service.requestbody.limit.byte.count"`
-	ServiceResponsecacheDefaultExpirationSeconds int    `ini:"service.responseCache.defaultExpiration.seconds"`
+	ServiceName                                  string `ini:"service.name" json:"serviceName"`
+	ServicePort                                  int    `ini:"service.port" json:"servicePort"`
+	ServiceApiResponseEncrypt                    bool   `ini:"service.api.response.encrypt" json:"serviceApiResponseEncrypt"`
+	ServiceRequestbodyLimitByteCount             int64  `ini:"service.requestbody.limit.byte.count" json:"serviceRequestbodyLimitByteCount"`
+	ServiceResponsecacheDefaultExpirationSeconds int    `ini:"service.responseCache.defaultExpiration.seconds" json:"serviceResponsecacheDefaultExpirationSeconds"`
 
-	MysqlSwitch       bool   `ini:"mysql.switch"`
-	MysqlUrl          string `ini:"mysql.url"`
-	MysqlMaxIdleCount int    `ini:"mysql.max.idle.count"`
-	MysqlMaxOpenCount int    `ini:"mysql.max.open.count"`
+	MysqlSwitch       bool   `ini:"mysql.switch" json:"mysqlSwitch"`
+	MysqlUrl          string `ini:"mysql.url" json:"mysqlUrl"`
+	MysqlMaxIdleCount int    `ini:"mysql.max.idle.count" json:"mysqlMaxIdleCount"`
+	MysqlMaxOpenCount int    `ini:"mysql.max.open.count" json:"mysqlMaxOpenCount"`
 
-	RedisSwitch   bool   `ini:"redis.switch"`
-	RedisHost     string `ini:"redis.host"`
-	RedisPort     int    `ini:"redis.port"`
-	RedisPassword string `ini:"redis.password"`
-	RedisDb       int    `ini:"redis.db"`
-	RedisPoolSize int    `ini:"redis.pool.size"`
+	RedisSwitch   bool   `ini:"redis.switch" json:"redisSwitch"`
+	RedisHost     string `ini:"redis.host" json:"redisHost"`
+	RedisPort     int    `ini:"redis.port" json:"redisPort"`
+	RedisPassword string `ini:"redis.password" json:"redisPassword"`
+	RedisDb       int    `ini:"redis.db" json:"redisDb"`
+	RedisPoolSize int    `ini:"redis.pool.size" json:"redisPoolSize"`
 
-	LocalcacheDefaultExpirationSeconds int `ini:"localcache.defaultExpiration.seconds"`
-	LocalcacheCleanupIntervalSeconds   int `ini:"localcache.cleanupInterval.seconds"`
+	LocalcacheDefaultExpirationSeconds int `ini:"localcache.defaultExpiration.seconds" json:"localcacheDefaultExpirationSeconds"`
+	LocalcacheCleanupIntervalSeconds   int `ini:"localcache.cleanupInterval.seconds" json:"localcacheCleanupIntervalSeconds"`
 
-	MongoSwitch    bool   `ini:"mongo.switch"`
-	MongoAddr      string `ini:"mongo.addr"`
-	MongoDatabase  string `ini:"mongo.database"`
-	MongoUserName  string `ini:"mongo.username"`
-	MongoPassword  string `ini:"mongo.password"`
-	MongoPoolLimit int    `ini:"mongo.pool.limit"`
+	MongoSwitch    bool   `ini:"mongo.switch" json:"mongoSwitch"`
+	MongoAddr      string `ini:"mongo.addr" json:"mongoAddr"`
+	MongoDatabase  string `ini:"mongo.database" json:"mongoDatabase"`
+	MongoUserName  string `ini:"mongo.username" json:"mongoUserName"`
+	MongoPassword  string `ini:"mongo.password" json:"mongoPassword"`
+	MongoPoolLimit int    `ini:"mongo.pool.limit" json:"mongoPoolLimit"`
 
-	LogDir                     string `ini:"log.dir"`
-	LogMaxDayCount             int    `ini:"log.max.day.count"`
-	LogKafkaHookSwitch         bool   `ini:"log.kafka.hook.switch"`
-	LogKafkaTopic              string `ini:"log.kafka.topic"`
-	LogMongoHookSwitch         bool   `ini:"log.mongo.hook.switch"`
-	LogMongoCollection         string `ini:"log.mongo.collection"`
-	LogMongoExpireAfterSeconds int    `ini:"log.mongo.expire.after.seconds"`
+	LogDir                     string `ini:"log.dir" json:"logDir"`
+	LogMaxDayCount             int    `ini:"log.max.day.count" json:"logMaxDayCount"`
+	LogKafkaHookSwitch         bool   `ini:"log.kafka.hook.switch" json:"logKafkaHookSwitch"`
+	LogKafkaTopic              string `ini:"log.kafka.topic" json:"logKafkaTopic"`
+	LogMongoHookSwitch         bool   `ini:"log.mongo.hook.switch" json:"logMongoHookSwitch"`
+	LogMongoCollection         string `ini:"log.mongo.collection" json:"logMongoCollection"`
+	LogMongoExpireAfterSeconds int    `ini:"log.mongo.expire.after.seconds" json:"logMongoExpireAfterSeconds"`
 
-	KafkaSwitch bool   `ini:"kafka.switch"`
-	KafkaBroker string `ini:"kafka.broker"`
+	KafkaSwitch bool   `ini:"kafka.switch" json:"kafkaSwitch"`
+	KafkaBroker string `ini:"kafka.broker" json:"kafkaBroker"`
 
-	WxpayH5Appid     string `ini:"wxpay.h5.appid"`
-	WxpayH5Mchid     string `ini:"wxpay.h5.mchid"`
-	WxpayH5Apikey    string `ini:"wxpay.h5.apikey"`
-	WxpayH5Notifyurl string `ini:"wxpay.h5.notifyurl"`
+	WxpayH5Appid     string `ini:"wxpay.h5.appid" json:"wxpayH5Appid"`
+	WxpayH5Mchid     string `ini:"wxpay.h5.mchid" json:"wxpayH5Mchid"`
+	WxpayH5Apikey    string `ini:"wxpay.h5.apikey" json:"wxpayH5Apikey"`
+	WxpayH5Notifyurl string `ini:"wxpay.h5.notifyurl" json:"wxpayH5Notifyurl"`
 
-	IplocationQqwryPath string `ini:"iplocation.qqwry.path"`
+	IplocationQqwryPath string `ini:"iplocation.qqwry.path" json:"iplocationQqwryPath"`
 
 	//反向代理列表
-	ReverseproxyList string `ini:"reverseproxy.list"`
+	ReverseproxyList string `ini:"reverseproxy.list" json:"reverseproxyList"`
 }
 
 var GlobalConfig Config = Config{}

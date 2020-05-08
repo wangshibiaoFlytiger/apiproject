@@ -11,9 +11,9 @@ import (
 
 type ProxyOption struct {
 	//目标服务, 如http://localhost:8080
-	Target string
+	Target string `json:"target"`
 	//要被重写为空字符串的子路径,无特殊情况,可以设置为空字符串
-	PathRewrite string
+	PathRewrite string `json:"pathRewrite"`
 }
 
 /**

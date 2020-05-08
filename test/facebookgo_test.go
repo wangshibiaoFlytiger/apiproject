@@ -7,13 +7,13 @@ import (
 )
 
 type C struct {
-	B *B `inject:""`
+	B *B `inject:"" json:"b"`
 }
 type B struct {
-	A *A `inject:""` //这里会根据注入对象的Name字段有选择的进行注入
+	A *A `inject:"" json:"a"` //这里会根据注入对象的Name字段有选择的进行注入
 }
 type A struct {
-	Name string
+	Name string `json:"name"`
 }
 
 // 通过injectGraph.Objects()可以获取所有设置了Name的待填充对象

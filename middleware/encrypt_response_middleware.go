@@ -10,7 +10,7 @@ import (
 
 type ResponseWriter struct {
 	gin.ResponseWriter
-	body *bytes.Buffer
+	body *bytes.Buffer `json:"body"`
 }
 
 func (w ResponseWriter) Write(b []byte) (int, error) {

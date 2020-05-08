@@ -87,8 +87,8 @@ func (this *wxpayService) IsOrderSuccess(orderNo string) (success bool) {
 */
 func (this *wxpayService) WxH5payCallback() interface{} {
 	type xml struct {
-		ReturnCode string `xml:"return_code"`
-		ReturnMsg  string `xml:"return_msg"`
+		ReturnCode string `xml:"return_code" json:"returnCode"`
+		ReturnMsg  string `xml:"return_msg" json:"returnMsg"`
 	}
 
 	result := xml{"SUCCESS", "OK"}

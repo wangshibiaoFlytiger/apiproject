@@ -11,12 +11,12 @@ import (
 import "github.com/globalsign/mgo"
 
 type User struct {
-	Id             bson.ObjectId `bson:"_id"`
-	Username       string
-	Interests      []string
-	CreateTime     time.Time `bson:"createTime"`
-	CreateTimeUnix int64     `bson:"createTimeUnix"`
-	CreateTimeStr  string    `bson:"createTimeStr"`
+	Id             bson.ObjectId `bson:"_id" json:"id"`
+	Username       string        `json:"username"`
+	Interests      []string      `json:"interests"`
+	CreateTime     time.Time     `bson:"createTime" json:"createTime"`
+	CreateTimeUnix int64         `bson:"createTimeUnix" json:"createTimeUnix"`
+	CreateTimeStr  string        `bson:"createTimeStr" json:"createTimeStr"`
 }
 
 var collection *mgo.Collection

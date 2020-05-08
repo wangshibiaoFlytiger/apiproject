@@ -40,3 +40,7 @@ compress_pass2:
 #清理文件
 clean:
 	rm -f ${EXE_PATH}
+
+#为所有的struct定义生成json tag
+gen_json_tag:
+	find ./ -type f | grep .go | xargs -t -I '{}' gomodifytags -file {} -line 0,50000 -add-tags json -transform camelcase -w
