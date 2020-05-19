@@ -60,6 +60,8 @@ type Config struct {
 
 	//反向代理列表
 	ReverseproxyList string `ini:"reverseproxy.list" json:"reverseproxyList"`
+
+	CronTaskSwitch bool `ini:"cronTask.switch"`
 }
 
 var GlobalConfig Config = Config{}
@@ -119,6 +121,11 @@ func Init() {
 	}
 
 	err = cfg.Section("reverseproxy").MapTo(&GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	err = cfg.Section("cronTask").MapTo(&GlobalConfig)
 	if err != nil {
 		panic(err)
 	}
