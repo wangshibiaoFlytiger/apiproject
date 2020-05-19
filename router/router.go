@@ -172,7 +172,7 @@ func Init() *gin.Engine {
 		//代理匹配urlPrefix的api到target服务
 		engine.Use(middleware.ReverseProxyMiddleware(reverseProxy["urlPrefix"], middleware.ProxyOption{
 			Target:      reverseProxy["target"],
-			PathRewrite: "",
+			PathRewrite: reverseProxy["pathRewrite"],
 		}))
 	}
 	/***********************end 反向代理相关接口 **********************/
