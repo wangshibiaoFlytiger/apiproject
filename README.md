@@ -8,9 +8,13 @@ https://blog.sofineday.com
 
 这 2 天刚开始搭建, 后面会逐步完善功能,性能和内容等, 望收藏, 有任何疑问请提交 issue, 谢谢!
 
-_**欢迎加作者微信645102170, 一起交流. 请备注sofineday**_
+_**欢迎加作者微信 645102170, 一起交流. 请备注 sofineday:smile:**_
 
 > 目标是归纳出平时经常用到的重要知识点, 作为日后的枕边工具书
+
+**若本项目给您带来收获，就请作者喝杯咖啡吧, 请备注 sofineday, 谢谢:smile:**  
+![支付宝.jpg](https://cdn.jsdelivr.net/gh/wangshibiaoFlytiger/blog_picBed1/images/支付宝.jpg)  
+![微信.jpg](https://cdn.jsdelivr.net/gh/wangshibiaoFlytiger/blog_picBed1/images/微信.jpg)
 
 # 2. 工程创建
 
