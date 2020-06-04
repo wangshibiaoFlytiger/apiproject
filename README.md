@@ -12,10 +12,6 @@ _**欢迎加作者微信 645102170, 一起交流. 请备注 sofineday:smile:**_
 
 > 目标是归纳出平时经常用到的重要知识点, 作为日后的枕边工具书
 
-**若本项目给您带来收获，就请作者喝杯咖啡吧, 请备注 sofineday, 谢谢:smile:**  
-![支付宝.jpg](https://cdn.jsdelivr.net/gh/wangshibiaoFlytiger/blog_picBed1/images/支付宝.jpg)  
-![微信.jpg](https://cdn.jsdelivr.net/gh/wangshibiaoFlytiger/blog_picBed1/images/微信.jpg)
-
 # 2. 工程创建
 
 mkdir ./apiproject
@@ -183,3 +179,10 @@ iploc-fetch qqwry.gbk.dat
 ## 15.3 将 IP 库文件的编码转换为 UTF-8
 
 iploc-conv -s qqwry.gbk.dat -d qqwry.utf8.dat
+
+## 16. 请作者喝杯:coffee:
+
+**若本项目给您带来收获，就请作者喝杯咖啡吧, 请备注 sofineday, 谢谢:smile:**
+| 微信 | 支付宝 |
+| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| ![微信](https://cdn.jsdelivr.net/gh/wangshibiaoFlytiger/blog_picBed1/images/微信.jpg) | ![支付宝](https://cdn.jsdelivr.net/gh/wangshibiaoFlytiger/blog_picBed1/images/支付宝.jpg) |
