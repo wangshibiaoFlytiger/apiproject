@@ -4,7 +4,7 @@ _**若本项目给您带来收获, 还请您动动小拇指,右上角给点个�
 
 # 1. 博客地址
 
-https://blog.sofineday.com
+https://www.sofineday.com
 
 这 2 天刚开始搭建, 后面会逐步完善功能,性能和内容等, 望收藏, 有任何疑问请提交 issue, 谢谢!
 
