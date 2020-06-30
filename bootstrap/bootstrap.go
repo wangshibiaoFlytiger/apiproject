@@ -30,8 +30,15 @@ func Init() {
 	ip_location.Init()
 
 	//初始化定时任务
-	cron.Init()
-	if err := s_cron.CronTaskService.LoadCronTaskList(); err != nil {
-		log.Logger.Error("系统初始化, 加载定时任务列表, 异常", zap.Error(err))
+	if config.GlobalConfig.CronTaskSwitch {
+		log.Logger.Info("系统初始化, 任务开关已开启")
+
+		//初始化全局定时任务调度器
+		cron.Init()
+
+		//加载定时任务列表
+		if err := s_cron.CronTaskService.LoadCronTaskList(); err != nil {
+			log.Logger.Error("系统初始化, 加载定时任务列表, 异常", zap.Error(err))
+		}
 	}
 }

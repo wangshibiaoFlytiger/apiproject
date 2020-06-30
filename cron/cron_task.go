@@ -1,7 +1,6 @@
 package cron
 
 import (
-	"apiproject/config"
 	"apiproject/log"
 	"github.com/robfig/cron/v3"
 	"go.uber.org/zap"
@@ -14,15 +13,9 @@ var CronSchduler *cron.Cron
 type CallbackTask func(interface{})
 
 /**
-启动全局定时任务调度器
+初始化全局定时任务调度器
 */
 func Init() {
-	//任务开关是否开启
-	if !config.GlobalConfig.CronTaskSwitch {
-		log.Logger.Info("启动全局定时任务调度器, 任务开关没有开启")
-		return
-	}
-
 	//启动全局定时任务调度器
 	CronSchduler = cron.New(cron.WithSeconds())
 	CronSchduler.Start()
