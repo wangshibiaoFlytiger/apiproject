@@ -4,11 +4,12 @@ import (
 	"apiproject/bootstrap"
 	"apiproject/config"
 	"apiproject/dao"
-	"apiproject/log"
+	log2 "apiproject/log"
 	"apiproject/router"
 	"apiproject/util"
 	"go.uber.org/zap"
 	"gopkg.in/urfave/cli.v1"
+	"log"
 	"os"
 )
 
@@ -30,7 +31,7 @@ func main() {
 	engine := router.Init()
 	//如下代码放到最后, 否则其他代码没机会执行
 	if err := engine.Run(":" + util.IntToStr(config.GlobalConfig.ServicePort)); err != nil {
-		log.Logger.Error("main函数异常", zap.Error(err))
+		log2.Logger.Error("main函数异常", zap.Error(err))
 	}
 }
 
