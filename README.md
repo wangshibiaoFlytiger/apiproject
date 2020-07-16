@@ -1,14 +1,15 @@
 _**若本项目给您带来收获, 还请您动动小拇指,右上角给点个赞哈,万分感谢哈哈!!!**_
 
 项目原始仓库地址: https://github.com/wangshibiaoFlytiger/apiproject
-
+https://i.loli.net/2020/07/16/19u4Of6d8EnZ73X.jpg
 # 1. 博客地址
 
 https://www.sofineday.com
 
 这 2 天刚开始搭建, 后面会逐步完善功能,性能和内容等, 望收藏, 有任何疑问请提交 issue, 谢谢!
 
-_**欢迎加作者微信 645102170, 一起交流. 请备注 sofineday:smile:**_
+_**欢迎加作者微信645102170或进群共同交流, 请扫下方二维码. 请备注 sofineday:smile:**_
+![](https://i.loli.net/2020/07/16/5X1HohKICW7knlL.jpg)
 
 > 目标是归纳出平时经常用到的重要知识点, 作为日后的枕边工具书
 
