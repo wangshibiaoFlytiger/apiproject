@@ -1,6 +1,8 @@
 _**若本项目给您带来收获, 还请您动动小拇指,右上角给点个赞哈,万分感谢哈哈!!!**_
 
 项目原始仓库地址: https://github.com/wangshibiaoFlytiger/apiproject
+欢迎关注官方微信公众号,及时收到一手技术资料!
+![微信公众号二维码](<https://gitee.com/wangshibiao/blog_picBed2/raw/master/images/qrcode_for_gh_66d82451d714_258(1).jpg> "微信公众号二维码")
 
 # 1. 博客地址
 
