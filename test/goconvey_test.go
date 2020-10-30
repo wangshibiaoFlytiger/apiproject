@@ -5,6 +5,13 @@ import (
 	"testing"
 )
 
+/**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
 func TestSpec(t *testing.T) {
 
 	// Only pass t into top-level Convey calls

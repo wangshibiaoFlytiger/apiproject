@@ -6,6 +6,13 @@ import (
 	"net/http"
 )
 
+/**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
 //渲染首页入口页面
 func Index(ctx *gin.Context) {
 	serviceName := config.GlobalConfig.ServiceName

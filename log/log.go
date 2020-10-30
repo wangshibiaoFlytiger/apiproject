@@ -11,6 +11,13 @@ import (
 )
 
 /**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
+/**
 获取logger的全局字段配置
 */
 func GetLoggerGlobalOption() zap.Option {

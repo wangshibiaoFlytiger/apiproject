@@ -8,6 +8,13 @@ import (
 )
 
 /**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
+/**
 测试http请求库github.com/imroc/req
 */
 func TestHttpRequest(t *testing.T) {

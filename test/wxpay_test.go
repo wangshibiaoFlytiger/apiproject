@@ -7,6 +7,13 @@ import (
 )
 
 /**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
+/**
 测试微信支付的统一下单接口:github.com/iGoogle-ink/gopay
 */
 func TestWxpayUnifiedOrder(t *testing.T) {

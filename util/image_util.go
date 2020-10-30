@@ -9,6 +9,13 @@ import (
 )
 
 /**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
+/**
 调整图片分辨率: 同时压缩图片质量
 */
 func ResizeImage(srcPath string, dstPath string, width int, height int) error {

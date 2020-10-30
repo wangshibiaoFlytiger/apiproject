@@ -8,6 +8,13 @@ import (
 )
 
 /**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
+/**
 生成分布式唯一ID: 整数,自增,且不连续
 */
 func GenUniqueId() snowflake.ID {

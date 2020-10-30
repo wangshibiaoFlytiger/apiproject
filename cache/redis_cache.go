@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+/**
+@author Wang Shibiao(https://sofineday.com?from=apiproject)
+*/
+
 var RedisClient *redis.Client
 
 /**

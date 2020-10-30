@@ -13,6 +13,13 @@ import (
 	"os"
 )
 
+/**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
 //当有新的.go源文件引用静态文件时, 注意同步修改如下命令的--import-path参数
 //go:generate rice -v --import-path "./router" --import-path "./config"  embed-go
 

@@ -7,6 +7,13 @@ import (
 )
 
 /**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
+/**
 测试sarama的kafka生产者
 */
 func TestSaramaKafkaProducer(t *testing.T) {

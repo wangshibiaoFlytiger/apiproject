@@ -5,6 +5,13 @@ import (
 	"strconv"
 )
 
+/**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
 func Int64ToInt(int64Value int64) int {
 	strValue := strconv.FormatInt(int64Value, 10)
 	intValue, _ := strconv.Atoi(strValue)

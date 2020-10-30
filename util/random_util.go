@@ -6,6 +6,13 @@ import (
 	"time"
 )
 
+/**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
 //生成范围在[start,end), 类型为int的随机数
 func GenRandomInt(start int, end int) int {
 	//随机数生成器，加入时间戳保证每次生成的随机数不一样

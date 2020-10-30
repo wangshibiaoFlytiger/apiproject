@@ -12,6 +12,13 @@ import (
 )
 
 /**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
+/**
 获取程序的可执行文件的绝对路径
 */
 func GetExePath() (exePath string, err error) {

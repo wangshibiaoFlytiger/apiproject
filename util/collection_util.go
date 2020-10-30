@@ -4,6 +4,13 @@ import (
 	"reflect"
 )
 
+/**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
 // 判断elem是否在collection中，collection支持的类型arrary,slice,map
 func Contains(collection interface{}, elem interface{}) bool {
 	targetValue := reflect.ValueOf(collection)

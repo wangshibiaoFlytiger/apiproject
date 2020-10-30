@@ -2,6 +2,13 @@ package c_video
 
 import "github.com/bwmarrin/snowflake"
 
+/**
+@author 王世彪
+	个人博客: https://sofineday.com?from=apiproject
+	微信: 645102170
+	QQ: 645102170
+*/
+
 type ReqPage struct {
 	//当前页码
 	PageNo int `form:"pageNo,default=1" json:"pageNo" example:"1"`
