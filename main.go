@@ -24,7 +24,8 @@ import (
 //go:generate rice -v --import-path "./router" --import-path "./config"  embed-go
 
 //生成swagger api接口文档, 注意指定-g参数
-//go:generate swag init -g router/router.go
+//需要指定参数"--parseDependency --parseInternal"，否则报"cannot find type definition: gin.H"。或者切换swaggo为旧版本1.6.7(go get -u github.com/swaggo/swag/cmd/swag@v1.6.7)
+//go:generate swag init --parseDependency --parseInternal -g router/router.go
 func main() {
 	//解析命令行参数
 	parseCliParam()
